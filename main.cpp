@@ -3,7 +3,6 @@
 
 int main()
 {
-    std::cout << "yaaa";
-	//Game game;
+	Game game;
 	return 0;
 }

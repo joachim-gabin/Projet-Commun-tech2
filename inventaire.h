@@ -7,17 +7,20 @@ public:
 	inventaire();
 	~inventaire();
 
-	void ajout();
+	int ajout(int num);
 	void selection();
-	sf::Sprite affichage();
+	void affichage(sf::RenderWindow* window);
 
-	int inv[9];
+	int inv[9] = { 2, 0, 0, 0, 0, 0, 0, 0, 0 };
 	int statut = 0;
 
 private:
 
-	sf::Sprite sprite;
-	sf::Texture texture;
+	sf::Sprite hud_sprite;
+	sf::Texture hud_texture;
+
+	sf::Sprite obj_sprite;
+	sf::Texture obj_texture;
 
 	int x;
 	int y;

@@ -1,9 +1,10 @@
 #include "item.h"
 
-item::item(std::string texture, int i, int j)
+item::item(std::string texture, int i, int j, int num)
 {
 	this->x = i * SIZE_TILE;
 	this->y = j * SIZE_TILE;
+	this->num_obj = num;
 
 	if (!this->texture.loadFromFile("texture/"+texture))
 	{

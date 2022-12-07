@@ -4,7 +4,7 @@
 class item
 {
 public:
-	item(std::string texture, int i, int j);
+	item(std::string texture, int i, int j, int num_obj);
 	~item();
 
 	int interaction(int x, int y);
@@ -12,6 +12,7 @@ public:
 
 	int x;
 	int y;
+	int num_obj;
 
 private:
 	sf::Sprite sprite;

@@ -43,7 +43,7 @@ void Game::gameLoop()
     sprite_b.setTexture(texture_bush);
 
 
-    item axe("axe.png", 10, 10);
+    item axe("axe.png", 10, 10, 1);
     player player("survivant.png",2 , 2);
     inventaire inv;
 
@@ -105,12 +105,13 @@ void Game::gameLoop()
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
             {
-
+                inv.ajout(axe.num_obj);
+                //axe.~item();
             }
         }
         if (inv.statut >= 1)
         {
-            this->window->draw(inv.affichage());
+            (inv.affichage(this->window));
         }
 
         this->window->draw(player.sprite_player());

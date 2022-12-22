@@ -7,7 +7,7 @@ public:
 	item(std::string texture, int i, int j, int num_obj);
 	~item();
 
-	int interaction(int x, int y);
+	int interaction(sf::RenderWindow* window, int x, int y);
 	sf::Sprite item_sprite();
 
 	int x;

@@ -16,11 +16,22 @@ item::~item()
 {
 
 }
-int item::interaction(int x, int y)
+int item::interaction(sf::RenderWindow* window, int x, int y)
 {
+	sf::Sprite sprite;
+	sf::Texture texture;
+	if (!texture.loadFromFile("texture/interagir.png"))
+	{
+		std::cout << "erreur d'image" << std::endl;
+	}
+	sprite.setPosition(250,400);
+	sprite.setTexture(texture);
+	sprite.setScale(0.7f, 0.7f);
+
+
 	if (x >= this->x - SIZE_TILE && y >= this->y - SIZE_TILE && x <= this->x + SIZE_TILE && y <= this->y + SIZE_TILE)
 	{
-		std::cout << "interaction possible" << std::endl;
+		window->draw(sprite);
 		return 1;
 	}
 	return 0;

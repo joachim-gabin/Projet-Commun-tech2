@@ -11,7 +11,7 @@ public:
 	void selection();
 	void affichage(sf::RenderWindow* window);
 
-	int inv[9] = { 2, 0, 0, 0, 0, 0, 0, 0, 0 };
+	int inv[9] = { 2, 3, 0, 0, 0, 0, 0, 0, 0 };
 	int statut = 0;
 
 private:

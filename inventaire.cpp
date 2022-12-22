@@ -20,15 +20,21 @@ inventaire::~inventaire()
 }
 int inventaire::ajout(int num)
 {
-	for (int l = 0; l <= 8; l++)
+	for (int l = 0; l <= 8 ; l++)
 	{
 		if (this->inv[l] == 0)
 		{
 			this->inv[l] = num;
 			return 1;
 		}
+
+		if (this->inv[l] == num)
+		{
+			return 0;
+		}
 	}
 	return 0;
+	
 }
 void inventaire::selection()
 {
@@ -54,13 +60,26 @@ void inventaire::affichage(sf::RenderWindow* window)
 			break;
 
 		case 2:
+			if (!this->obj_texture.loadFromFile("texture/knife2.png"))
+			{
+				std::cout << "erreur d'image" << std::endl;
+			}
+			this->obj_sprite.setPosition(l * 50 + 85, this->y + SIZE_TILE - 17);
+			this->obj_sprite.setTexture(this->obj_texture);
+			this->obj_sprite.setScale(1.4f, 1.4f);
+			window->draw(this->obj_sprite);
+			this->obj_sprite.setScale(1.0f, 1.0f);
+			break;
+		case 3:
 			if (!this->obj_texture.loadFromFile("texture/conserve.png"))
 			{
 				std::cout << "erreur d'image" << std::endl;
 			}
-			this->obj_sprite.setPosition(l * 50 + 92, this->y + SIZE_TILE - 8);
+			this->obj_sprite.setPosition(l * 50 + 88, this->y + SIZE_TILE - 15);
 			this->obj_sprite.setTexture(this->obj_texture);
+			this->obj_sprite.setScale(1.2f, 1.2f);
 			window->draw(this->obj_sprite);
+			this->obj_sprite.setScale(1.0f, 1.0f);
 			break;
 
 		default:

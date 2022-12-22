@@ -34,6 +34,14 @@ void Game::gameLoop()
     sf::Sprite sprite; 
     sprite.setTexture(texture_sable);
 
+    sf::Texture texture_baril;
+    if (!texture_baril.loadFromFile("texture/baril.png"))
+    {
+        std::cout << "erreur d'image" << std::endl;
+    }
+    sf::Sprite sprite_baril;
+    sprite_baril.setTexture(texture_baril);
+
     sf::Texture texture_bush;
     if (!texture_bush.loadFromFile("texture/bush.png"))
     {
@@ -41,6 +49,17 @@ void Game::gameLoop()
     }
     sf::Sprite sprite_b;
     sprite_b.setTexture(texture_bush);
+
+    sf::Texture texture_tank;
+    if (!texture_tank.loadFromFile("texture/tank3.png"))
+    {
+        std::cout << "erreur d'image" << std::endl;
+    }
+    sf::Sprite sprite_tank;
+    sprite_tank.setTexture(texture_tank);
+    sprite_tank.setPosition(400, 200);
+    sprite_tank.rotate(-20.0f);
+
 
 
     item axe("axe.png", 10, 10, 1);
@@ -93,6 +112,11 @@ void Game::gameLoop()
                     sprite_b.setPosition(n * 32, r * 32);
                     this->window->draw(sprite_b);
                 }
+                else if (r == 7 && n == 12)
+                {
+                    sprite_baril.setPosition(n * 32, r * 32);
+                    this->window->draw(sprite_baril);
+                }
                 else
                 {
                     sprite.setPosition(n * 32, r*32);
@@ -101,7 +125,7 @@ void Game::gameLoop()
 
             }
         }
-        if (axe.interaction(player.x, player.y))
+        if (axe.interaction(this->window, player.x, player.y))
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
             {
@@ -116,6 +140,7 @@ void Game::gameLoop()
 
         this->window->draw(player.sprite_player());
         this->window->draw(axe.item_sprite());
+        this->window->draw(sprite_tank);
         this->window->display();
 
     }

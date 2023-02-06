@@ -1,6 +1,7 @@
 #include "Entities.h"
 
-sf::Sprite Entities::SpriteEntitiesLoader(string NameEntities) {
+sf::Sprite Entities::SpriteEntitiesLoader(string NameEntities) 
+{
 	return this->sprite;
 }
 

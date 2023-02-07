@@ -1,5 +1,7 @@
 #include "BasicEnnemy.h"
 
+
+
 void BasicEnnemy::ListBasicEnnemy(int ValueEntities)
 {
 	switch (ValueEntities) {
@@ -9,7 +11,7 @@ void BasicEnnemy::ListBasicEnnemy(int ValueEntities)
 		Hp = 10;
 		Damage = 10;
 		Speed = 10;
-		PosX = 200;
+		PosX = 400;
 		PosY = 200;
 		TextureEntitiesLoader();
 		SpriteLoader();

@@ -3,11 +3,10 @@
 class Entities {
 
 public :
-	float Hp, Damage, Armor, Speed;
+	int Hp, Damage, Armor, Speed, PosX, PosY;
 	string NameEntities;
 	string Format;
 	string NameTexture;
-	int PosX, PosY;
 	sf::Sprite SpriteEntitiesLoader();
 	sf::Texture TextureEntitiesLoader();
 	void SpriteLoader();

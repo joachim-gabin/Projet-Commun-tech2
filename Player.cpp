@@ -1,71 +1,62 @@
 #include "Player.h"
 
-player::player(std::string nom_texture, int i, int j)
+Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed) : 
+        animatedentity(texture, imageCount, switchTime)
 {
-	this->x = i * SIZE_TILE;
-	this->y = j * SIZE_TILE;
+	this->speed = speed;
+    row = 0;
+    faceRight = true;
 
-	if (!this->texture.loadFromFile("texture/" + nom_texture))
+    body.setSize(sf::Vector2f(32.f, 32.f));
+    body.setOrigin(body.getSize() / 2.f);
+    body.setPosition(sf::Vector2f(SIZE_TILE, SIZE_TILE));
+    body.setTexture(texture);
+}
+Player::~Player()
+{
+
+}
+
+void Player::Move(float deltaTime)
+{
 	{
-		std::cout << "erreur d'image" << std::endl;
+		oldPos = body.getGlobalBounds();
+		sf::Vector2f movement(0.f, 0.f);
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			movement.x -= speed;
+			row = 1;
+			animatedentity.Update(row, deltaTime, faceRight);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			movement.x += speed;
+			row = 0;
+			animatedentity.Update(row, deltaTime, faceRight);
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			movement.y -= speed;
+			row = 3;
+			animatedentity.Update(row, deltaTime, faceRight);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			movement.y += speed;
+			row = 2;
+			animatedentity.Update(row, deltaTime, faceRight);
+		}
+
+		std::cout << GetPosition().x << std::endl;
+		std::cout << GetPosition().y << std::endl;
+		body.setTextureRect(animatedentity.uvRect);
+		body.move(movement);
 	}
-	this->sprite.setTexture(this->texture);
-	this->sprite.setPosition(this->x, this->y);
 }
-player::~player()
+
+void Player::Draw(sf::RenderTarget* target)
 {
-
-}
-void player::move()
-{
-    if (sf::Keyboard::isKeyPressed) //si n'importe quel touche est appuyé
-    {
-        std::cout << (this->x / 32) + (this->y / 32 * 60) << std::endl;
-        if (this->x - SIZE_TILE > -SIZE_TILE)
-        {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            {
-
-                this->x -= SPEED;
-                this->sprite.setPosition(x, y);
-
-            }
-        }
-        if (this->x + SIZE_TILE < WINDOW_WIDTH)
-        {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            {
-                // la touche "flèche Droite" est enfoncée : on bouge le personnage a droite
-                this->x += SPEED;
-                this->sprite.setPosition(x, y);
-            }
-        }
-        if (this->y + SIZE_TILE < WINDOW_HEIGHT)
-        {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-            {
-                // la touche "flèche Bas" est enfoncée : on bouge le personnage en bas
-                this->y += SPEED;
-                this->sprite.setPosition(sf::Vector2f(x, y));
-            }
-        }
-        if (this->y - SIZE_TILE > -SIZE_TILE)
-        {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-            {
-                // la touche "flèche Haut" est enfoncée : on bouge le personnage en haut
-                this->y -= SPEED;
-                this->sprite.setPosition(sf::Vector2f(x, y));
-
-            }
-        }
-    }
-    else
-    {
-        //this->pause(this->last);
-    }
-}
-sf::Sprite player::sprite_player()
-{
-    return this->sprite;
+	target->draw(this->body);
 }

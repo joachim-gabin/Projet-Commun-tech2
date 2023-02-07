@@ -2,6 +2,10 @@
 
 class Entities {
 
+protected:
+	int spriteFrames, xSize, ySize;
+	int y;
+
 public :
 	int Hp, Damage, Armor, Speed, PosX, PosY;
 	string NameEntities;

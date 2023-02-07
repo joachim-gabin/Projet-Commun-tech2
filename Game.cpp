@@ -25,7 +25,9 @@ void Game::gameInit()
 }
 void Game::gameLoop()
 {
-
+    float deltaTime = 0.0f;
+    sf::Clock clock;
+    deltaTime = clock.restart().asSeconds();
 
     sf::Texture texture_sable;
     if (!texture_sable.loadFromFile("texture/sable.png"))
@@ -64,9 +66,11 @@ void Game::gameLoop()
     BasicEnnemy ennemy;
     ennemy.ListBasicEnnemy(1);
 
+    sf::Texture playerTexture;
+    playerTexture.loadFromFile("texture/Survivant11.png");
+    Player player(&playerTexture, sf::Vector2u(2, 4), 0.2f, 32.0f);
 
     item axe("axe.png", 10, 10, 1);
-    player player("survivant.png",2 , 2);
     inventaire inv;
 
 
@@ -82,7 +86,9 @@ void Game::gameLoop()
 
             if (this->event.type == sf::Event::KeyPressed)
             {
-                player.move();
+
+                player.Move(deltaTime);
+                
                 if (this->event.key.code == sf::Keyboard::Escape)
                 {
                     this->window->close();
@@ -106,6 +112,7 @@ void Game::gameLoop()
                 }
             }
         }
+
         //this->window->clear();
         for (int r = 0; r <= WINDOW_HEIGHT / 32; r++)
         {
@@ -129,7 +136,8 @@ void Game::gameLoop()
 
             }
         }
-        if (axe.interaction(this->window, player.x, player.y))
+
+        if (axe.interaction(this->window, player.GetPosition().x, player.GetPosition().y))
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
             {
@@ -143,10 +151,13 @@ void Game::gameLoop()
         }
         
         this->window->draw(player.sprite_player());
+
+        player.Draw(window);
         this->window->draw(axe.item_sprite());
         this->window->draw(sprite_tank);
         this->window->draw(ennemy.SpriteEntitiesLoader());
         this->window->display();
 
     }
+    player.Move(deltaTime);
 }

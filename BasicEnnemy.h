@@ -1,7 +1,6 @@
 #include "Entities.h"
 
-class BasicEnnemy :  Entities {
-
+class BasicEnnemy : public Entities {
 public:
 	 void ListBasicEnnemy(int ValueEntities);
 };

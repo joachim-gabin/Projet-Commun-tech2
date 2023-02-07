@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "playground.h"
 #include "inventaire.h"
+#include "BasicEnnemy.h"
 
 Game::Game()
 {
@@ -59,12 +60,15 @@ void Game::gameLoop()
     sprite_tank.setTexture(texture_tank);
     sprite_tank.setPosition(400, 200);
     sprite_tank.rotate(-20.0f);
-
+   
+    BasicEnnemy ennemy;
+    ennemy.ListBasicEnnemy(1);
 
 
     item axe("axe.png", 10, 10, 1);
     player player("survivant.png",2 , 2);
     inventaire inv;
+
 
 
     while (this->window->isOpen())
@@ -137,10 +141,11 @@ void Game::gameLoop()
         {
             (inv.affichage(this->window));
         }
-
+        
         this->window->draw(player.sprite_player());
         this->window->draw(axe.item_sprite());
         this->window->draw(sprite_tank);
+        this->window->draw(ennemy.SpriteEntitiesLoader());
         this->window->display();
 
     }

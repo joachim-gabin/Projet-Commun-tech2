@@ -1,15 +1,15 @@
 #include "Player.h"
 
-Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed) : 
+Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed) :
         animatedentity(texture, imageCount, switchTime)
 {
 	this->speed = speed;
     row = 0;
     faceRight = true;
 
-    body.setSize(sf::Vector2f(32.f, 32.f));
-    body.setOrigin(body.getSize());
-    body.setPosition(sf::Vector2f(SIZE_TILE, SIZE_TILE));
+    body.setSize(sf::Vector2f(SIZE_TILE, SIZE_TILE));
+    body.setOrigin(body.getSize() / 2.f);
+    body.setPosition(sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
     body.setTexture(texture);
 }
 Player::~Player()
@@ -20,40 +20,66 @@ Player::~Player()
 void Player::Move(float deltaTime)
 {
 	{
-		oldPos = body.getGlobalBounds();
-		sf::Vector2f movement(0.f, 0.f);
+		sf::Vector2f velocity;
+		velocity.x = 0.f;
+		velocity.y = 0.f;
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
-			movement.x -= speed;
+			velocity.x -= speed * deltaTime;
 			row = 1;
 			animatedentity.Update(row, deltaTime, faceRight);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			movement.x += speed;
+			velocity.x += speed * deltaTime;
 			row = 0;
 			animatedentity.Update(row, deltaTime, faceRight);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			movement.y -= speed;
+			velocity.y -= speed * deltaTime;
 			row = 3;
 			animatedentity.Update(row, deltaTime, faceRight);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			movement.y += speed;
+			velocity.y += speed * deltaTime;
 			row = 2;
 			animatedentity.Update(row, deltaTime, faceRight);
 		}
 
 		std::cout << GetPosition().x << std::endl;
 		std::cout << GetPosition().y << std::endl;
+		std::cout << body.getGlobalBounds().width << std::endl;
+		std::cout << speed << std::endl;
 		body.setTextureRect(animatedentity.uvRect);
-		body.move(movement);
+		body.move(velocity);
 	}
+}
+
+void Player::Collision()
+{
+	if (GetPosition().x < 0.f)
+	{
+		body.setPosition(0.f, body.getPosition().y);
+	};
+	
+	if (GetPosition().y < 0.f)
+	{
+		body.setPosition(body.getPosition().x, 0.f);
+	};
+
+	/*if (GetPosition().x + body.getGlobalBounds().width > WINDOW_WIDTH);
+	{
+		body.setPosition(WINDOW_WIDTH - body.getGlobalBounds().width, GetPosition().y);
+	}
+
+	if (GetPosition().y + body.getGlobalBounds().height  > WINDOW_HEIGHT);
+	{
+		body.setPosition(GetPosition().x, WINDOW_HEIGHT - body.getGlobalBounds().height);
+	}*/
 }
 
 void Player::Draw(sf::RenderTarget* target)

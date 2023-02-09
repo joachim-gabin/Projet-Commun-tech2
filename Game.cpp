@@ -25,9 +25,8 @@ void Game::gameInit()
 }
 void Game::gameLoop()
 {
-    float deltaTime = 0.0f;
+    float deltaTime = 0.f;
     sf::Clock clock;
-    deltaTime = clock.restart().asSeconds();
 
     sf::Texture texture_sable;
     if (!texture_sable.loadFromFile("texture/sable.png"))
@@ -68,7 +67,7 @@ void Game::gameLoop()
 
     sf::Texture playerTexture;
     playerTexture.loadFromFile("texture/Survivant11.png");
-    Player player(&playerTexture, sf::Vector2u(2, 4), 0.2f, 32.0f);
+    Player player(&playerTexture, sf::Vector2u(2, 4), 0.2f, 2000.f);
 
     item axe("axe.png", 10, 10, 1);
     inventaire inv;
@@ -77,6 +76,7 @@ void Game::gameLoop()
 
     while (this->window->isOpen())
     {
+        deltaTime = clock.restart().asSeconds();
         this->window->clear();
 
         while (this->window->pollEvent(this->event))
@@ -86,7 +86,6 @@ void Game::gameLoop()
 
             if (this->event.type == sf::Event::KeyPressed)
             {
-
                 player.Move(deltaTime);
                 
                 if (this->event.key.code == sf::Keyboard::Escape)
@@ -162,6 +161,8 @@ void Game::gameLoop()
         }
 
 
+
+        player.Collision();
         player.Draw(window);
 
         this->window->draw(sprite_tank);
@@ -169,5 +170,4 @@ void Game::gameLoop()
         this->window->display();
 
     }
-    player.Move(deltaTime);
 }

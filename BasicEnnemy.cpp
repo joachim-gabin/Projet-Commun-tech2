@@ -11,7 +11,7 @@ void BasicEnnemy::ListBasicEnnemy(int ValueEntities)
 		Hp = 10;
 		Damage = 10;
 		Speed = 10;
-		PosX = 400;
+		PosX = 100;
 		PosY = 200;
 		TextureEntitiesLoader();
 		SpriteLoader();

@@ -12,6 +12,7 @@ sf::Texture Entities::TextureEntitiesLoader()
 	{
 		std::cout << "pas charger l'image" << std::endl;
 	}
+	NameSpriteEntities.setPosition(PosX, PosY);
 
 	return this->NameTextureEntities;
 }

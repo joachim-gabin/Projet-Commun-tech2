@@ -137,23 +137,33 @@ void Game::gameLoop()
             }
         }
 
-        if (axe.interaction(this->window, player.GetPosition().x, player.GetPosition().y))
+        if (inv.statut_axe == 0)
         {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+            if (axe.interaction(this->window, player.GetPosition().x, player.GetPosition().y))
             {
-                inv.ajout(axe.num_obj);
-                //axe.~item();
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))    //ajoute la hache a l'inventaire et détruit l'objet 'axe'
+                {
+                    inv.ajout(axe.num_obj);
+                    inv.statut_axe = 1;
+                    axe.~item();
+                }
             }
         }
+
         if (inv.statut >= 1)
         {
-            (inv.affichage(this->window));
+           inv.affichage(this->window);
+           inv.select(this->event);
+
         }
-        
-        this->window->draw(player.sprite_player());
+        if (inv.statut_axe == 0)
+        {
+            this->window->draw(axe.item_sprite());
+        }
+
 
         player.Draw(window);
-        this->window->draw(axe.item_sprite());
+
         this->window->draw(sprite_tank);
         this->window->draw(ennemy.SpriteEntitiesLoader());
         this->window->display();

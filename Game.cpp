@@ -64,7 +64,7 @@ void Game::gameLoop()
     sprite_tank.rotate(-20.0f);
 
 
-    Enemy ennemy(1);
+   
 
 
     sf::Texture playerTexture;
@@ -74,8 +74,7 @@ void Game::gameLoop()
     item axe("axe.png", 10, 10, 1);
     inventaire inv;
 
-
-
+    Enemy enemy(1);
     while (this->window->isOpen())
     {
         deltaTime = clock.restart().asSeconds();
@@ -146,6 +145,7 @@ void Game::gameLoop()
             }
         }
 
+        enemy.MoveUpdate();
         if (inv.statut_axe == 0)
         {
             if (axe.interaction(this->window, player.GetPosition().x, player.GetPosition().y))
@@ -176,7 +176,7 @@ void Game::gameLoop()
         player.Draw(window);
 
         this->window->draw(sprite_tank);
-        this->window->draw(ennemy.SpriteEntitiesLoader());
+        this->window->draw(enemy.SpriteEntitiesLoader());
         this->window->display();
 
     }

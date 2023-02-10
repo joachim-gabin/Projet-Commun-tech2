@@ -10,12 +10,12 @@ public:
 
 	void Move(float deltaTime);
 	void Draw(sf::RenderTarget* target);
+	void Collision();
 	int x, y;
 
 	sf::Vector2f GetPosition() { return body.getPosition(); }
 	sf::FloatRect oldPos;
 	sf::FloatRect nextPos;
-
 
 private:
 

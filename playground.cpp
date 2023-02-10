@@ -17,6 +17,7 @@ int Playground::load()
         std::cout << "erreur d'image" << std::endl;
         return EXIT_FAILURE;
     }
+    return 0;
 }
 
 

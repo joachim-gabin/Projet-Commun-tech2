@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include <fstream>
 //#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>

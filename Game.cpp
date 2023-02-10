@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "playground.h"
 #include "inventaire.h"
+#include "MapEditor.h"
 #include "Enemy.h"
 
 Game::Game()
@@ -33,7 +34,7 @@ void Game::gameLoop()
     {
         std::cout << "erreur d'image" << std::endl;
     }
-    sf::Sprite sprite; 
+    sf::Sprite sprite;
     sprite.setTexture(texture_sable);
 
     sf::Texture texture_baril;
@@ -61,10 +62,10 @@ void Game::gameLoop()
     sprite_tank.setTexture(texture_tank);
     sprite_tank.setPosition(400, 200);
     sprite_tank.rotate(-20.0f);
-   
+
 
     Enemy ennemy(1);
-   
+
 
     sf::Texture playerTexture;
     playerTexture.loadFromFile("texture/Survivant11.png");
@@ -88,7 +89,7 @@ void Game::gameLoop()
             if (this->event.type == sf::Event::KeyPressed)
             {
                 player.Move(deltaTime);
-                
+
                 if (this->event.key.code == sf::Keyboard::Escape)
                 {
                     this->window->close();
@@ -99,6 +100,14 @@ void Game::gameLoop()
                     inv.statut++;
                     inv.statut = inv.statut % 2;
                     std::cout << inv.statut << std::endl;
+                    this->window->close();
+                    MapEditor edit;
+                }
+
+                if (this->event.key.code == sf::Keyboard::Space)
+                {
+                    this->window->close();
+                    MapEditor edit;
                 }
 
                 if (this->event.key.code == sf::Keyboard::A)

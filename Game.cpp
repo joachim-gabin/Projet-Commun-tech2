@@ -3,8 +3,8 @@
 #include "Player.h"
 #include "playground.h"
 #include "inventaire.h"
-#include "BasicEnnemy.h"
 #include "MapEditor.h"
+#include "Enemy.h"
 
 Game::Game()
 {
@@ -34,7 +34,7 @@ void Game::gameLoop()
     {
         std::cout << "erreur d'image" << std::endl;
     }
-    sf::Sprite sprite; 
+    sf::Sprite sprite;
     sprite.setTexture(texture_sable);
 
     sf::Texture texture_baril;
@@ -62,9 +62,10 @@ void Game::gameLoop()
     sprite_tank.setTexture(texture_tank);
     sprite_tank.setPosition(400, 200);
     sprite_tank.rotate(-20.0f);
-   
-    BasicEnnemy ennemy;
-    ennemy.ListBasicEnnemy(1);
+
+
+    Enemy ennemy(1);
+
 
     sf::Texture playerTexture;
     playerTexture.loadFromFile("texture/Survivant11.png");
@@ -88,7 +89,7 @@ void Game::gameLoop()
             if (this->event.type == sf::Event::KeyPressed)
             {
                 player.Move(deltaTime);
-                
+
                 if (this->event.key.code == sf::Keyboard::Escape)
                 {
                     this->window->close();
@@ -149,7 +150,7 @@ void Game::gameLoop()
         {
             if (axe.interaction(this->window, player.GetPosition().x, player.GetPosition().y))
             {
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))    //ajoute la hache a l'inventaire et détruit l'objet 'axe'
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))    //ajoute la hache a l'inventaire et dï¿½truit l'objet 'axe'
                 {
                     inv.ajout(axe.num_obj);
                     inv.statut_axe = 1;

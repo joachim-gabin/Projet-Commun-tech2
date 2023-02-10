@@ -4,6 +4,7 @@
 #include "playground.h"
 #include "inventaire.h"
 #include "BasicEnnemy.h"
+#include "MapEditor.h"
 
 Game::Game()
 {
@@ -98,6 +99,14 @@ void Game::gameLoop()
                     inv.statut++;
                     inv.statut = inv.statut % 2;
                     std::cout << inv.statut << std::endl;
+                    this->window->close();
+                    MapEditor edit;
+                }
+
+                if (this->event.key.code == sf::Keyboard::Space)
+                {
+                    this->window->close();
+                    MapEditor edit;
                 }
 
                 if (this->event.key.code == sf::Keyboard::A)

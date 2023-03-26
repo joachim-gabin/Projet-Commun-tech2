@@ -11,6 +11,7 @@ public :
 	sf::Texture TextureEntitiesLoader();
 	void SpriteLoaderSettings();
 	void MoveUpdate();
+	//sf::Vector2f GetPositionEntities();
 protected :
 	sf::Sprite NameSpriteEntities;
 	sf::Texture NameTextureEntities;

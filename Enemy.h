@@ -6,4 +6,5 @@ public:
 
 	Enemy(int ValueEntities);
 	 void ListEnemy();
+	// void Collision();
 };

@@ -28,9 +28,16 @@ void Entities::SpriteLoaderSettings()
 
 void Entities::MoveUpdate()
 {
-	sf::Vector2f position(PosX, PosY);
-	float dt = clock.restart().asSeconds();
-	sf::Vector2f velocity(32.f, 0.f);
-	position += velocity * dt;
-	NameSpriteEntities.setPosition(position);
+	sf::Time time = clock.getElapsedTime();
+	if (time.asSeconds() > 1)
+	{
+		PosX += Speed;
+		NameSpriteEntities.setPosition(PosX, PosY);
+		clock.restart();
+	}
 }
+
+//sf::Vector2f Entities::GetPositionEntities()
+//{
+//	return BodyEntities.getPosition();
+//}

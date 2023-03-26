@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "Player.h"
 
 
 
@@ -23,7 +24,23 @@ void Enemy::ListEnemy()
 		SizeY = 0.15f;
 		TextureEntitiesLoader();
 		SpriteLoaderSettings();
-		MoveUpdate();
+		//GetPositionEntities();
 		break;
 	}
 }
+
+//void Enemy::Collision() {
+//
+//	//Collision enemy
+//
+//	if (enemy.GetPositionEntities().x <= player.GetPosition().x)
+//	{
+//		body.setPosition(0.f, body.getPosition().y);
+//
+//	};
+//
+//	if (GetPosition().y < 0.f)
+//	{
+//		body.setPosition(body.getPosition().x, 0.f);
+//	};
+//}

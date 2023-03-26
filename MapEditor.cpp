@@ -1,7 +1,7 @@
 #include "MapEditor.h"
 #include "Game.h"
 
-
+using recursive_directory_iterator = std::filesystem::recursive_directory_iterator;
 
 // A ne pas utiliser tant que pas 100% fonctionnel
 
@@ -55,13 +55,34 @@ void MapEditor::Loop()
     text.setPosition(160 / 2, WINDOW_HEIGHT / 2 + 32);
     /*text.setFillColor(sf::Color::Red);*/
 
-    sf::Texture texture_sable;
+    sf::Sprite sprites[10];
+    sf::Texture textures[10];
+
+    int i = 0;
+    for (const auto& dirEntry : recursive_directory_iterator("texture/tiles/")) 
+    {
+        std::cout << dirEntry.path().string() << std::endl;
+        sf::Texture texture;
+        textures[i] = texture;
+        if (!textures[i].loadFromFile(dirEntry.path().string()))
+        {
+            std::cout << "erreur d'image" << std::endl;
+        }
+        sf::Sprite sprite;
+        sprites[i] = sprite;
+        sprites[i].setTexture(textures[i]);
+        i++;
+    }
+
+    /*sf::Texture texture_sable;
     if (!texture_sable.loadFromFile("texture/sable.png"))
     {
         std::cout << "erreur d'image" << std::endl;
     }
     sf::Sprite sprite;
     sprite.setTexture(texture_sable);
+
+    
 
     sf::Texture texture_baril;
     if (!texture_baril.loadFromFile("texture/baril.png"))
@@ -77,7 +98,7 @@ void MapEditor::Loop()
         std::cout << "erreur d'image" << std::endl;
     }
     sf::Sprite sprite_b;
-    sprite_b.setTexture(texture_bush);
+    sprite_b.setTexture(texture_bush);*/
 
 
 
@@ -125,8 +146,10 @@ void MapEditor::Loop()
                             }
                         }
 
+                        sprites[actualTexture].setPosition(160 / 2 - 16, WINDOW_HEIGHT / 2 - 16);
+                        this->window->draw(sprites[actualTexture]);
 
-                        if (this->actualTexture == 1) {
+                        /*if (this->actualTexture == 1) {
                             sprite_b.setPosition(160 / 2 - 16, WINDOW_HEIGHT / 2 - 16);
                             this->window->draw(sprite_b);
                         }
@@ -138,28 +161,41 @@ void MapEditor::Loop()
                         {
                             sprite.setPosition(160 / 2 - 16, WINDOW_HEIGHT / 2 - 16);
                             this->window->draw(sprite);
-                        }
+                        }*/
 
                         window->draw(text);
 
+                        for (int i = 0; i < 3; i++)
+                            sprites[actualTexture].setPosition(128 * (i + 1) - 64 - 16 + 160, 128 * 1 - 64 - 16);
 
-
-                        sprite.setPosition(128 * 1 - 64 - 16 + 160, 128 * 1 - 64 - 16);
+                        /*sprite.setPosition(128 * 1 - 64 - 16 + 160, 128 * 1 - 64 - 16);
                         this->window->draw(sprite);
 
                         sprite_b.setPosition(128 * 2 - 64 - 16 + 160, 128 * 1 - 64 - 16);
                         this->window->draw(sprite_b);
 
                         sprite_bar.setPosition(128 * 3 - 64 - 16 + 160, 128 * 1 - 64 - 16);
-                        this->window->draw(sprite_bar);
+                        this->window->draw(sprite_bar);*/
 
                         this->window->display();
                     }
                 }
             }
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+            {
+
+                sf::Vector2i localPosition = sf::Mouse::getPosition(*window);
+                if (localPosition.x > 160 && localPosition.x < WINDOW_WIDTH + 160 && localPosition.y > 0 && localPosition.y < WINDOW_HEIGHT)
+                {
+                    map[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = 0;
+                }
+            }
         }
+
+        sprites[actualTexture].setPosition(160 / 2 - 16, WINDOW_HEIGHT / 2 - 16);
+        this->window->draw(sprites[actualTexture]);
         
-        if (this->actualTexture == 1) {
+        /*if (this->actualTexture == 1) {
             sprite_b.setPosition(160 / 2 - 16, WINDOW_HEIGHT / 2 - 16);
             this->window->draw(sprite_b);
         }
@@ -171,15 +207,18 @@ void MapEditor::Loop()
         {
             sprite.setPosition(160 / 2 - 16, WINDOW_HEIGHT / 2 - 16);
             this->window->draw(sprite);
-        }
+        }*/
 
         window->draw(text);
 
-        for (int r = 0; r <= WINDOW_HEIGHT / 32; r++)
+        for (int r = 0; r < WINDOW_HEIGHT / 32; r++)
         {
-            for (int n = 0; n <= WINDOW_WIDTH / 32; n++)
+            for (int n = 0; n < WINDOW_WIDTH / 32; n++)
             {
-                if (map[r][n] == 1) {
+                sprites[map[r][n]].setPosition(n * 32 + 160, r * 32);
+                this->window->draw(sprites[map[r][n]]);
+
+                /*if (map[r][n] == 1) {
                     sprite_b.setPosition(n * 32 + 160, r * 32);
                     this->window->draw(sprite_b);
                 }
@@ -191,7 +230,7 @@ void MapEditor::Loop()
                 {
                     sprite.setPosition(n * 32 + 160, r * 32);
                     this->window->draw(sprite);
-                }
+                }*/
             }
         }
         this->window->display();

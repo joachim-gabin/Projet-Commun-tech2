@@ -46,7 +46,7 @@ void MapEditor::Init()
 
 
     //Dessine les items par rapport au fichier items.txt
-    fstream newfile;
+    newfile;
     newfile.open("items.txt", ios::in);
     if (newfile.is_open())
     {
@@ -115,7 +115,7 @@ void MapEditor::Loop()
 
 
     //Load les textures et les sprites du dossier items
-    int i = 0;
+    i = 0;
     for (const auto& dirEntry : recursive_directory_iterator("texture/tiles/"))
     {
         std::cout << dirEntry.path().string() << std::endl;
@@ -263,7 +263,7 @@ void MapEditor::Save()
     }
 
 
-    fstream newfile;
+    newfile;
     newfile.open("items.txt", ios::out);
     if (newfile.is_open())
     {

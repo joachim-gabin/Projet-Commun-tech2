@@ -52,8 +52,6 @@ void Player::Move(float deltaTime)
 
 		std::cout << GetPosition().x << std::endl;
 		std::cout << GetPosition().y << std::endl;
-		std::cout << body.getGlobalBounds().width << std::endl;
-		std::cout << speed << std::endl;
 		body.setTextureRect(animatedentity.uvRect);
 		body.move(velocity);
 	}

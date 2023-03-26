@@ -17,10 +17,13 @@ MapEditor::~MapEditor()
 }
 
 
-//Initialise la fenêtre et dessine la map par rapport au fichier map.txt
+//Initialise la fenêtre 
 void MapEditor::Init()
 {
 	this->window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH + 160, WINDOW_HEIGHT), "Last Man Editor");
+
+
+    //Dessine la map par rapport au fichier map.txt
     fstream newfile;
     newfile.open("map.txt", ios::in);
     if (newfile.is_open()) 
@@ -39,6 +42,28 @@ void MapEditor::Init()
             
         }
         newfile.close(); 
+    }
+
+
+    //Dessine les items par rapport au fichier items.txt
+    fstream newfile;
+    newfile.open("items.txt", ios::in);
+    if (newfile.is_open())
+    {
+        string tp;
+        int x = 0;
+        while (getline(newfile, tp))
+        {
+            int y = 0;
+            for (char& c : tp)
+            {
+                map[x][y] = (int)c - 48;
+                y += 1;
+            }
+            x += 1;
+
+        }
+        newfile.close();
     }
 }
 
@@ -63,8 +88,8 @@ void MapEditor::Loop()
 
 
     //Initialise les array de texture et de sprite des tiles
-    sf::Sprite sprites[10];
-    sf::Texture textures[10];
+    sf::Sprite sprites[4];
+    sf::Texture textures[4];
 
 
     //Load les textures et les sprites du dossier tiles
@@ -81,6 +106,28 @@ void MapEditor::Loop()
         sf::Sprite sprite;
         sprites[i] = sprite;
         sprites[i].setTexture(textures[i]);
+        i++;
+    }
+
+    //Initialise les array de texture et de sprite des items
+    sf::Sprite sprites_items[4];
+    sf::Texture textures_items[4];
+
+
+    //Load les textures et les sprites du dossier items
+    int i = 0;
+    for (const auto& dirEntry : recursive_directory_iterator("texture/tiles/"))
+    {
+        std::cout << dirEntry.path().string() << std::endl;
+        sf::Texture texture;
+        textures_items[i] = texture;
+        if (!textures_items[i].loadFromFile(dirEntry.path().string()))
+        {
+            std::cout << "erreur d'image" << std::endl;
+        }
+        sf::Sprite sprite;
+        sprites_items[i] = sprite;
+        sprites_items[i].setTexture(textures[i]);
         i++;
     }
 
@@ -197,12 +244,28 @@ void MapEditor::Loop()
 }
 
 
-//Sauvegarde de la map lorsqu'on quitte l'éditeur
+//Sauvegarde de la map et les items lorsqu'on quitte l'éditeur
 void MapEditor::Save()
 {
     fstream newfile;
     newfile.open("map.txt", ios::out);
     if (newfile.is_open()) 
+    {
+        for (int i = 0; i < WINDOW_HEIGHT / 32; i++)
+        {
+            for (int j = 0; j < WINDOW_WIDTH / 32; j++)
+            {
+                newfile << map[i][j];
+            }
+            newfile << "\n";
+        }
+        newfile.close();
+    }
+
+
+    fstream newfile;
+    newfile.open("items.txt", ios::out);
+    if (newfile.is_open())
     {
         for (int i = 0; i < WINDOW_HEIGHT / 32; i++)
         {

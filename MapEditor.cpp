@@ -17,7 +17,7 @@ MapEditor::~MapEditor()
 }
 
 
-//Initialise la fenêtre 
+//Initialise la fenÃªtre 
 void MapEditor::Init()
 {
 	this->window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH + 160, WINDOW_HEIGHT), "Last Man Editor");
@@ -67,7 +67,7 @@ void MapEditor::Init()
 }
 
 
-//Boucle de l'éditeur
+//Boucle de l'Ã©diteur
 void MapEditor::Loop()
 {
 
@@ -148,7 +148,7 @@ void MapEditor::Loop()
         {
 
 
-            //Retour à l'écran du jeu lors de la fermeture de l'éditeur
+            //Retour Ã  l'Ã©cran du jeu lors de la fermeture de l'Ã©diteur
             if (this->event.type == sf::Event::Closed)
             {
                 this->Save();
@@ -161,7 +161,7 @@ void MapEditor::Loop()
             {
 
 
-                //Récupère la position de la souris et change la tile
+                //RÃ©cupÃ¨re la position de la souris et change la tile
                 sf::Vector2i localPosition = sf::Mouse::getPosition(*window);
                 if (localPosition.x > 160 && localPosition.x < WINDOW_WIDTH + 160 && localPosition.y > 0 && localPosition.y < WINDOW_HEIGHT)
                 {
@@ -172,7 +172,7 @@ void MapEditor::Loop()
                 }
 
 
-                //Test d'entrée dans le choix de tile ou d'items
+                //Test d'entrÃ©e dans le choix de tile ou d'items
                 if (localPosition.x < 160 && localPosition.x > 0 && localPosition.y > 0 && localPosition.y < 64)
                 {
                     inMenu = 1;
@@ -191,7 +191,7 @@ void MapEditor::Loop()
                     {
 
 
-                        //Retour à l'écran du jeu lors de la fermeture de l'éditeur
+                        //Retour Ã  l'Ã©cran du jeu lors de la fermeture de l'Ã©diteur
                         if (this->event.type == sf::Event::Closed)
                         {
                             this->window->close();
@@ -268,7 +268,7 @@ void MapEditor::Loop()
 }
 
 
-//Sauvegarde de la map et les items lorsqu'on quitte l'éditeur
+//Sauvegarde de la map et les items lorsqu'on quitte l'Ã©diteur
 void MapEditor::Save()
 {
     fstream newfile;

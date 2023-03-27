@@ -17,6 +17,7 @@ private:
 	sf::Event event;
 
 	int map[WINDOW_HEIGHT / 32][WINDOW_WIDTH / 32];
+	int items[WINDOW_HEIGHT / 32][WINDOW_WIDTH / 32];
 	int actualTexture = 1;
 };
 

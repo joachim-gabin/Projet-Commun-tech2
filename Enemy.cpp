@@ -3,8 +3,9 @@
 
 Enemy::Enemy(int ValueEntities)
 {
-	Value = ValueEntities;
-	ListEnemy();
+	ID = ValueEntities;
+	//ListEnemy();
+	Generation();
 }
 
 void Enemy::ListEnemy()
@@ -33,15 +34,17 @@ void Enemy::ListEnemy()
 //}
 
 void Enemy::Generation() {
-	NameEntities = "zombie";
-	Format = "png";
-	HpEntities = 10;
-	DamageEntities = 10;
-	SpeedEntities = 10;
-	PosXEntities = 200;
-	PosYEntities = 200;
-	SizeXEntities = 0.15f;
-	SizeYEntities = 0.15f;
+
+	ReadCsv();
+	//NameEntities = "zombie";
+	//Format = "png";
+	//HpEntities = 10;
+	//DamageEntities = 10;
+	//SpeedEntities = 10;
+	//PosXEntities = 200;
+	//PosYEntities = 200;
+	//SizeXEntities = 0.15f;
+	//SizeYEntities = 0.15f;
 	TextureEntitiesLoader();
 	SpriteLoaderSettings();
 	//GetPositionEntities();
@@ -54,19 +57,33 @@ void Enemy::ReadCsv()
 
 	string Line;
 
+	File.open("EnemyOnCsv.csv", ios::in);
 
-	//File.open("EnemyOnCsv.csv", ios::in);
+	while (getline(File, Line)) {
+		stringstream ss(Line);
 
-	//if (File.good()) {
-	//	//ID = ", ";
-	//	NameEntities = "zombie";
-	//	Format = "png";
-	//	HpEntities = 10;
-	//	DamageEntities = 10;
-	//	SpeedEntities = 10;
-	//	PosXEntities = 200;
-	//	PosYEntities = 200;
-	//	SizeXEntities = 0.15f;
-	//	SizeYEntities = 0.15f;
-	//}
+		getline(ss, IDString, ',');
+		getline(ss, NameEntities, ',');
+		getline(ss, Format, ',');
+		getline(ss, HPString, ',');
+		getline(ss, DamageString, ',');
+		getline(ss, SpeedString, ',');
+		getline(ss, PosXString, ',');
+		getline(ss, PosYString, ',');
+		getline(ss, SizeXString, ',');
+		getline(ss, SizeYString, ',');
+
+		ID = stoi(IDString);
+
+		HpEntities = stoi(HPString);
+		DamageEntities = stoi(DamageString);
+		SpeedEntities = stoi(SpeedString);
+
+		PosXEntities = stof(PosXString);
+		PosYEntities = stof(PosYString);
+		SizeXEntities = stof(SizeXString);
+		SizeYEntities = stof(SizeYString);
+
+	}
+	File.close();
 }

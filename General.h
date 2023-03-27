@@ -3,6 +3,7 @@
 #include <string>
 #include <list>
 #include <fstream>
+#include <sstream>
 #include <filesystem>
 //#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>

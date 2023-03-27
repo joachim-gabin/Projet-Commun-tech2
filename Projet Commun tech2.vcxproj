@@ -166,6 +166,9 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="playground.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="EnemyOnCsv.csv" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

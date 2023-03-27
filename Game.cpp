@@ -29,49 +29,17 @@ void Game::gameLoop()
     float deltaTime = 0.f;
     sf::Clock clock;
 
-    sf::Texture texture_sable;
-    if (!texture_sable.loadFromFile("texture/sable.png"))
-    {
-        std::cout << "erreur d'image" << std::endl;
-    }
-    sf::Sprite sprite;
-    sprite.setTexture(texture_sable);
+    item knife("knife2.png", 8, 10, 3);
+    item axe("axe.png", 10, 10, 4);
+    item gas("gas_masque.png", 12, 10, 5);
 
-    sf::Texture texture_baril;
-    if (!texture_baril.loadFromFile("texture/baril.png"))
-    {
-        std::cout << "erreur d'image" << std::endl;
-    }
-    sf::Sprite sprite_baril;
-    sprite_baril.setTexture(texture_baril);
-
-    sf::Texture texture_bush;
-    if (!texture_bush.loadFromFile("texture/bush.png"))
-    {
-        std::cout << "erreur d'image" << std::endl;
-    }
-    sf::Sprite sprite_b;
-    sprite_b.setTexture(texture_bush);
-
-    sf::Texture texture_tank;
-    if (!texture_tank.loadFromFile("texture/tank3.png"))
-    {
-        std::cout << "erreur d'image" << std::endl;
-    }
-    sf::Sprite sprite_tank;
-    sprite_tank.setTexture(texture_tank);
-    sprite_tank.setPosition(400, 200);
-    sprite_tank.rotate(-20.0f);
-
-
-   
 
 
     sf::Texture playerTexture;
     playerTexture.loadFromFile("texture/Survivant11.png");
     Player player(&playerTexture, sf::Vector2u(2, 4), 0.2f, 2000.f);
 
-    item axe("axe.png", 10, 10, 1);
+
     inventaire inv;
 
     Enemy enemy(1);
@@ -119,31 +87,24 @@ void Game::gameLoop()
             }
         }
 
-        //this->window->clear();
-        for (int r = 0; r <= WINDOW_HEIGHT / 32; r++)
+        if (inv.statut_knife == 0)
         {
-            for (int n = 0; n <= WINDOW_WIDTH/32; n++)
+            if (knife.interaction(this->window, player.GetPosition().x, player.GetPosition().y))
             {
-                if (r == 0 || r == 19)
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))    //ajoute la hache a l'inventaire et d�truit l'objet 'axe'
                 {
-                    sprite_b.setPosition(n * 32, r * 32);
-                    this->window->draw(sprite_b);
+                    inv.ajout(knife.num_obj);
+                    inv.statut_knife = 1;
+                    knife.~item();
                 }
-                else if (r == 7 && n == 12)
-                {
-                    sprite_baril.setPosition(n * 32, r * 32);
-                    this->window->draw(sprite_baril);
-                }
-                else
-                {
-                    sprite.setPosition(n * 32, r*32);
-                    this->window->draw(sprite);
-                }
-
             }
         }
+        if (inv.statut_knife == 0)
+        {
+            this->window->draw(knife.item_sprite());
+        }
 
-        enemy.MoveUpdate();
+
         if (inv.statut_axe == 0)
         {
             if (axe.interaction(this->window, player.GetPosition().x, player.GetPosition().y))
@@ -156,24 +117,41 @@ void Game::gameLoop()
                 }
             }
         }
-
-        if (inv.statut >= 1)
-        {
-           inv.affichage(this->window);
-           inv.select(this->event);
-
-        }
         if (inv.statut_axe == 0)
         {
             this->window->draw(axe.item_sprite());
         }
 
 
+        if (inv.statut_gas == 0)
+        {
+            if (gas.interaction(this->window, player.GetPosition().x, player.GetPosition().y))
+            {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))    //ajoute la hache a l'inventaire et d�truit l'objet 'axe'
+                {
+                    inv.ajout(gas.num_obj);
+                    inv.statut_gas = 1;
+                    gas.~item();
+                }
+            }
+        }
+        if (inv.statut_gas == 0)
+        {
+            this->window->draw(gas.item_sprite());
+        }
 
+
+
+
+        if (inv.statut >= 1)
+        {
+           inv.affichage(this->window);
+           inv.select(this->event);
+        }
+        enemy.MoveUpdate();
         player.Collision();
         player.Draw(window);
 
-        this->window->draw(sprite_tank);
         this->window->draw(enemy.SpriteEntitiesLoader());
         this->window->display();
 

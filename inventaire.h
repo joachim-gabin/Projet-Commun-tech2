@@ -12,9 +12,11 @@ public:
 	void affichage(sf::RenderWindow* window);
 	void select(sf::Event event);
 
-	int inv[9] = { 2, 3, 0, 0, 0, 0, 0, 0, 0 };
+	int inv[9] = { 1, 2, 0, 0, 0, 0, 0, 0, 0 };
 	int statut = 0;
+	int statut_knife = 0;
 	int statut_axe = 0;
+	int statut_gas = 0;
 
 private:
 

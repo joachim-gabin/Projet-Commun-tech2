@@ -19,5 +19,7 @@ private:
 	int map[WINDOW_HEIGHT / 32][WINDOW_WIDTH / 32];
 	int items[WINDOW_HEIGHT / 32][WINDOW_WIDTH / 32];
 	int actualTexture = 1;
+	int typeOfSprite = 0;
+	int inMenu = 0;
 };
 

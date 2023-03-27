@@ -23,7 +23,7 @@ void MapEditor::Init()
 	this->window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH + 160, WINDOW_HEIGHT), "Last Man Editor");
 
 
-    //Dessine la map par rapport au fichier map.txt
+    //Lis le fichier map.txt
     fstream newfile;
     newfile.open("map.txt", ios::in);
     if (newfile.is_open()) 
@@ -45,8 +45,7 @@ void MapEditor::Init()
     }
 
 
-    //Dessine les items par rapport au fichier items.txt
-    fstream newfile;
+    //Lis le fichier items.txt
     newfile.open("items.txt", ios::in);
     if (newfile.is_open())
     {
@@ -57,7 +56,7 @@ void MapEditor::Init()
             int y = 0;
             for (char& c : tp)
             {
-                map[x][y] = (int)c - 48;
+                items[x][y] = (int)c - 48;
                 y += 1;
             }
             x += 1;
@@ -72,7 +71,7 @@ void MapEditor::Init()
 void MapEditor::Loop()
 {
 
-    //Load la font et le texte
+    //Load les font et text
     sf::Font font;
     if (!font.loadFromFile("font/arial.ttf"))
     {
@@ -86,10 +85,24 @@ void MapEditor::Loop()
     text.setPosition(160 / 2, WINDOW_HEIGHT / 2 + 32);
     /*text.setFillColor(sf::Color::Red);*/
 
+    sf::Text textTiles;
+    textTiles.setFont(font);
+    textTiles.setString("Tiles");
+    textTiles.setCharacterSize(24);
+    textTiles.setOrigin(44, 12);
+    textTiles.setPosition(160 / 2, 32);
+
+    sf::Text textItems;
+    textItems.setFont(font);
+    textItems.setString("Items");
+    textItems.setCharacterSize(24);
+    textItems.setOrigin(44, 12);
+    textItems.setPosition(160 / 2, WINDOW_HEIGHT - 32);
+
 
     //Initialise les array de texture et de sprite des tiles
-    sf::Sprite sprites[4];
-    sf::Texture textures[4];
+    sf::Sprite sprites[2][5];
+    sf::Texture textures[2][5];
 
 
     //Load les textures et les sprites du dossier tiles
@@ -98,36 +111,32 @@ void MapEditor::Loop()
     {
         std::cout << dirEntry.path().string() << std::endl;
         sf::Texture texture;
-        textures[i] = texture;
-        if (!textures[i].loadFromFile(dirEntry.path().string()))
+        textures[0][i] = texture;
+        if (!textures[0][i].loadFromFile(dirEntry.path().string()))
         {
             std::cout << "erreur d'image" << std::endl;
         }
         sf::Sprite sprite;
-        sprites[i] = sprite;
-        sprites[i].setTexture(textures[i]);
+        sprites[0][i] = sprite;
+        sprites[0][i].setTexture(textures[0][i]);
         i++;
     }
 
-    //Initialise les array de texture et de sprite des items
-    sf::Sprite sprites_items[4];
-    sf::Texture textures_items[4];
-
 
     //Load les textures et les sprites du dossier items
-    int i = 0;
-    for (const auto& dirEntry : recursive_directory_iterator("texture/tiles/"))
+    i = 0;
+    for (const auto& dirEntry : recursive_directory_iterator("texture/items/"))
     {
         std::cout << dirEntry.path().string() << std::endl;
         sf::Texture texture;
-        textures_items[i] = texture;
-        if (!textures_items[i].loadFromFile(dirEntry.path().string()))
+        textures[1][i] = texture;
+        if (!textures[1][i].loadFromFile(dirEntry.path().string()))
         {
             std::cout << "erreur d'image" << std::endl;
         }
         sf::Sprite sprite;
-        sprites_items[i] = sprite;
-        sprites_items[i].setTexture(textures[i]);
+        sprites[1][i] = sprite;
+        sprites[1][i].setTexture(textures[1][i]);
         i++;
     }
 
@@ -156,56 +165,66 @@ void MapEditor::Loop()
                 sf::Vector2i localPosition = sf::Mouse::getPosition(*window);
                 if (localPosition.x > 160 && localPosition.x < WINDOW_WIDTH + 160 && localPosition.y > 0 && localPosition.y < WINDOW_HEIGHT)
                 {
-                    map[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = this->actualTexture;
+                    if (typeOfSprite == 0)
+                        map[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = this->actualTexture;
+                    if (typeOfSprite == 1)
+                        items[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = this->actualTexture;
                 }
 
 
-                //Test d'entrée dans le choix de tile
-                if (localPosition.x < 160 && localPosition.x > 0 && localPosition.y > 0 && localPosition.y < WINDOW_HEIGHT)
+                //Test d'entrée dans le choix de tile ou d'items
+                if (localPosition.x < 160 && localPosition.x > 0 && localPosition.y > 0 && localPosition.y < 64)
                 {
-                    int inMenu = 1;
-                    while (inMenu == 1) {
-                        this->window->clear();
+                    inMenu = 1;
+                    typeOfSprite = 0;
+                }
+                if (localPosition.x < 160 && localPosition.x > 0 && localPosition.y > WINDOW_HEIGHT - 64 && localPosition.y < WINDOW_HEIGHT)
+                {
+                    inMenu = 1;
+                    typeOfSprite = 1;
+                }
 
-                        while (this->window->pollEvent(this->event))
+                while (inMenu == 1) {
+                    this->window->clear();
+
+                    while (this->window->pollEvent(this->event))
+                    {
+
+
+                        //Retour à l'écran du jeu lors de la fermeture de l'éditeur
+                        if (this->event.type == sf::Event::Closed)
                         {
-
-
-                            //Retour à l'écran du jeu lors de la fermeture de l'éditeur
-                            if (this->event.type == sf::Event::Closed)
-                            {
-                                this->window->close();
-                                Game game;
-                            }
-
-
-                            //Test de choix de la tile
-                            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                            {
-                                sf::Vector2i localPosition2 = sf::Mouse::getPosition(*window);
-                                if (localPosition2.x > 160 && localPosition2.x < WINDOW_WIDTH + 160 && localPosition2.y > 0 && localPosition2.y < WINDOW_HEIGHT)
-                                {
-                                    this->actualTexture = (((localPosition2.y - (localPosition2.y % 128)) / 128) * 5) + ((localPosition2.x - 160) - (localPosition2.x - 160) % 128) / 128;
-                                    cout << this->actualTexture;
-                                    inMenu = 0;
-                                }
-                            }
+                            this->window->close();
+                            Game game;
                         }
 
 
-                        //Dessin du menu de choix de tile
-                        sprites[actualTexture].setPosition(160 / 2 - 16, WINDOW_HEIGHT / 2 - 16);
-                        this->window->draw(sprites[actualTexture]);
-
-                        window->draw(text);
-
-                        for (int i = 0; i < 3; i++) {
-                            sprites[i].setPosition(128 * (i + 1) - 64 - 16 + 160, 128 * 1 - 64 - 16);
-                            this->window->draw(sprites[i]);
+                        //Test de choix de la tile
+                        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                        {
+                            sf::Vector2i localPosition2 = sf::Mouse::getPosition(*window);
+                            if (localPosition2.x > 160 && localPosition2.x < WINDOW_WIDTH + 160 && localPosition2.y > 0 && localPosition2.y < WINDOW_HEIGHT)
+                            {
+                                this->actualTexture = (((localPosition2.y - (localPosition2.y % 128)) / 128) * 5) + ((localPosition2.x - 160) - (localPosition2.x - 160) % 128) / 128;
+                                cout << this->actualTexture;
+                                inMenu = 0;
+                            }
                         }
-
-                        this->window->display();
                     }
+
+
+                    //Dessin du menu de choix de tile
+                    sprites[typeOfSprite][actualTexture].setPosition(160 / 2 - 16, WINDOW_HEIGHT / 2 - 16);
+                    this->window->draw(sprites[typeOfSprite][actualTexture]);
+
+                    window->draw(text);
+
+                    for (int i = 0; i < 3; i++) {
+                        sprites[typeOfSprite][i].setPosition(128 * ((i % 4) + 1) - 64 - 16 + 160, 128 * ((i - (i % 4)) / 4 + 1) - 64 - 16);
+                        this->window->draw(sprites[typeOfSprite][i]);
+                    }
+
+                    this->window->display();
                 }
             }
 
@@ -218,16 +237,19 @@ void MapEditor::Loop()
                 if (localPosition.x > 160 && localPosition.x < WINDOW_WIDTH + 160 && localPosition.y > 0 && localPosition.y < WINDOW_HEIGHT)
                 {
                     map[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = 0;
+                    items[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = 0;
                 }
             }
         }
 
 
         //Dessine la tile actuelle
-        sprites[actualTexture].setPosition(160 / 2 - 16, WINDOW_HEIGHT / 2 - 16);
-        this->window->draw(sprites[actualTexture]);
+        sprites[typeOfSprite][actualTexture].setPosition(160 / 2 - 16, WINDOW_HEIGHT / 2 - 16);
+        this->window->draw(sprites[typeOfSprite][actualTexture]);
 
         window->draw(text);
+        window->draw(textTiles);
+        window->draw(textItems);
 
 
         //Dessine la map
@@ -235,8 +257,10 @@ void MapEditor::Loop()
         {
             for (int n = 0; n < WINDOW_WIDTH / 32; n++)
             {
-                sprites[map[r][n]].setPosition(n * 32 + 160, r * 32);
-                this->window->draw(sprites[map[r][n]]);
+                sprites[0][map[r][n]].setPosition(n * 32 + 160, r * 32);
+                this->window->draw(sprites[0][map[r][n]]);
+                sprites[1][items[r][n]].setPosition(n * 32 + 160, r * 32);
+                this->window->draw(sprites[1][items[r][n]]);
             }
         }
         this->window->display();
@@ -263,7 +287,6 @@ void MapEditor::Save()
     }
 
 
-    fstream newfile;
     newfile.open("items.txt", ios::out);
     if (newfile.is_open())
     {
@@ -271,7 +294,7 @@ void MapEditor::Save()
         {
             for (int j = 0; j < WINDOW_WIDTH / 32; j++)
             {
-                newfile << map[i][j];
+                newfile << items[i][j];
             }
             newfile << "\n";
         }

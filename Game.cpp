@@ -6,6 +6,7 @@
 #include "Hud.h"
 #include "MapEditor.h"
 #include "Enemy.h"
+#include "MainMenu.h"
 
 Game::Game()
 {

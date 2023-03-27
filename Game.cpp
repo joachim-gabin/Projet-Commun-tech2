@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "playground.h"
 #include "inventaire.h"
+#include "Hud.h"
 #include "MapEditor.h"
 #include "Enemy.h"
 
@@ -26,21 +27,19 @@ void Game::gameInit()
 }
 void Game::gameLoop()
 {
-    float deltaTime = 0.f;
-    sf::Clock clock;
-
+    inventaire inv;
+    hud playerHud;
     item knife("knife2.png", 8, 10, 3);
     item axe("axe.png", 10, 10, 4);
     item gas("gas_masque.png", 12, 10, 5);
-
-
-
+    sf::Clock clock;
     sf::Texture playerTexture;
+
+
+    float deltaTime = 0.f;
     playerTexture.loadFromFile("texture/Survivant11.png");
     Player player(&playerTexture, sf::Vector2u(2, 4), 0.2f, 2000.f);
 
-
-    inventaire inv;
 
     Enemy enemy(1);
     while (this->window->isOpen())
@@ -122,7 +121,6 @@ void Game::gameLoop()
             this->window->draw(axe.item_sprite());
         }
 
-
         if (inv.statut_gas == 0)
         {
             if (gas.interaction(this->window, player.GetPosition().x, player.GetPosition().y))
@@ -140,17 +138,16 @@ void Game::gameLoop()
             this->window->draw(gas.item_sprite());
         }
 
-
-
-
         if (inv.statut >= 1)
         {
            inv.affichage(this->window);
            inv.select(this->event);
         }
+
         enemy.MoveUpdate();
+        playerHud.affichage(this->window,inv);
         player.Collision();
-        player.Draw(window);
+        player.Draw(this->window);
 
         this->window->draw(enemy.SpriteEntitiesLoader());
         this->window->display();

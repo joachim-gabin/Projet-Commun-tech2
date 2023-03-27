@@ -5,7 +5,9 @@ inventaire::inventaire()
 {
 	this->x = SIZE_TILE * 2;
 	this->y = WINDOW_HEIGHT - SIZE_TILE * 4;
+	this->currentChoose = 0;
 	this->current_item = 0;
+
 
 	if (!this->hud_texture.loadFromFile("texture/inventaire_hud.png"))
 	{
@@ -50,7 +52,7 @@ void inventaire::affichage(sf::RenderWindow* window)
 		switch (this->inv[l])
 		{
 		case 1:
-			if (!this->obj_texture.loadFromFile("texture/poing1.png"))
+			if (!this->obj_texture.loadFromFile("texture/items/poing1.png"))
 			{
 				std::cout << "erreur d'image" << std::endl;
 				break;
@@ -61,7 +63,7 @@ void inventaire::affichage(sf::RenderWindow* window)
 			break;
 
 		case 2:
-			if (!this->obj_texture.loadFromFile("texture/conserve.png"))
+			if (!this->obj_texture.loadFromFile("texture/items/conserve.png"))
 			{
 				std::cout << "erreur d'image" << std::endl;
 				break;
@@ -74,7 +76,7 @@ void inventaire::affichage(sf::RenderWindow* window)
 			break;
 
 		case 3:
-			if (!this->obj_texture.loadFromFile("texture/knife2.png"))
+			if (!this->obj_texture.loadFromFile("texture/items/knife2.png"))
 			{
 				std::cout << "erreur d'image" << std::endl;
 				break;
@@ -87,7 +89,7 @@ void inventaire::affichage(sf::RenderWindow* window)
 			break;
 
 		case 4:
-			if (!this->obj_texture.loadFromFile("texture/axe.png"))
+			if (!this->obj_texture.loadFromFile("texture/items/axe.png"))
 			{
 				std::cout << "erreur d'image" << std::endl;
 				break;
@@ -100,7 +102,7 @@ void inventaire::affichage(sf::RenderWindow* window)
 			break;
 
 		case 5:
-			if (!this->obj_texture.loadFromFile("texture/gas_masque.png"))
+			if (!this->obj_texture.loadFromFile("texture/items/gas_masque.png"))
 			{
 				std::cout << "erreur d'image" << std::endl;
 				break;
@@ -121,39 +123,40 @@ void inventaire::select(sf::Event event)
 {
 	if (event.key.code == sf::Keyboard::Num1)
 	{
-		this->current_item = 0;
+		this->currentChoose = 0;
 	}
 	if (event.key.code == sf::Keyboard::Num2)
 	{
-		this->current_item = 1;
+		this->currentChoose = 1;
 	}
 	if (event.key.code == sf::Keyboard::Num3)
 	{
-		this->current_item = 2;
+		this->currentChoose = 2;
 	}
 	if (event.key.code == sf::Keyboard::Num4)
 	{
-		this->current_item = 3;
+		this->currentChoose = 3;
 	}
 	if (event.key.code == sf::Keyboard::Num5)
 	{
-		this->current_item = 4;
+		this->currentChoose = 4;
 	}
 	if (event.key.code == sf::Keyboard::Num6)
 	{
-		this->current_item = 5;
+		this->currentChoose = 5;
 	}
 	if (event.key.code == sf::Keyboard::Num7)
 	{
-		this->current_item = 6;
+		this->currentChoose = 6;
 	}
 	if (event.key.code == sf::Keyboard::Num8)
 	{
-		this->current_item = 7;
+		this->currentChoose = 7;
 	}
 	if (event.key.code == sf::Keyboard::Num9)
 	{
-		this->current_item = 8;
+		this->currentChoose = 8;
 	}
-	std::cout << "item selectionné : " << this->current_item << std::endl;
+	std::cout << "item selectionné : " << this->currentChoose << std::endl;
+	this->current_item = this->inv[this->currentChoose];
 }

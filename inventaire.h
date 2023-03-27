@@ -17,6 +17,8 @@ public:
 	int statut_knife = 0;
 	int statut_axe = 0;
 	int statut_gas = 0;
+	int currentChoose;
+	int current_item;
 
 private:
 
@@ -26,7 +28,7 @@ private:
 	sf::Sprite obj_sprite;
 	sf::Texture obj_texture;
 
-	int current_item;
+
 	int x;
 	int y;
 };

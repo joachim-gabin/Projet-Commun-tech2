@@ -149,6 +149,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="inventaire.cpp" />
     <ClCompile Include="item.cpp" />
+    <ClCompile Include="JsonToCpp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapEditor.cpp" />
     <ClCompile Include="Player.cpp" />

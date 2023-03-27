@@ -1,8 +1,6 @@
 #include "Enemy.h"
 #include "Player.h"
 
-
-
 Enemy::Enemy(int ValueEntities)
 {
 	Value = ValueEntities;
@@ -13,18 +11,7 @@ void Enemy::ListEnemy()
 {
 	switch (Value) {
 	case 1:
-		NameEntities = "zombie";
-		Format = "png";
-		Hp = 10;
-		Damage = 10;
-		Speed = 10;
-		PosX = 200;
-		PosY = 200;
-		SizeX = 0.15f;
-		SizeY = 0.15f;
-		TextureEntitiesLoader();
-		SpriteLoaderSettings();
-		//GetPositionEntities();
+		Generation();
 		break;
 	}
 }
@@ -44,3 +31,42 @@ void Enemy::ListEnemy()
 //		body.setPosition(body.getPosition().x, 0.f);
 //	};
 //}
+
+void Enemy::Generation() {
+	NameEntities = "zombie";
+	Format = "png";
+	HpEntities = 10;
+	DamageEntities = 10;
+	SpeedEntities = 10;
+	PosXEntities = 200;
+	PosYEntities = 200;
+	SizeXEntities = 0.15f;
+	SizeYEntities = 0.15f;
+	TextureEntitiesLoader();
+	SpriteLoaderSettings();
+	//GetPositionEntities();
+
+}
+
+void Enemy::ReadCsv()
+{
+	fstream File;
+
+	string Line;
+
+
+	//File.open("EnemyOnCsv.csv", ios::in);
+
+	//if (File.good()) {
+	//	//ID = ", ";
+	//	NameEntities = "zombie";
+	//	Format = "png";
+	//	HpEntities = 10;
+	//	DamageEntities = 10;
+	//	SpeedEntities = 10;
+	//	PosXEntities = 200;
+	//	PosYEntities = 200;
+	//	SizeXEntities = 0.15f;
+	//	SizeYEntities = 0.15f;
+	//}
+}

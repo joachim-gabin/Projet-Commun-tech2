@@ -151,6 +151,7 @@
     <ClCompile Include="inventaire.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MapEditor.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playground.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Hud.h" />
     <ClInclude Include="inventaire.h" />
     <ClInclude Include="item.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MapEditor.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="playground.h" />

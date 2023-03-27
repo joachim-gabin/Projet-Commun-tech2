@@ -50,20 +50,34 @@ void inventaire::affichage(sf::RenderWindow* window)
 		switch (this->inv[l])
 		{
 		case 1:
-			if (!this->obj_texture.loadFromFile("texture/axe.png"))
+			if (!this->obj_texture.loadFromFile("texture/poing1.png"))
 			{
 				std::cout << "erreur d'image" << std::endl;
+				break;
 			}
 			this->obj_sprite.setPosition(l * 50 + 92, this->y + SIZE_TILE- 8);
 			this->obj_sprite.setTexture(this->obj_texture);
 			window->draw(this->obj_sprite);
-
 			break;
 
 		case 2:
+			if (!this->obj_texture.loadFromFile("texture/conserve.png"))
+			{
+				std::cout << "erreur d'image" << std::endl;
+				break;
+			}
+			this->obj_sprite.setPosition(l * 50 + 88, this->y + SIZE_TILE - 15);
+			this->obj_sprite.setTexture(this->obj_texture);
+			this->obj_sprite.setScale(1.2f, 1.2f);
+			window->draw(this->obj_sprite);
+			this->obj_sprite.setScale(1.0f, 1.0f);
+			break;
+
+		case 3:
 			if (!this->obj_texture.loadFromFile("texture/knife2.png"))
 			{
 				std::cout << "erreur d'image" << std::endl;
+				break;
 			}
 			this->obj_sprite.setPosition(l * 50 + 85, this->y + SIZE_TILE - 17);
 			this->obj_sprite.setTexture(this->obj_texture);
@@ -71,12 +85,27 @@ void inventaire::affichage(sf::RenderWindow* window)
 			window->draw(this->obj_sprite);
 			this->obj_sprite.setScale(1.0f, 1.0f);
 			break;
-		case 3:
-			if (!this->obj_texture.loadFromFile("texture/conserve.png"))
+
+		case 4:
+			if (!this->obj_texture.loadFromFile("texture/axe.png"))
 			{
 				std::cout << "erreur d'image" << std::endl;
+				break;
 			}
-			this->obj_sprite.setPosition(l * 50 + 88, this->y + SIZE_TILE - 15);
+			this->obj_sprite.setPosition(l * 50 + 90, this->y + SIZE_TILE - 15);
+			this->obj_sprite.setTexture(this->obj_texture);
+			this->obj_sprite.setScale(1.2f, 1.2f);
+			window->draw(this->obj_sprite);
+			this->obj_sprite.setScale(1.0f, 1.0f);
+			break;
+
+		case 5:
+			if (!this->obj_texture.loadFromFile("texture/gas_masque.png"))
+			{
+				std::cout << "erreur d'image" << std::endl;
+				break;
+			}
+			this->obj_sprite.setPosition(l * 50 + 90, this->y + SIZE_TILE - 15);
 			this->obj_sprite.setTexture(this->obj_texture);
 			this->obj_sprite.setScale(1.2f, 1.2f);
 			window->draw(this->obj_sprite);

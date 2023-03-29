@@ -1,0 +1,25 @@
+{
+
+  "1": {
+    "Name": "Zombie",
+    "Format": "png",
+    "HP": 10,
+    "Damage": 10,
+    "Speed": 10,
+    "PosX": 200,
+    "PosY": 200,
+    "SizeX": 0.15,
+    "SizeY": 0.15
+  },
+  "2": {
+    "Name": "car",
+    "Format": "png",
+    "HP": 10,
+    "Damage": 10,
+    "Speed": 10,
+    "PosX": 200,
+    "PosY": 200,
+    "SizeX": 0.15,
+    "SizeY": 0.15
+  }
+}

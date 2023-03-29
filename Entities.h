@@ -4,6 +4,9 @@ class Entities {
 public :
 	int ID, HpEntities, DamageEntities, ArmorEntities, SpeedEntities, PosXEntities, PosYEntities;
 	float SizeXEntities, SizeYEntities;
+
+	Json::Int IDJson;
+
 	string NameEntities, Format, NameTexture, CategoryEntities;
 	sf::Sprite SpriteEntitiesLoader();
 	sf::Texture TextureEntitiesLoader();

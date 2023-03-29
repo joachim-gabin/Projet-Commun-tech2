@@ -39,7 +39,7 @@ void Game::gameLoop()
 
     float deltaTime = 0.f;
     playerTexture.loadFromFile("texture/Survivant11.png");
-    Player player(&playerTexture, sf::Vector2u(2, 4), 0.2f, 2000.f);
+    Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 2000.f, 20,5);
 
 
     Enemy enemy(1);
@@ -149,6 +149,7 @@ void Game::gameLoop()
         playerHud.affichage(this->window,inv);
         player.Collision();
         player.Draw(this->window);
+        player.Sprint(2000.f);
 
         this->window->draw(enemy.SpriteEntitiesLoader());
         this->window->display();

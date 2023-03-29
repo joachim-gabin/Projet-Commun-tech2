@@ -1,8 +1,10 @@
 #include "Player.h"
 
-Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed) :
+Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, int health, int armor) :
         animatedentity(texture, imageCount, switchTime)
 {
+	this->health = health;
+	this->armor = armor;
 	this->speed = speed;
     row = 0;
     faceRight = true;
@@ -52,7 +54,6 @@ void Player::Move(float deltaTime)
 
 		std::cout << GetPosition().x << std::endl;
 		std::cout << GetPosition().y << std::endl;
-		std::cout << body.getGlobalBounds().width << std::endl;
 		std::cout << speed << std::endl;
 		body.setTextureRect(animatedentity.uvRect);
 		body.move(velocity);
@@ -80,6 +81,31 @@ void Player::Collision()
 	{
 		body.setPosition(GetPosition().x, WINDOW_HEIGHT - body.getGlobalBounds().height);
 	}*/
+}
+
+void Player::Shooting()
+{
+
+}
+
+void Player::HpSys()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
+	{
+		this->health -= 1;
+	}
+}
+
+void Player::Sprint(float speed)
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+	{
+		this->speed = 3000.f;
+	}
+	else
+	{
+		this->speed = speed;
+	}
 }
 
 void Player::Draw(sf::RenderTarget* target)

@@ -157,6 +157,6 @@ void inventaire::select(sf::Event event)
 	{
 		this->currentChoose = 8;
 	}
-	std::cout << "item selectionné : " << this->currentChoose << std::endl;
+	std::cout << "item selectionnE: " << this->currentChoose << std::endl;
 	this->current_item = this->inv[this->currentChoose];
 }

@@ -8,6 +8,7 @@ public:
 	MapEditor();
 	~MapEditor();
 	void Init();
+	int GetArrayLenght(sf::Texture tab[]);
 	void Loop();
 	void Save();
 

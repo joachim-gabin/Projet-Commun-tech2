@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 #include <iostream>
 #include <string>
 #include <list>
@@ -11,7 +12,6 @@
 #include <SFML/System.hpp>
 
 //incluce json part
-#include <windows.data.json.h>
 #include "include/json/json.h"
 
 #define WINDOW_WIDTH 640

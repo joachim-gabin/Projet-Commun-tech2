@@ -6,7 +6,7 @@ item::item(std::string texture, int i, int j, int num)
 	this->y = j * SIZE_TILE;
 	this->num_obj = num;
 
-	if (!this->texture.loadFromFile("texture/"+texture))
+	if (!this->texture.loadFromFile("texture/items/"+texture))
 	{
 		std::cout << "erreur d'image" << std::endl;
 	}

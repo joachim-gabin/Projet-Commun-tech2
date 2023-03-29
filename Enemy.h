@@ -1,10 +1,18 @@
 #include "Entities.h"
+#include <windows.data.json.h>
 
 class Enemy : public Entities {
 public:
-	int Value;
+	
 
 	Enemy(int ValueEntities);
-	 void ListEnemy();
+private:
+	int Value;
+	string IDString, HPString, DamageString, SpeedString, PosXString, PosYString, SizeXString, SizeYString;
+
+	void ListEnemy();
+	void Generation();
+	void ReadCsv();
+
 	// void Collision();
 };

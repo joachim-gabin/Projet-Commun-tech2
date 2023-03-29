@@ -2,11 +2,9 @@
 
 class Entities {
 public :
-	int Hp, Damage, Armor, Speed, PosX, PosY;
-	float SizeX, SizeY;
-	string NameEntities;
-	string Format;
-	string NameTexture;
+	int ID, HpEntities, DamageEntities, ArmorEntities, SpeedEntities, PosXEntities, PosYEntities;
+	float SizeXEntities, SizeYEntities;
+	string NameEntities, Format, NameTexture, CategoryEntities;
 	sf::Sprite SpriteEntitiesLoader();
 	sf::Texture TextureEntitiesLoader();
 	void SpriteLoaderSettings();

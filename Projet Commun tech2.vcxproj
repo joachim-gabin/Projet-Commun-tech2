@@ -147,9 +147,11 @@
     <ClCompile Include="AnimatedEntity.cpp" />
     <ClCompile Include="Entities.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Hud.cpp" />
     <ClCompile Include="inventaire.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MapEditor.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playground.cpp" />
@@ -160,11 +162,16 @@
     <ClInclude Include="Entities.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="General.h" />
+    <ClInclude Include="Hud.h" />
     <ClInclude Include="inventaire.h" />
     <ClInclude Include="item.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MapEditor.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="playground.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EnemyOnCsv.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

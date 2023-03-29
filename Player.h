@@ -5,13 +5,18 @@
 class Player
 {
 public:
-	Player(sf::Texture* texture, sf::Vector2u ImageCount, float switchTime, float speed);
+	Player(sf::Texture* texture, sf::Vector2u ImageCount, float switchTime, float speed, int hp, int armor);
 	~Player();
 
 	void Move(float deltaTime);
 	void Draw(sf::RenderTarget* target);
 	void Collision();
+	void Shooting();
+	void HpSys();
+	void Sprint(float speed);
 	int x, y;
+	int health;
+	int armor;
 
 	sf::Vector2f GetPosition() { return body.getPosition(); }
 	sf::FloatRect oldPos;

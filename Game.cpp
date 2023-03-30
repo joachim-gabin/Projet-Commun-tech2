@@ -126,9 +126,11 @@ void Game::gameLoop()
         nbItems++;
     }
     // ===================================================================================================================================================================================
+    
     Enemy enemy("Zombie", 2);
     while (this->window->isOpen())
     {
+        deltaTime = clock.restart().asSeconds();
         this->window->clear();
 
         while (this->window->pollEvent(this->event))

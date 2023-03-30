@@ -8,6 +8,8 @@
 #include "Enemy.h"
 #include "MainMenu.h"
 
+using recursive_directory_iterator = std::filesystem::recursive_directory_iterator;
+
 Game::Game()
 {
     this->initVariables();
@@ -25,6 +27,48 @@ void Game::initVariables()
 void Game::gameInit()
 {
     this->window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Last Man");
+
+    //Lis le fichier map.txt
+    fstream newfile;
+    newfile.open("map.txt", ios::in);
+    if (newfile.is_open())
+    {
+        string tp;
+        int x = 0;
+        while (getline(newfile, tp))
+        {
+            int y = 0;
+            for (char& c : tp)
+            {
+                map[x][y] = (int)c - 48;
+                y += 1;
+            }
+            x += 1;
+
+        }
+        newfile.close();
+    }
+
+
+    //Lis le fichier items.txt
+    newfile.open("items.txt", ios::in);
+    if (newfile.is_open())
+    {
+        string tp;
+        int x = 0;
+        while (getline(newfile, tp))
+        {
+            int y = 0;
+            for (char& c : tp)
+            {
+                items[x][y] = (int)c - 48;
+                y += 1;
+            }
+            x += 1;
+
+        }
+        newfile.close();
+    }
 }
 void Game::gameLoop()
 {
@@ -40,6 +84,46 @@ void Game::gameLoop()
     float deltaTime = 0.f;
     playerTexture.loadFromFile("texture/Survivant11.png");
     Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 2000.f, 20,5);
+
+
+    //Initialise les array de texture et de sprite des tiles
+    sf::Sprite sprites[2][100];
+    sf::Texture textures[2][100];
+
+
+    //Load les textures et les sprites du dossier tiles
+    int nbTiles = 0;
+    for (const auto& dirEntry : recursive_directory_iterator("texture/tiles/"))
+    {
+        std::cout << dirEntry.path().string() << std::endl;
+        sf::Texture texture;
+        textures[0][nbTiles] = texture;
+        if (!textures[0][nbTiles].loadFromFile(dirEntry.path().string()))
+        {
+            std::cout << "erreur d'image" << std::endl;
+        }
+        sf::Sprite sprite;
+        sprites[0][nbTiles] = sprite;
+        sprites[0][nbTiles].setTexture(textures[0][nbTiles]);
+        nbTiles++;
+    }
+
+
+    //Load les textures et les sprites du dossier items
+    int nbItems = 0;
+    for (const auto& dirEntry : recursive_directory_iterator("texture/items/"))
+    {
+        sf::Texture texture;
+        textures[1][nbItems] = texture;
+        if (!textures[1][nbItems].loadFromFile(dirEntry.path().string()))
+        {
+            std::cout << "erreur d'image" << std::endl;
+        }
+        sf::Sprite sprite;
+        sprites[1][nbItems] = sprite;
+        sprites[1][nbItems].setTexture(textures[1][nbItems]);
+        nbItems++;
+    }
 
 
     Enemy enemy(1);
@@ -143,6 +227,18 @@ void Game::gameLoop()
         {
            inv.affichage(this->window);
            inv.select(this->event);
+        }
+
+        //Dessine la map
+        for (int r = 0; r < WINDOW_HEIGHT / 32; r++)
+        {
+            for (int n = 0; n < WINDOW_WIDTH / 32; n++)
+            {
+                sprites[0][map[r][n]].setPosition(n * 32, r * 32);
+                this->window->draw(sprites[0][map[r][n]]);
+                sprites[1][items[r][n]].setPosition(n * 32, r * 32);
+                this->window->draw(sprites[1][items[r][n]]);
+            }
         }
 
         enemy.MoveUpdate();

@@ -12,7 +12,8 @@
 #include <SFML/System.hpp>
 
 //incluce json part
-#include "include/json/json.h"
+//#include "include/json/json.h"
+#include "json.h"
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 640

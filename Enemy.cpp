@@ -6,6 +6,7 @@ Enemy::Enemy(int ValueEntities)
 	ID = ValueEntities;
 	//ListEnemy();
 	Generation();
+	//ReadJson();
 }
 
 void Enemy::ListEnemy()
@@ -35,16 +36,8 @@ void Enemy::ListEnemy()
 
 void Enemy::Generation() {
 
-	ReadCsv();
-	//NameEntities = "zombie";
-	//Format = "png";
-	//HpEntities = 10;
-	//DamageEntities = 10;
-	//SpeedEntities = 10;
-	//PosXEntities = 200;
-	//PosYEntities = 200;
-	//SizeXEntities = 0.15f;
-	//SizeYEntities = 0.15f;
+	ReadJson();
+	
 	TextureEntitiesLoader();
 	SpriteLoaderSettings();
 	//GetPositionEntities();
@@ -86,4 +79,30 @@ void Enemy::ReadCsv()
 
 	}
 	File.close();
+}
+
+void Enemy::ReadJson()
+{
+	ifstream file("EnemyOnJson.json");
+
+	Json::Value actualValue;
+	Json::Reader reader;
+
+	reader.parse(file, actualValue);
+
+	IDString = to_string(ID);
+	NameEntities = actualValue[IDString]["Name"].asString();
+	Format = actualValue[IDString]["Format"].asString();
+	HpEntities = actualValue[IDString]["HP"].asInt();
+	DamageEntities = actualValue[IDString]["Damage"].asInt();
+	SpeedEntities = actualValue[IDString]["Speed"].asInt();
+	PosXEntities = actualValue[IDString]["PosX"].asInt();
+	PosYEntities = actualValue[IDString]["PosY"].asInt();
+	SizeXEntities = actualValue[IDString]["SizeX"].asFloat();
+	SizeYEntities = actualValue[IDString]["SizeY"].asFloat();
+
+	
+
+	//cout << NameEntities;
+
 }

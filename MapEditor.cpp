@@ -101,43 +101,42 @@ void MapEditor::Loop()
 
 
     //Initialise les array de texture et de sprite des tiles
-    sf::Sprite sprites[2][5];
-    sf::Texture textures[2][5];
+    sf::Sprite sprites[2][100];
+    sf::Texture textures[2][100];
 
 
     //Load les textures et les sprites du dossier tiles
-    int i = 0;
+    int nbTiles = 0;
     for (const auto& dirEntry : recursive_directory_iterator("texture/tiles/")) 
     {
         std::cout << dirEntry.path().string() << std::endl;
         sf::Texture texture;
-        textures[0][i] = texture;
-        if (!textures[0][i].loadFromFile(dirEntry.path().string()))
+        textures[0][nbTiles] = texture;
+        if (!textures[0][nbTiles].loadFromFile(dirEntry.path().string()))
         {
             std::cout << "erreur d'image" << std::endl;
         }
         sf::Sprite sprite;
-        sprites[0][i] = sprite;
-        sprites[0][i].setTexture(textures[0][i]);
-        i++;
+        sprites[0][nbTiles] = sprite;
+        sprites[0][nbTiles].setTexture(textures[0][nbTiles]);
+        nbTiles++;
     }
 
 
     //Load les textures et les sprites du dossier items
-    i = 0;
+    int nbItems = 0;
     for (const auto& dirEntry : recursive_directory_iterator("texture/items/"))
     {
-        std::cout << dirEntry.path().string() << std::endl;
         sf::Texture texture;
-        textures[1][i] = texture;
-        if (!textures[1][i].loadFromFile(dirEntry.path().string()))
+        textures[1][nbItems] = texture;
+        if (!textures[1][nbItems].loadFromFile(dirEntry.path().string()))
         {
             std::cout << "erreur d'image" << std::endl;
         }
         sf::Sprite sprite;
-        sprites[1][i] = sprite;
-        sprites[1][i].setTexture(textures[1][i]);
-        i++;
+        sprites[1][nbItems] = sprite;
+        sprites[1][nbItems].setTexture(textures[1][nbItems]);
+        nbItems++;
     }
 
     while (this->window->isOpen())
@@ -206,7 +205,6 @@ void MapEditor::Loop()
                             if (localPosition2.x > 160 && localPosition2.x < WINDOW_WIDTH + 160 && localPosition2.y > 0 && localPosition2.y < WINDOW_HEIGHT)
                             {
                                 this->actualTexture = (((localPosition2.y - (localPosition2.y % 128)) / 128) * 5) + ((localPosition2.x - 160) - (localPosition2.x - 160) % 128) / 128;
-                                cout << this->actualTexture;
                                 inMenu = 0;
                             }
                         }
@@ -219,9 +217,17 @@ void MapEditor::Loop()
 
                     window->draw(text);
 
-                    for (int i = 0; i < 3; i++) {
-                        sprites[typeOfSprite][i].setPosition(128 * ((i % 4) + 1) - 64 - 16 + 160, 128 * ((i - (i % 4)) / 4 + 1) - 64 - 16);
-                        this->window->draw(sprites[typeOfSprite][i]);
+                    int i;
+                    if (typeOfSprite == 0)
+                        i = nbTiles;
+                    else if (typeOfSprite == 1)
+                        i = nbItems;
+                    
+                    for (int j = 0; j <= i; j++) {
+                        if (textures[typeOfSprite][j].getSize().x != 32 || textures[typeOfSprite][j].getSize().y != 32)
+                            sprites[typeOfSprite][j].setScale(32 / textures[typeOfSprite][j].getSize().x, 32 / textures[typeOfSprite][j].getSize().y);
+                        sprites[typeOfSprite][j].setPosition(128 * ((j % 5) + 1) - 64 - 16 + 160, 128 * ((j - (j % 5)) / 5 + 1) - 64 - 16);
+                        this->window->draw(sprites[typeOfSprite][j]);
                     }
 
                     this->window->display();

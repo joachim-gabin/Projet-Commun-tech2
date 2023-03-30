@@ -4,7 +4,7 @@ class Enemy : public Entities {
 public:
 	
 
-	Enemy(int ValueEntities, string Category);
+	Enemy(string Category, int ValueEntities);
 private:
 	int Value;
 	string IDString;

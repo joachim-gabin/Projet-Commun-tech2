@@ -2,7 +2,7 @@
   "Zombie": {
     "1": {
       "Name": "Zombie",
-      "NameTexture" :  "Zombie",
+      "NameTexture" : "Zombie",
       "Format": "png",
       "HP": 10,
       "Damage": 10,

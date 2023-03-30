@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include "Player.h"
 
-Enemy::Enemy(int ValueEntities, string Category)
+Enemy::Enemy(string Category, int ValueEntities)
 {
 	ID = ValueEntities;
 	CategoryEntities = Category;

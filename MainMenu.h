@@ -1,7 +1,4 @@
-#pragma once
-
-#include <iostream>
-#include <SFML/Graphics.hpp>
+#include "General.h"
 using namespace sf;
 
 #define Max_main_menu 3

@@ -6,13 +6,13 @@
 #include <fstream>
 #include <sstream>
 #include <filesystem>
+#include <cmath>
 //#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 
 //incluce json part
-//#include "include/json/json.h"
 #include "json.h"
 
 #define WINDOW_WIDTH 640

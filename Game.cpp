@@ -127,7 +127,8 @@ void Game::gameLoop()
     }
     // ===================================================================================================================================================================================
     
-    Enemy enemy("Zombie", 2);
+    Enemy enemy("Zombie", 1);
+    Enemy enemy2("Zombie", 2);
     while (this->window->isOpen())
     {
         deltaTime = clock.restart().asSeconds();
@@ -249,6 +250,7 @@ void Game::gameLoop()
         player.Sprint(2000.f);
 
         this->window->draw(enemy.SpriteEntitiesLoader());
+        this->window->draw(enemy2.SpriteEntitiesLoader());
         this->window->display();
 
     }

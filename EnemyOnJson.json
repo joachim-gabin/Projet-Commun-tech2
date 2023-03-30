@@ -19,8 +19,8 @@
       "HP": 40,
       "Damage": 10,
       "Speed": 10,
-      "PosX": 200,
-      "PosY": 200,
+      "PosX": 300,
+      "PosY": 220,
       "SizeX": 0.15,
       "SizeY": 0.15
     }

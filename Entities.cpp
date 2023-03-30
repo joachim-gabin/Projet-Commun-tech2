@@ -4,7 +4,7 @@ sf::Sprite Entities::SpriteEntitiesLoader()
 {
 	return this->NameSpriteEntities;
 }
-
+// load the texture of the entitie 
 sf::Texture Entities::TextureEntitiesLoader()
 {
 	NameTexture = NameTextureOnFile + "." + Format;
@@ -16,7 +16,7 @@ sf::Texture Entities::TextureEntitiesLoader()
 
 	return this->NameTextureEntities;
 }
-
+// set the entire of what the entitie need
 void Entities::SpriteLoaderSettings()
 {
 	NameSpriteEntities.setTexture(NameTextureEntities);

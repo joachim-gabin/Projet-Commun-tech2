@@ -3,8 +3,8 @@
 
 Enemy::Enemy(string Category, int ValueEntities)
 {
-	ID = ValueEntities;
 	CategoryEntities = Category;
+	ID = ValueEntities;
 	Generation();
 }
 
@@ -17,23 +17,48 @@ Enemy::Enemy(string Category, int ValueEntities)
 //	{
 //		body.setPosition(0.f, body.getPosition().y);
 //
-//	};
+//	}
 //
 //	if (GetPosition().y < 0.f)
 //	{
 //		body.setPosition(body.getPosition().x, 0.f);
-//	};
+//	}
 //}
 
 void Enemy::Generation() {
-
 	ReadJson();
-
 	TextureEntitiesLoader();
 	SpriteLoaderSettings();
+	CollisionEntities();
 	//GetPositionEntities();
-
 }
+
+// read json and Entities value for each entities when you call him in game.cpp
+void Enemy::ReadJson()
+{
+	ifstream file("EnemyOnJson.json");
+
+	Json::Value actualValue;
+	Json::Reader reader;
+
+	reader.parse(file, actualValue);
+
+	IDString = to_string(ID);
+
+	NameEntities = actualValue[CategoryEntities][IDString]["Name"].asString();
+	NameTextureOnFile = actualValue[CategoryEntities][IDString]["NameTexture"].asString();
+	Format = actualValue[CategoryEntities][IDString]["Format"].asString();
+	HpEntities = actualValue[CategoryEntities][IDString]["HP"].asInt();
+	DamageEntities = actualValue[CategoryEntities][IDString]["Damage"].asInt();
+	SpeedEntities = actualValue[CategoryEntities][IDString]["Speed"].asInt();
+	PosXEntities = actualValue[CategoryEntities][IDString]["PosX"].asInt();
+	PosYEntities = actualValue[CategoryEntities][IDString]["PosY"].asInt();
+	SizeXEntities = actualValue[CategoryEntities][IDString]["SizeX"].asFloat();
+	SizeYEntities = actualValue[CategoryEntities][IDString]["SizeY"].asFloat();
+
+	//cout << NameEntities;
+}
+
 
 //void Enemy::ReadCsv()
 //{
@@ -71,31 +96,3 @@ void Enemy::Generation() {
 //	}
 //	File.close();
 //}
-
-void Enemy::ReadJson()
-{
-	ifstream file("EnemyOnJson.json");
-
-	Json::Value actualValue;
-	Json::Reader reader;
-
-	reader.parse(file, actualValue);
-
-	IDString = to_string(ID);
-
-	NameEntities = actualValue[CategoryEntities][IDString]["Name"].asString();
-	NameTextureOnFile = actualValue[CategoryEntities][IDString]["NameTexture"].asString();
-	Format = actualValue[CategoryEntities][IDString]["Format"].asString();
-	HpEntities = actualValue[CategoryEntities][IDString]["HP"].asInt();
-	DamageEntities = actualValue[CategoryEntities][IDString]["Damage"].asInt();
-	SpeedEntities = actualValue[CategoryEntities][IDString]["Speed"].asInt();
-	PosXEntities = actualValue[CategoryEntities][IDString]["PosX"].asInt();
-	PosYEntities = actualValue[CategoryEntities][IDString]["PosY"].asInt();
-	SizeXEntities = actualValue[CategoryEntities][IDString]["SizeX"].asFloat();
-	SizeYEntities = actualValue[CategoryEntities][IDString]["SizeY"].asFloat();
-
-
-
-	cout << NameEntities;
-
-}

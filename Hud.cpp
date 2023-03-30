@@ -24,6 +24,7 @@ hud::~hud()
 
 void hud::affichage(sf::RenderWindow* window, inventaire inv)
 {
+	this->nbrLife = inv.current_life;			//Combient de vie possède actuellement le joueur
 	if (this->nbrLife >= 1)
 	{
 		this->heart1.setPosition(0,0);

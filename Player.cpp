@@ -8,6 +8,7 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
 	this->speed = speed;
     row = 0;
     faceRight = true;
+	immuneToGas = false;
 
     body.setSize(sf::Vector2f(SIZE_TILE, SIZE_TILE));
     body.setOrigin(body.getSize() / 2.f);
@@ -59,6 +60,46 @@ void Player::Move(float deltaTime)
 		body.move(velocity);
 	}
 }
+
+void Player::UseItem(inventaire inv)
+{
+	int currentItem = inv.current_item;
+
+	switch (currentItem)
+	{
+	case 1:			//Attaque aux poings
+		break;
+
+	case 2:			//Utilise Conserve pour vie+1
+		if (inv.current_life < 3)
+		{
+			inv.addLife(1);
+			std::cout << "Vous avez utilisé une conserve, elle était délicieuse" << std::endl;
+		}
+		else
+		{
+			std::cout << "Vous possedez deja toute votre sante" << std::endl;
+		}
+		break;
+
+	case 3:			//Attaque au couteau
+		break;
+
+	case 4:			//Attaque à la hache
+		break;
+	}
+
+	if (currentItem == 5)		//Utilise masque a gaz
+	{
+		immuneToGas = true;
+		std::cout << "Vous enfilez le masque a gaz" << std::endl;
+	}
+}
+
+
+
+
+
 
 void Player::Collision()
 {

@@ -11,6 +11,8 @@ public:
 	void selection();
 	void affichage(sf::RenderWindow* window);
 	void select(sf::Event event);
+	void addLife(int n);
+	void removeLife(int n);
 
 	int inv[9] = { 1, 2, 0, 0, 0, 0, 0, 0, 0 };
 	int statut = 0;
@@ -19,6 +21,7 @@ public:
 	int statut_gas = 0;
 	int currentChoose;
 	int current_item;
+	int current_life;
 
 private:
 

@@ -3,6 +3,7 @@
 class Enemy : public Entities {
 public:
 	Enemy(string Category, int ValueEntities);
+	sf::Vector2f GetPosition() { return BodyEntities.getPosition(); }
 private:
 	int Value;
 	string IDString;
@@ -10,6 +11,6 @@ private:
 	void Generation();
 	//void ReadCsv();
 	void ReadJson();
-	// void Collision();
 
+	
 };

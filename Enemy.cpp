@@ -8,28 +8,10 @@ Enemy::Enemy(string Category, int ValueEntities)
 	Generation();
 }
 
-
-//void Enemy::Collision() {
-//
-//	//Collision enemy
-//
-//	if (enemy.GetPositionEntities().x <= player.GetPosition().x)
-//	{
-//		body.setPosition(0.f, body.getPosition().y);
-//
-//	}
-//
-//	if (GetPosition().y < 0.f)
-//	{
-//		body.setPosition(body.getPosition().x, 0.f);
-//	}
-//}
-
 void Enemy::Generation() {
 	ReadJson();
 	TextureEntitiesLoader();
 	SpriteLoaderSettings();
-	CollisionEntities();
 	//GetPositionEntities();
 }
 

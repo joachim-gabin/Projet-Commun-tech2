@@ -248,7 +248,16 @@ void Game::gameLoop()
            inv.select(this->event);
         }
 
+        //collision test between player and enemy
+        if (enemy.GetPosition().x == player.GetPosition().x) {
+            cout << "collision in X";
+        }
+        if (enemy.GetPosition().y == player.GetPosition().y) {
+            cout << "collision in Y";
+        }
+
         enemy.MoveUpdate();
+        enemy.CollisionEntitiesWithMap(map);
         playerHud.affichage(this->window,inv);
         player.Collision(map);
         player.Draw(this->window);

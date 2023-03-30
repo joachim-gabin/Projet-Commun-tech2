@@ -10,6 +10,7 @@ public :
 	sf::Texture TextureEntitiesLoader();
 	void SpriteLoaderSettings();
 	void MoveUpdate();
+	void CollisionEntitiesWithMap(int map[20][20]);
 	//sf::Vector2f GetPositionEntities();
 protected :
 	sf::Sprite NameSpriteEntities;

@@ -29,26 +29,26 @@ void Player::Move(float deltaTime)
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
-			velocity.x -= speed * deltaTime;
+			velocity.x -= speed;
 			row = 1;
 			animatedentity.Update(row, deltaTime, faceRight);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			velocity.x += speed * deltaTime;
+			velocity.x += speed;
 			row = 0;
 			animatedentity.Update(row, deltaTime, faceRight);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			velocity.y -= speed * deltaTime;
+			velocity.y -= speed;
 			row = 3;
 			animatedentity.Update(row, deltaTime, faceRight);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			velocity.y += speed * deltaTime;
+			velocity.y += speed;
 			row = 2;
 			animatedentity.Update(row, deltaTime, faceRight);
 		}
@@ -101,27 +101,44 @@ void Player::UseItem(inventaire inv)
 
 
 
-void Player::Collision()
+void Player::Collision(int map[20][20])
 {
+	cout << GetPosition().y << endl;
 	if (GetPosition().x < 0.f)
 	{
 		body.setPosition(0.f, body.getPosition().y);
-	};
+	}
 	
 	if (GetPosition().y < 0.f)
 	{
 		body.setPosition(body.getPosition().x, 0.f);
-	};
-
-	/*if (GetPosition().x + body.getGlobalBounds().width > WINDOW_WIDTH);
-	{
-		body.setPosition(WINDOW_WIDTH - body.getGlobalBounds().width, GetPosition().y);
 	}
 
-	if (GetPosition().y + body.getGlobalBounds().height  > WINDOW_HEIGHT);
+	if (GetPosition().x > WINDOW_WIDTH)
 	{
-		body.setPosition(GetPosition().x, WINDOW_HEIGHT - body.getGlobalBounds().height);
-	}*/
+		body.setPosition(WINDOW_WIDTH, GetPosition().y);
+	}
+
+	if (GetPosition().y > WINDOW_HEIGHT)
+	{
+		body.setPosition(GetPosition().x, WINDOW_HEIGHT);
+	}
+	if (map[((int)GetPosition().y - 10) / 32][(int)GetPosition().x / 32] != 0)
+	{
+		body.setPosition(GetPosition().x, GetPosition().y + 16);
+	}
+	if (map[((int)GetPosition().y + 10) / 32][(int)GetPosition().x / 32] != 0)
+	{
+		body.setPosition(GetPosition().x, GetPosition().y - 16);
+	}
+	if (map[(int)GetPosition().y / 32][((int)GetPosition().x - 10) / 32] != 0)
+	{
+		body.setPosition(GetPosition().x + 16, GetPosition().y);
+	}
+	if (map[(int)GetPosition().y / 32][((int)GetPosition().x + 10) / 32] != 0)
+	{
+		body.setPosition(GetPosition().x - 16, GetPosition().y);
+	}
 }
 
 void Player::Shooting()
@@ -141,7 +158,7 @@ void Player::Sprint(float speed)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 	{
-		this->speed = 3000.f;
+		this->speed = 32.f;
 	}
 	else
 	{

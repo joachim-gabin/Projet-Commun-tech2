@@ -223,7 +223,7 @@ void MapEditor::Loop()
                     else if (typeOfSprite == 1)
                         i = nbItems;
                     
-                    for (int j = 0; j <= i; j++) {
+                    for (int j = 0; j < i; j++) {
                         if (textures[typeOfSprite][j].getSize().x != 32 || textures[typeOfSprite][j].getSize().y != 32)
                             sprites[typeOfSprite][j].setScale(32 / textures[typeOfSprite][j].getSize().x, 32 / textures[typeOfSprite][j].getSize().y);
                         sprites[typeOfSprite][j].setPosition(128 * ((j % 5) + 1) - 64 - 16 + 160, 128 * ((j - (j % 5)) / 5 + 1) - 64 - 16);

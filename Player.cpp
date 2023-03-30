@@ -103,7 +103,6 @@ void Player::UseItem(inventaire inv)
 
 void Player::Collision(int map[20][20])
 {
-	cout << GetPosition().y << endl;
 	if (GetPosition().x < 0.f)
 	{
 		body.setPosition(0.f, body.getPosition().y);

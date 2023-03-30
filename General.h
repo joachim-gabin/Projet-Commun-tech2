@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 #include <iostream>
 #include <string>
 #include <list>

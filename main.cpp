@@ -44,8 +44,8 @@ int main()
                     int x = mainMenu.MainMenuPressed();
                     if (x == 0)
                     {
-                        Game game;
                         window.close();
+                        Game game;
                     }
 
                     if (x == 1)
@@ -89,6 +89,5 @@ int main()
         mainMenu.draw(window);
         window.display();
     }
-	Game game;
 	return 0;
 }

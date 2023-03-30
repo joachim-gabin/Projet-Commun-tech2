@@ -7,6 +7,7 @@
 #include "MapEditor.h"
 #include "Enemy.h"
 #include "MainMenu.h"
+#include <SFML/Graphics.hpp>
 
 using recursive_directory_iterator = std::filesystem::recursive_directory_iterator;
 
@@ -26,7 +27,7 @@ void Game::initVariables()
 }
 void Game::gameInit()
 {
-    this->window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Last Man");
+    this->window = new sf::RenderWindow (sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Last Man");
 
     //Lis le fichier map.txt
     fstream newfile;
@@ -70,6 +71,7 @@ void Game::gameInit()
         newfile.close();
     }
 }
+
 void Game::gameLoop()
 {
     inventaire inv;
@@ -259,4 +261,6 @@ void Game::gameLoop()
         this->window->display();
 
     }
+
+
 }

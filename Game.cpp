@@ -42,7 +42,7 @@ void Game::gameLoop()
     Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 2000.f, 20,5);
 
 
-    Enemy enemy(1);
+    Enemy enemy(1, "Skeleton");
     while (this->window->isOpen())
     {
         deltaTime = clock.restart().asSeconds();

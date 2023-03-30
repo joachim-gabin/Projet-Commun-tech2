@@ -1,25 +1,42 @@
 {
-
-  "1": {
-    "Name": "Zombie",
-    "Format": "png",
-    "HP": 10,
-    "Damage": 10,
-    "Speed": 10,
-    "PosX": 200,
-    "PosY": 200,
-    "SizeX": 0.15,
-    "SizeY": 0.15
+  "Zombie": {
+    "1": {
+      "Name": "Zombie",
+      "NameTexture" :  "Zombie",
+      "Format": "png",
+      "HP": 10,
+      "Damage": 10,
+      "Speed": 10,
+      "PosX": 200,
+      "PosY": 200,
+      "SizeX": 0.15,
+      "SizeY": 0.15
+    },
+    "2": {
+      "Name": "zombie car",
+      "NameTexture": "car",
+      "Format": "png",
+      "HP": 40,
+      "Damage": 10,
+      "Speed": 10,
+      "PosX": 200,
+      "PosY": 200,
+      "SizeX": 0.15,
+      "SizeY": 0.15
+    }
   },
-  "2": {
-    "Name": "car",
-    "Format": "png",
-    "HP": 10,
-    "Damage": 10,
-    "Speed": 10,
-    "PosX": 200,
-    "PosY": 200,
-    "SizeX": 0.15,
-    "SizeY": 0.15
+  "Skeleton": {
+    "1": {
+      "Name": "voiture",
+      "NameTexture": "car",
+      "Format": "png",
+      "HP": 10,
+      "Damage": 10,
+      "Speed": 10,
+      "PosX": 200,
+      "PosY": 200,
+      "SizeX": 0.15,
+      "SizeY": 0.15
+    }
   }
 }

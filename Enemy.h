@@ -4,14 +4,13 @@ class Enemy : public Entities {
 public:
 	
 
-	Enemy(int ValueEntities);
+	Enemy(int ValueEntities, string Category);
 private:
 	int Value;
-	string IDString, HPString, DamageString, SpeedString, PosXString, PosYString, SizeXString, SizeYString;
+	string IDString;
 
-	void ListEnemy();
 	void Generation();
-	void ReadCsv();
+	//void ReadCsv();
 	void ReadJson();
 	// void Collision();
 };

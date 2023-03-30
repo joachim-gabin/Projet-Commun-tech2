@@ -1,22 +1,13 @@
 #include "Enemy.h"
 #include "Player.h"
 
-Enemy::Enemy(int ValueEntities)
+Enemy::Enemy(int ValueEntities, string Category)
 {
 	ID = ValueEntities;
-	//ListEnemy();
+	CategoryEntities = Category;
 	Generation();
-	//ReadJson();
 }
 
-void Enemy::ListEnemy()
-{
-	switch (Value) {
-	case 1:
-		Generation();
-		break;
-	}
-}
 
 //void Enemy::Collision() {
 //
@@ -37,49 +28,49 @@ void Enemy::ListEnemy()
 void Enemy::Generation() {
 
 	ReadJson();
-	
+
 	TextureEntitiesLoader();
 	SpriteLoaderSettings();
 	//GetPositionEntities();
 
 }
 
-void Enemy::ReadCsv()
-{
-	fstream File;
-
-	string Line;
-
-	File.open("EnemyOnCsv.csv", ios::in);
-
-	while (getline(File, Line)) {
-		stringstream ss(Line);
-
-		getline(ss, IDString, ',');
-		getline(ss, NameEntities, ',');
-		getline(ss, Format, ',');
-		getline(ss, HPString, ',');
-		getline(ss, DamageString, ',');
-		getline(ss, SpeedString, ',');
-		getline(ss, PosXString, ',');
-		getline(ss, PosYString, ',');
-		getline(ss, SizeXString, ',');
-		getline(ss, SizeYString, ',');
-
-		ID = stoi(IDString);
-
-		HpEntities = stoi(HPString);
-		DamageEntities = stoi(DamageString);
-		SpeedEntities = stoi(SpeedString);
-
-		PosXEntities = stof(PosXString);
-		PosYEntities = stof(PosYString);
-		SizeXEntities = stof(SizeXString);
-		SizeYEntities = stof(SizeYString);
-
-	}
-	File.close();
-}
+//void Enemy::ReadCsv()
+//{
+//	fstream File;
+//
+//	string Line;
+//
+//	File.open("EnemyOnCsv.csv", ios::in);
+//
+//	while (getline(File, Line)) {
+//		stringstream ss(Line);
+//
+//		getline(ss, IDString, ',');
+//		getline(ss, NameEntities, ',');
+//		getline(ss, Format, ',');
+//		getline(ss, HPString, ',');
+//		getline(ss, DamageString, ',');
+//		getline(ss, SpeedString, ',');
+//		getline(ss, PosXString, ',');
+//		getline(ss, PosYString, ',');
+//		getline(ss, SizeXString, ',');
+//		getline(ss, SizeYString, ',');
+//
+//		ID = stoi(IDString);
+//
+//		HpEntities = stoi(HPString);
+//		DamageEntities = stoi(DamageString);
+//		SpeedEntities = stoi(SpeedString);
+//
+//		PosXEntities = stof(PosXString);
+//		PosYEntities = stof(PosYString);
+//		SizeXEntities = stof(SizeXString);
+//		SizeYEntities = stof(SizeYString);
+//
+//	}
+//	File.close();
+//}
 
 void Enemy::ReadJson()
 {
@@ -91,18 +82,20 @@ void Enemy::ReadJson()
 	reader.parse(file, actualValue);
 
 	IDString = to_string(ID);
-	NameEntities = actualValue[IDString]["Name"].asString();
-	Format = actualValue[IDString]["Format"].asString();
-	HpEntities = actualValue[IDString]["HP"].asInt();
-	DamageEntities = actualValue[IDString]["Damage"].asInt();
-	SpeedEntities = actualValue[IDString]["Speed"].asInt();
-	PosXEntities = actualValue[IDString]["PosX"].asInt();
-	PosYEntities = actualValue[IDString]["PosY"].asInt();
-	SizeXEntities = actualValue[IDString]["SizeX"].asFloat();
-	SizeYEntities = actualValue[IDString]["SizeY"].asFloat();
 
-	
+	NameEntities = actualValue[CategoryEntities][IDString]["Name"].asString();
+	NameTextureOnFile = actualValue[CategoryEntities][IDString]["NameTexture"].asString();
+	Format = actualValue[CategoryEntities][IDString]["Format"].asString();
+	HpEntities = actualValue[CategoryEntities][IDString]["HP"].asInt();
+	DamageEntities = actualValue[CategoryEntities][IDString]["Damage"].asInt();
+	SpeedEntities = actualValue[CategoryEntities][IDString]["Speed"].asInt();
+	PosXEntities = actualValue[CategoryEntities][IDString]["PosX"].asInt();
+	PosYEntities = actualValue[CategoryEntities][IDString]["PosY"].asInt();
+	SizeXEntities = actualValue[CategoryEntities][IDString]["SizeX"].asFloat();
+	SizeYEntities = actualValue[CategoryEntities][IDString]["SizeY"].asFloat();
 
-	//cout << NameEntities;
+
+
+	cout << NameEntities;
 
 }

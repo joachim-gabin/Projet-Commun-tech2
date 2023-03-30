@@ -5,9 +5,7 @@ public :
 	int ID, HpEntities, DamageEntities, ArmorEntities, SpeedEntities, PosXEntities, PosYEntities;
 	float SizeXEntities, SizeYEntities;
 
-	Json::Int IDJson;
-
-	string NameEntities, Format, NameTexture, CategoryEntities;
+	string CategoryEntities, NameTextureOnFile, NameEntities, Format, NameTexture;
 	sf::Sprite SpriteEntitiesLoader();
 	sf::Texture TextureEntitiesLoader();
 	void SpriteLoaderSettings();

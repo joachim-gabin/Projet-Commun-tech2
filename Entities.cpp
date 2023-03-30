@@ -7,7 +7,7 @@ sf::Sprite Entities::SpriteEntitiesLoader()
 
 sf::Texture Entities::TextureEntitiesLoader()
 {
-	NameTexture = NameEntities + "." + Format;
+	NameTexture = NameTextureOnFile + "." + Format;
 	if (!NameTextureEntities.loadFromFile("texture/" + NameTexture))
 	{
 		std::cout << "pas charger l'image" << std::endl;

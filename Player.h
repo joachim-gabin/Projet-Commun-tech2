@@ -12,7 +12,7 @@ public:
 	void Move(float deltaTime);
 	void UseItem(inventaire inv);
 	void Draw(sf::RenderTarget* target);
-	void Collision();
+	void Collision(int map[20][20]);
 	void Shooting();
 	void HpSys();
 	void Sprint(float speed);

@@ -88,7 +88,7 @@ void Game::gameLoop()
     Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 2000.f, 20,5);
 
 
-    
+
     //Initialise les array de texture et de sprite des tiles
     sf::Sprite sprites[2][100];
     sf::Texture textures[2][100];
@@ -128,7 +128,7 @@ void Game::gameLoop()
         nbItems++;
     }
     // ===================================================================================================================================================================================
-    
+
     Enemy enemy("Zombie", 2);
     while (this->window->isOpen())
     {
@@ -167,7 +167,7 @@ void Game::gameLoop()
                     MapEditor edit;
                 }
 
-                if (this->event.key.code == sf::Keyboard::A)            
+                if (this->event.key.code == sf::Keyboard::A)
                 {
                     end = true;
                     while (end == true)
@@ -249,13 +249,11 @@ void Game::gameLoop()
            inv.select(this->event);
         }
 
-
-
         enemy.MoveUpdate();
         playerHud.affichage(this->window,inv);
-        player.Collision();
+        player.Collision(map);
         player.Draw(this->window);
-        player.Sprint(2000.f);
+        player.Sprint(16.f);
 
         this->window->draw(enemy.SpriteEntitiesLoader());
         this->window->display();

@@ -11,6 +11,8 @@ public:
     void gameInit();
     void gameLoop();
 
+    
+
 private:
 
     int map[WINDOW_HEIGHT / 32][WINDOW_WIDTH / 32];

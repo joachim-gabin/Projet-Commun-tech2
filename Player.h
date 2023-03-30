@@ -1,6 +1,7 @@
 #pragma once
 #include "General.h"
 #include "AnimatedEntity.h"
+#include "inventaire.h"
 
 class Player
 {
@@ -9,12 +10,14 @@ public:
 	~Player();
 
 	void Move(float deltaTime);
+	void UseItem(inventaire inv);
 	void Draw(sf::RenderTarget* target);
-	void Collision();
+	void Collision(int map[20][20]);
 	void Shooting();
 	void HpSys();
 	void Sprint(float speed);
 	int x, y;
+	bool immuneToGas;
 	int health;
 	int armor;
 

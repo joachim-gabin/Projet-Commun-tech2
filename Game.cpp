@@ -86,7 +86,7 @@ void Game::gameLoop()
     Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 2000.f, 20,5);
 
 
-    
+
     //Initialise les array de texture et de sprite des tiles
     sf::Sprite sprites[2][100];
     sf::Texture textures[2][100];
@@ -143,19 +143,24 @@ void Game::gameLoop()
             {
                 player.Move(deltaTime);
 
-                if (this->event.key.code == sf::Keyboard::Escape)
+                if (this->event.key.code == sf::Keyboard::Escape)       //ferme la fenetre de jeu
                 {
                     this->window->close();
                 }
 
-                if (this->event.key.code == sf::Keyboard::Tab)
+                if (this->event.key.code == sf::Keyboard::Tab)          //ouvre & ferme l'inventaire
                 {
                     inv.statut++;
                     inv.statut = inv.statut % 2;
                     std::cout << inv.statut << std::endl;
                 }
 
-                if (this->event.key.code == sf::Keyboard::Space)
+                if (this->event.key.code == sf::Keyboard::E)          //utilise l'objet choisi dans l'inventaire
+                {
+                    player.UseItem(inv);
+                }
+
+                if (this->event.key.code == sf::Keyboard::Space)        //ouvre l'editeur de carte
                 {
                     this->window->close();
                     MapEditor edit;
@@ -170,6 +175,18 @@ void Game::gameLoop()
                         this->window->display();
                     }
                 }
+            }
+        }
+
+        //Dessine la map
+        for (int r = 0; r < WINDOW_HEIGHT / 32; r++)
+        {
+            for (int n = 0; n < WINDOW_WIDTH / 32; n++)
+            {
+                sprites[0][map[r][n]].setPosition(n * 32, r * 32);
+                this->window->draw(sprites[0][map[r][n]]);
+                sprites[1][items[r][n]].setPosition(n * 32, r * 32);
+                this->window->draw(sprites[1][items[r][n]]);
             }
         }
 
@@ -231,23 +248,11 @@ void Game::gameLoop()
            inv.select(this->event);
         }
 
-        //Dessine la map
-        for (int r = 0; r < WINDOW_HEIGHT / 32; r++)
-        {
-            for (int n = 0; n < WINDOW_WIDTH / 32; n++)
-            {
-                sprites[0][map[r][n]].setPosition(n * 32, r * 32);
-                this->window->draw(sprites[0][map[r][n]]);
-                sprites[1][items[r][n]].setPosition(n * 32, r * 32);
-                this->window->draw(sprites[1][items[r][n]]);
-            }
-        }
-
         enemy.MoveUpdate();
         playerHud.affichage(this->window,inv);
-        player.Collision();
+        player.Collision(map);
         player.Draw(this->window);
-        player.Sprint(2000.f);
+        player.Sprint(16.f);
 
         this->window->draw(enemy.SpriteEntitiesLoader());
         this->window->draw(enemy2.SpriteEntitiesLoader());

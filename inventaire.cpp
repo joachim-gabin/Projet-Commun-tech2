@@ -7,6 +7,7 @@ inventaire::inventaire()
 	this->y = WINDOW_HEIGHT - SIZE_TILE * 4;
 	this->currentChoose = 0;
 	this->current_item = 0;
+	this->current_life = 3;
 
 
 	if (!this->hud_texture.loadFromFile("texture/inventaire_hud.png"))
@@ -155,8 +156,18 @@ void inventaire::select(sf::Event event)
 	}
 	if (event.key.code == sf::Keyboard::Num9)
 	{
+
 		this->currentChoose = 8;
 	}
-	std::cout << "item selectionnE: " << this->currentChoose << std::endl;
+	//std::cout << "item selectionnE: " << this->currentChoose << std::endl;
 	this->current_item = this->inv[this->currentChoose];
+}
+
+void inventaire::addLife(int n)
+{
+	this->current_life += n;
+}
+void inventaire::removeLife(int n)
+{
+	this->current_life -= n;
 }

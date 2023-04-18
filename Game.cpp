@@ -249,7 +249,7 @@ void Game::gameLoop()
            inv.affichage(this->window);
            inv.select(this->event);
         }
-
+        
         //collision test between player and enemy
         if ((enemy.GetPosition().x >= player.GetPosition().x) && (enemy.GetPosition().y <= player.GetPosition().y)) {
             cout << "collision in X";
@@ -258,12 +258,13 @@ void Game::gameLoop()
         //    cout << "collision in Y";
         //}
 
-        enemy.MoveUpdate();
-        enemy.CollisionEntitiesWithMap(map);
+        enemy2.MoveUpdate();
+       // enemy.CollisionEntitiesWithMap(map);
         playerHud.affichage(this->window,inv);
         player.Collision(map);
         player.Draw(this->window);
         player.Sprint(16.f);
+        
 
         this->window->draw(enemy.SpriteEntitiesLoader());
         this->window->draw(enemy2.SpriteEntitiesLoader());

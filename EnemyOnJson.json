@@ -2,10 +2,10 @@
   "Zombie": {
     "1": {
       "Name": "Zombie",
-      "NameTexture" : "Zombie",
+      "NameTexture": "Zombie",
       "Format": "png",
-      "HP": 10,
-      "Damage": 10,
+      "HP": 30,
+      "Damage": 15,
       "Speed": 10,
       "PosX": 200,
       "PosY": 200,
@@ -14,7 +14,7 @@
     },
     "2": {
       "Name": "zombie car",
-      "NameTexture": "car",
+      "NameTexture": "Zombie",
       "Format": "png",
       "HP": 40,
       "Damage": 10,
@@ -25,14 +25,28 @@
       "SizeY": 0.15
     }
   },
-  "Skeleton": {
+  "Wolf": {
     "1": {
-      "Name": "voiture",
-      "NameTexture": "car",
+      "Name": "Wolf",
+      "NameTexture": "Wolf",
       "Format": "png",
       "HP": 10,
-      "Damage": 10,
-      "Speed": 10,
+      "Damage": 20,
+      "Speed": 20,
+      "PosX": 200,
+      "PosY": 200,
+      "SizeX": 0.15,
+      "SizeY": 0.15
+    }
+  }
+  "AlphaWolf": {
+    "1": {
+      "Name": "Alpha-wolf",
+      "NameTexture": "AlphaWolf",
+      "Format": "png",
+      "HP": 50,
+      "Damage": 30,
+      "Speed": 30,
       "PosX": 200,
       "PosY": 200,
       "SizeX": 0.15,

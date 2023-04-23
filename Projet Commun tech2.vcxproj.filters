@@ -54,6 +54,9 @@
     <ClCompile Include="MainMenu.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="dist\jsoncpp.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -95,8 +98,12 @@
     <ClInclude Include="MainMenu.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="dist\json\json.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="EnemyOnCsv.csv" />
+    <None Include="EnemyOnJson.json" />
   </ItemGroup>
 </Project>

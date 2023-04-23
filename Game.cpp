@@ -265,6 +265,7 @@ void Game::gameLoop()
         player.Draw(this->window);
         player.Sprint(16.f);
         
+        player.Attack(this->window);
 
         this->window->draw(enemy.SpriteEntitiesLoader());
         this->window->draw(enemy2.SpriteEntitiesLoader());

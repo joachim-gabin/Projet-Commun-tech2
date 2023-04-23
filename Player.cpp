@@ -14,6 +14,8 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
     body.setOrigin(body.getSize() / 2.f);
     body.setPosition(sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
     body.setTexture(texture);
+
+	this->GenerateAttackTexture();
 }
 Player::~Player()
 {
@@ -168,4 +170,20 @@ void Player::Sprint(float speed)
 void Player::Draw(sf::RenderTarget* target)
 {
 	target->draw(this->body);
+}
+
+void Player::GenerateAttackTexture()
+{
+	if (!this->AttTexture.loadFromFile("texture/Entities/QaQ.png"))
+	{
+		std::cout << "erreur d'image" << std::endl;
+	}
+	this->AttSprite.setTexture(this->AttTexture);
+}
+
+void Player::Attack(sf::RenderWindow* window)
+{
+	this->AttSprite.setScale(0.5f, 0.5f);
+	this->AttSprite.setPosition(200,200);
+	window->draw(this->AttSprite);
 }

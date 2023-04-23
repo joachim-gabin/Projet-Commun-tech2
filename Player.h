@@ -16,6 +16,9 @@ public:
 	void Shooting();
 	void HpSys();
 	void Sprint(float speed);
+	void GenerateAttackTexture();
+	void Attack(sf::RenderWindow* window);
+
 	int x, y;
 	bool immuneToGas;
 	int health;
@@ -33,5 +36,7 @@ private:
 	sf::RectangleShape body;
 	sf::Sprite sprite;
 	sf::Texture texture;
+	sf::Sprite AttSprite;
+	sf::Texture AttTexture;
 	AnimatedEntity animatedentity;
 };

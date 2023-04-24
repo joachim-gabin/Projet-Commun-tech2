@@ -8,6 +8,10 @@ Enemy::Enemy(string Category, int ValueEntities)
 	Generation();
 }
 
+Enemy::~Enemy() {
+
+}
+
 void Enemy::Generation() {
 	ReadJson();
 	TextureEntitiesLoader();

@@ -1,5 +1,13 @@
 #include "Entities.h"
 
+Entities::Entities() {
+
+}
+
+Entities::~Entities() {
+
+}
+
 sf::Sprite Entities::SpriteEntitiesLoader()
 {
 	return this->NameSpriteEntities;
@@ -12,7 +20,6 @@ sf::Texture Entities::TextureEntitiesLoader()
 	{
 		std::cout << "pas charger l'image" << std::endl;
 	}
-	NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
 
 	return this->NameTextureEntities;
 }
@@ -31,10 +38,31 @@ void Entities::MoveUpdate()
 	//sf::Time time = clock.getElapsedTime();
 	//if (time.asSeconds() > 1)
 	//{
+		//PosXEntities += SpeedEntities;
+		//NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
+	if (NameSpriteEntities.getPosition().x >= A) {
 		PosXEntities += SpeedEntities;
 		NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
-		//clock.restart();
-	//}
+		if (NameSpriteEntities.getPosition().x == B) {
+			//PosXEntities = 500;
+			PosYEntities -= SpeedEntities;
+			NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
+			//cout << PosXEntities;
+			if (PosYEntities <= C) {
+				SpeedEntities = 0;
+			}
+		}
+	}
+
+
+	//clock.restart();
+//}
+}
+
+void Entities::AnimatedEntities()
+{
+	
+
 }
 
 //void Entities::CollisionEntitiesWithMap(int map[20][20])

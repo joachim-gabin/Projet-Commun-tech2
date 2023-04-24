@@ -6,7 +6,7 @@
       "Format": "png",
       "HP": 30,
       "Damage": 15,
-      "Speed": 10,
+      "Speed": 1,
       "PosX": 200,
       "PosY": 200,
       "SizeX": 0.15,

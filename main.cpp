@@ -85,7 +85,7 @@ int main()
             }
         }
 
-       
+        window.draw(mainMenu.DrawBackground());
         mainMenu.draw(window);
         window.display();
     }

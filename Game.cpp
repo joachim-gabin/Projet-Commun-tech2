@@ -251,9 +251,9 @@ void Game::gameLoop()
         }
         
         //collision test between player and enemy
-        if ((enemy.GetPosition().x >= player.GetPosition().x) && (enemy.GetPosition().y <= player.GetPosition().y)) {
-            cout << "collision in X";
-        }
+        //if ((enemy.GetPosition().x >= player.GetPosition().x) && (enemy.GetPosition().y <= player.GetPosition().y)) {
+        //    cout << "collision in X";
+        //}
         //if (enemy.GetPosition().y >= player.GetPosition().y) {
         //    cout << "collision in Y";
         //}

@@ -8,7 +8,7 @@ MainMenu::MainMenu()
 
 	//Play
 	mainMenu[0].setFont(font);
-	mainMenu[0].setFillColor(Color::White);
+	mainMenu[0].setFillColor(Color::Blue);
 	mainMenu[0].setString("Play");
 	mainMenu[0].setCharacterSize(70);
 	mainMenu[0].setPosition(205, 220);
@@ -28,12 +28,24 @@ MainMenu::MainMenu()
 	MainMenuSelected = 0;
 }
 
+sf::Sprite MainMenu::DrawBackground()
+{
+	if (!NameTextureBackground.loadFromFile("texture/Background/BackgroundMenu.png"))
+	{
+		std::cout << "pas charger l'image" << std::endl;
+	}
+
+	NameSpriteBackground.setTexture(NameTextureBackground);
+	//NameSpriteBackground.setOrigin(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+	return NameSpriteBackground;
+}
+
 void MainMenu::draw(sf::RenderWindow& window)
 {
 	for (int i = 0; i < Max_main_menu; ++i) {
 		window.draw(mainMenu[i]);
 	}
-
 }
 
 void MainMenu::MoveUp()

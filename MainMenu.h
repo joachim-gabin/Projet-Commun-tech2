@@ -8,6 +8,7 @@ class MainMenu
 public:
 	MainMenu();
 
+	sf::Sprite DrawBackground();
 	void draw(sf::RenderWindow& window);
 	void MoveUp();
 	void MoveDown();
@@ -22,5 +23,9 @@ private:
 	int MainMenuSelected;
 	Font font;
 	Text mainMenu[Max_main_menu];
+	string NameBackground;
+
+	sf::Texture NameTextureBackground;
+	sf::Sprite NameSpriteBackground;
 
 };

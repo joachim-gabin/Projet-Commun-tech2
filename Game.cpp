@@ -76,14 +76,19 @@ void Game::gameLoop()
 {
     inventaire inv;
     hud playerHud;
-    item knife("knife2.png", 8, 10, 3);
-    item axe("axe.png", 10, 10, 4);
-    item gas("gas_masque.png", 12, 10, 5);
+
+    item knife(3, 8, 10);
+    item axe(4, 10, 10);
+    item gas(5, 12, 10);
+
     sf::Clock clock;
+    sf::Clock AttClock;
     sf::Texture playerTexture;
 
 
     float deltaTime = 0.f;
+    float attTime = 0.f;
+    bool statutAttack = false;
     playerTexture.loadFromFile("texture/Survivant11.png");
     Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 2000.f, 20,5);
 
@@ -170,11 +175,15 @@ void Game::gameLoop()
 
                 if (this->event.key.code == sf::Keyboard::A)
                 {
-                    end = true;
-                    while (end == true)
+                    attTime = AttClock.restart().asSeconds();
+
+                    if (attTime > 0.1f)
                     {
-                        this->window->clear();
-                        this->window->display();
+                        statutAttack = true;
+                    }
+                    if (attTime > 2.f)
+                    {
+                        statutAttack = false;
                     }
                 }
             }
@@ -264,8 +273,10 @@ void Game::gameLoop()
         player.Draw(this->window);
         player.Sprint(16.f);
         
-        player.Attack(this->window);
-
+        if (statutAttack)
+        {
+            player.Attack(this->window);
+        }
         this->window->draw(enemy.SpriteEntitiesLoader());
         this->window->draw(enemy2.SpriteEntitiesLoader());
         this->window->display();

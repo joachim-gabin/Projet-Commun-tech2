@@ -1,0 +1,7 @@
+numéro de chaque items :
+
+_poing : 1
+_conserve : 2
+_knife : 3
+_axe : 4
+_masque a gaz : 5

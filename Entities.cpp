@@ -43,7 +43,6 @@ void Entities::MoveUpdate()
 	//{
 		//PosXEntities += SpeedEntities;
 		//NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
-	cout << NameSpriteEntities.getPosition().x << endl;
 
 	if (NameSpriteEntities.getPosition().x != B && ValidPath == false) {
 		PosXEntities += SpeedEntities / 10;

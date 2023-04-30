@@ -31,38 +31,48 @@ void Entities::SpriteLoaderSettings()
 	NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
 	NameSpriteEntities.setScale(SizeXEntities, SizeYEntities);
 	BodyEntities.getGlobalBounds().width;
+
+	*p_A = (int)NameSpriteEntities.getPosition().x;
+	*p_B = (int)NameSpriteEntities.getPosition().x + 200;
 }
 
 void Entities::MoveUpdate()
 {
-	//sf::Time time = clock.getElapsedTime();
+	
 	//if (time.asSeconds() > 1)
 	//{
 		//PosXEntities += SpeedEntities;
 		//NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
-	if (NameSpriteEntities.getPosition().x >= A) {
-		PosXEntities += SpeedEntities;
+	cout << NameSpriteEntities.getPosition().x << endl;
+
+	if (NameSpriteEntities.getPosition().x != B && ValidPath == false) {
+		PosXEntities += SpeedEntities / 10;
 		NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
+
 		if (NameSpriteEntities.getPosition().x == B) {
-			//PosXEntities = 500;
-			PosYEntities -= SpeedEntities;
-			NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
-			//cout << PosXEntities;
-			if (PosYEntities <= C) {
-				SpeedEntities = 0;
+			time = clock.getElapsedTime();
+			ValidPath = true;
+			if (time.asSeconds() > 1.5) {
+				NameSpriteEntities.setScale(-SizeXEntities, SizeYEntities);
+				clock.restart();
 			}
 		}
 	}
+	else if (NameSpriteEntities.getPosition().x != A && ValidPath == true) {
+		PosXEntities -= SpeedEntities / 10;
+		NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
 
-
-	//clock.restart();
-//}
-}
-
-void Entities::AnimatedEntities()
-{
+		if (NameSpriteEntities.getPosition().x == A) {
+			time = clock.getElapsedTime();
+			ValidPath = false;
+			if (time.asSeconds() > 1.5) {
+				NameSpriteEntities.setScale(SizeXEntities, SizeYEntities);
+				clock.restart();
+			}
+		}
+	}
 	
-
+//}
 }
 
 //void Entities::CollisionEntitiesWithMap(int map[20][20])

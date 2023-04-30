@@ -28,7 +28,7 @@ void Game::initVariables()
 void Game::gameInit()
 {
     this->window = new sf::RenderWindow (sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Last Man");
-
+    window->setFramerateLimit(60);
     //Lis le fichier map.txt
     fstream newfile;
     newfile.open("map.txt", ios::in);
@@ -257,8 +257,7 @@ void Game::gameLoop()
         //if (enemy.GetPosition().y >= player.GetPosition().y) {
         //    cout << "collision in Y";
         //}
-
-        enemy2.MoveUpdate();
+        enemy.MoveUpdate();
        // enemy.CollisionEntitiesWithMap(map);
         playerHud.affichage(this->window,inv);
         player.Collision(map);

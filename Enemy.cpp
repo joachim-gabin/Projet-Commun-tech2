@@ -1,5 +1,4 @@
 #include "Enemy.h"
-#include "Player.h"
 
 Enemy::Enemy(string Category, int ValueEntities)
 {
@@ -37,8 +36,8 @@ void Enemy::ReadJson()
 	HpEntities = actualValue[CategoryEntities][IDString]["HP"].asInt();
 	DamageEntities = actualValue[CategoryEntities][IDString]["Damage"].asInt();
 	SpeedEntities = actualValue[CategoryEntities][IDString]["Speed"].asInt();
-	PosXEntities = actualValue[CategoryEntities][IDString]["PosX"].asInt();
-	PosYEntities = actualValue[CategoryEntities][IDString]["PosY"].asInt();
+	PosXEntities = actualValue[CategoryEntities][IDString]["PosX"].asFloat();
+	PosYEntities = actualValue[CategoryEntities][IDString]["PosY"].asFloat();
 	SizeXEntities = actualValue[CategoryEntities][IDString]["SizeX"].asFloat();
 	SizeYEntities = actualValue[CategoryEntities][IDString]["SizeY"].asFloat();
 

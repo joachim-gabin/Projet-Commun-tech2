@@ -174,7 +174,7 @@ void Player::Draw(sf::RenderTarget* target)
 
 void Player::GenerateAttackTexture()
 {
-	if (!this->AttTexture.loadFromFile("texture/Entities/QaQ.png"))
+	if (!this->AttTexture.loadFromFile("texture/QaQ.png"))
 	{
 		std::cout << "erreur d'image" << std::endl;
 	}
@@ -183,7 +183,9 @@ void Player::GenerateAttackTexture()
 
 void Player::Attack(sf::RenderWindow* window)
 {
+	float Px = GetPosition().x;
+	float Py = GetPosition().y;
 	this->AttSprite.setScale(0.5f, 0.5f);
-	this->AttSprite.setPosition(200,200);
+	this->AttSprite.setPosition(Px-35,Py-40);
 	window->draw(this->AttSprite);
 }

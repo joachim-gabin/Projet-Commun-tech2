@@ -64,6 +64,26 @@ void MapEditor::Init()
         }
         newfile.close();
     }
+
+    //Lis le fichier Entities.txt
+    newfile.open("Entities.txt", ios::in);
+    if (newfile.is_open())
+    {
+        string tp;
+        int x = 0;
+        while (getline(newfile, tp))
+        {
+            int y = 0;
+            for (char& c : tp)
+            {
+                Entities[x][y] = (int)c - 48;
+                y += 1;
+            }
+            x += 1;
+
+        }
+        newfile.close();
+    }
 }
 
 
@@ -99,10 +119,16 @@ void MapEditor::Loop()
     textItems.setOrigin(44, 12);
     textItems.setPosition(160 / 2, WINDOW_HEIGHT - 32);
 
+    sf::Text textEntities;
+    textEntities.setFont(font);
+    textEntities.setString("Entities");
+    textEntities.setCharacterSize(24);
+    textEntities.setOrigin(44, 12);
+    textEntities.setPosition(160 / 2, 32 + 64);
 
     //Initialise les array de texture et de sprite des tiles
-    sf::Sprite sprites[2][100];
-    sf::Texture textures[2][100];
+    sf::Sprite sprites[3][100];
+    sf::Texture textures[3][100];
 
 
     //Load les textures et les sprites du dossier tiles
@@ -139,6 +165,22 @@ void MapEditor::Loop()
         nbItems++;
     }
 
+    //load les texture et les sprite du dossier entities 
+    int nbEntities = 0;
+    for (const auto& dirEntry : recursive_directory_iterator("texture/Entities/"))
+    {
+        sf::Texture texture;
+        textures[2][nbEntities] = texture;
+        if (!textures[2][nbEntities].loadFromFile(dirEntry.path().string()))
+        {
+            std::cout << "erreur d'image" << std::endl;
+        }
+        sf::Sprite sprite;
+        sprites[2][nbEntities] = sprite;
+        sprites[2][nbEntities].setTexture(textures[2][nbEntities]);
+        nbEntities++;
+    }
+
     while (this->window->isOpen())
     {
         this->window->clear();
@@ -168,6 +210,8 @@ void MapEditor::Loop()
                         map[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = this->actualTexture;
                     if (typeOfSprite == 1)
                         items[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = this->actualTexture;
+                    if (typeOfSprite == 2)
+                        Entities[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = this->actualTexture;
                 }
 
 
@@ -222,6 +266,8 @@ void MapEditor::Loop()
                         i = nbTiles;
                     else if (typeOfSprite == 1)
                         i = nbItems;
+                    else if (typeOfSprite == 2)
+                        i = nbEntities;
                     
                     for (int j = 0; j < i; j++) {
                         if (textures[typeOfSprite][j].getSize().x != 32 || textures[typeOfSprite][j].getSize().y != 32)
@@ -244,6 +290,7 @@ void MapEditor::Loop()
                 {
                     map[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = 0;
                     items[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = 0;
+                    Entities[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = 0;
                 }
             }
         }
@@ -256,6 +303,7 @@ void MapEditor::Loop()
         window->draw(text);
         window->draw(textTiles);
         window->draw(textItems);
+        window->draw(textEntities);
 
 
         //Dessine la map
@@ -267,6 +315,8 @@ void MapEditor::Loop()
                 this->window->draw(sprites[0][map[r][n]]);
                 sprites[1][items[r][n]].setPosition(n * 32 + 160, r * 32);
                 this->window->draw(sprites[1][items[r][n]]);
+                sprites[2][Entities[r][n]].setPosition(n * 32 + 160, r * 32);
+                this->window->draw(sprites[2][Entities[r][n]]);
             }
         }
         this->window->display();
@@ -301,6 +351,20 @@ void MapEditor::Save()
             for (int j = 0; j < WINDOW_WIDTH / 32; j++)
             {
                 newfile << items[i][j];
+            }
+            newfile << "\n";
+        }
+        newfile.close();
+    }
+
+    newfile.open("Entities.txt", ios::out);
+    if (newfile.is_open())
+    {
+        for (int i = 0; i < WINDOW_HEIGHT / 32; i++)
+        {
+            for (int j = 0; j < WINDOW_WIDTH / 32; j++)
+            {
+                newfile << Entities[i][j];
             }
             newfile << "\n";
         }

@@ -155,48 +155,47 @@ void Game::gameLoop()
 				player.Move(deltaTime);
 
 				// Pause menu key part 
-				if (this->event.key.code == sf::Keyboard::Escape)       //ferme la fenetre de jeu
+				if (this->event.key.code == sf::Keyboard::Escape)
 				{
-					IsRunning = true;
-					while (IsRunning == true) {
+					while (!IsRunning && this->window->isOpen()) {
+						this->window->clear();
+						// PROBLEM reste tout le temps sur le bouton quitter ne veut pas aller sur les autres alors que la variable change
+						while (this->window->pollEvent(this->event)) {
 
-						while (this->window->isOpen()) {
+							if (this->event.type == sf::Event::Closed) {
+								this->window->close();
+							}
 
-							this->window->clear();
-							// PROBLEM reste tout le temps sur le bouton quitter ne veut pas aller sur les autres alors que la variable change
-							while (this->window->pollEvent(this->event)) {
+							if (this->event.key.code == sf::Keyboard::Up) {
+								pause.SetKey--;
+								pause.SetControl();
+								cout << pause.SetKey << endl;
+							}
+							if (this->event.key.code == sf::Keyboard::Down) {
+								pause.SetKey++;
+								pause.SetControl();
+								cout << pause.SetKey << endl;
+							}
 
-								if (this->event.key.code == sf::Keyboard::Up) {
-									pause.SetKey++;
-									pause.SetControl();
-									cout << pause.Choice;
+							if (this->event.key.code == sf::Keyboard::Enter) {
+								if (pause.Choice == 0) {
+									IsRunning = true;
+									break;
+									//this->window->clear();
 								}
-								else if (this->event.key.code == sf::Keyboard::Down) {
-									pause.SetKey--;
-									pause.SetControl();
-									cout << pause.Choice;
+								if (pause.Choice == 1) {
+									//Open option menu
 								}
-
-								if (this->event.key.code == sf::Keyboard::Enter) {
-									if (pause.Choice == 0) {
-										IsRunning = false;
-										//this->window->clear();
-
-									}
-									if (pause.Choice == 1) {
-										//Open option menu
-									}
-									if (pause.Choice == 2) {
-										this->window->close();
-									}
+								if (pause.Choice == 2) {
+									this->window->close();
 								}
 							}
-							pause.Draw(this->window);
-							this->window->display();
 						}
-
+						pause.Draw(this->window);
+						this->window->display();
+						IsRunning = false;
 					}
-					
+
 				}
 
 				//Player Key part

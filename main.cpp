@@ -38,9 +38,6 @@ int main()
 
                 if (event.key.code == Keyboard::Return)
                 {
-
-
-
                     int x = mainMenu.MainMenuPressed();
                     if (x == 0)
                     {

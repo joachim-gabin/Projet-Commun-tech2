@@ -11,7 +11,7 @@ public:
 	void SetControl();
 
 	int Choice = 0;
-	int SetKey = 1;
+	int SetKey = 0;
 
 protected :
 	sf::Font font;

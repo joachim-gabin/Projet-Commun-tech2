@@ -58,13 +58,13 @@ void PauseMenu::Init(int LevelChoice)
 void PauseMenu::SetControl()
 {
 	//set controls 
-	if (SetKey == 1) {
+	if (SetKey == 0) {
 		Init(0);
 	}	
-	if (SetKey == 2) {
+	if (SetKey == 1) {
 		Init(1);
 	}	
-	if (SetKey == 3) {
+	if (SetKey == 2) {
 		Init(2);
 	}
 
@@ -78,10 +78,10 @@ void PauseMenu::SetControl()
 	//}
 
 	//if variable is out of the limit
-	if (SetKey < 1) {
-		SetKey = 3;
+	if (SetKey < 0) {
+		SetKey = 2;
 	}
-	else if (SetKey > 3) {
-		SetKey = 1;
+	if (SetKey > 2) {
+		SetKey = 0;
 	}
 }

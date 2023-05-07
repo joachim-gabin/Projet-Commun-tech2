@@ -160,8 +160,6 @@ void Game::gameLoop()
 					while (!pause.IsRunning && this->window->isOpen()) {
 						this->window->clear();
 						pause.Loop(this->window, event);
-						
-
 						pause.Draw(this->window);
 						this->window->display();
 						

@@ -8,7 +8,6 @@ public:
 
 	void Draw(sf::RenderWindow* window);
 	void Init();
-	void SetControl();
 	void Loop(sf::RenderWindow* window, sf::Event& event);
 
 	int Choice = 0;

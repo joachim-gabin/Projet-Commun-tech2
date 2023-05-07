@@ -2,13 +2,14 @@
 
 MainMenu::MainMenu()
 {
-	if (!font.loadFromFile("font/arial.ttf")) {
+	if (!font.loadFromFile("font/HardGrunge.ttf")) {
 		std::cout << "error";
 	}
-
+	//set color Font
+	color = { 109, 7, 26 };
 	//Play
 	mainMenu[0].setFont(font);
-	mainMenu[0].setFillColor(Color::Blue);
+	mainMenu[0].setFillColor(color);
 	mainMenu[0].setString("Play");
 	mainMenu[0].setCharacterSize(70);
 	mainMenu[0].setPosition(205, 220);
@@ -57,7 +58,7 @@ void MainMenu::MoveUp()
 		if (MainMenuSelected == -1) {
 			MainMenuSelected = 2;
 		}
-		mainMenu[MainMenuSelected].setFillColor(Color::Blue);
+		mainMenu[MainMenuSelected].setFillColor(color);
 	}
 }
 
@@ -70,7 +71,7 @@ void MainMenu::MoveDown()
 		if (MainMenuSelected == 3) {
 			MainMenuSelected = 0;
 		}
-		mainMenu[MainMenuSelected].setFillColor(Color::Blue);
+		mainMenu[MainMenuSelected].setFillColor(color);
 	}
 }
 

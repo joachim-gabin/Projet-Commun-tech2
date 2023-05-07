@@ -1,7 +1,7 @@
 #include "General.h"
 
 class PauseMenu {
-public: 
+public:
 
 	PauseMenu();
 	~PauseMenu();
@@ -13,8 +13,11 @@ public:
 	int Choice = 0;
 	int SetKey = 0;
 	bool IsRunning = false;
+	
+	
 
-protected :
+protected:
 	sf::Font font;
 	sf::Text resume, option, quit;
+	sf::Color ColorFont;
 };

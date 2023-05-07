@@ -25,7 +25,8 @@ private:
 	Text mainMenu[Max_main_menu];
 	string NameBackground;
 
-	sf::Texture NameTextureBackground;
-	sf::Sprite NameSpriteBackground;
+	Color color;
+	Texture NameTextureBackground;
+	Sprite NameSpriteBackground;
 
 };

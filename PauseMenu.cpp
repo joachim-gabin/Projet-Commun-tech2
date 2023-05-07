@@ -5,9 +5,9 @@ PauseMenu::PauseMenu()
 	if (!font.loadFromFile("font/HardGrunge.ttf")) {
 		std::cout << "error";
 	}
-
+	ColorFont = {109, 7, 26};
 	resume.setFont(font);
-	resume.setFillColor(sf::Color::Blue);
+	resume.setFillColor(ColorFont);
 	resume.setString("Resume");
 	resume.setCharacterSize(70);
 	resume.setPosition(205, 120);
@@ -47,19 +47,19 @@ void PauseMenu::Init()
 	//Choice = LevelChoice;
 	switch (Choice) {
 	case 0:  //Resume choice
-		resume.setFillColor(sf::Color::Blue);
+		resume.setFillColor(ColorFont);
 		option.setFillColor(sf::Color::White);
 		quit.setFillColor(sf::Color::White);
 		break;
 	case 1: //Option choice
 		resume.setFillColor(sf::Color::White);
-		option.setFillColor(sf::Color::Blue);
+		option.setFillColor(ColorFont);
 		quit.setFillColor(sf::Color::White);
 		break;
 	case 2: //Quit choice
 		resume.setFillColor(sf::Color::White);
 		option.setFillColor(sf::Color::White);
-		quit.setFillColor(sf::Color::Blue);
+		quit.setFillColor(ColorFont);
 		break;
 	}
 

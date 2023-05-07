@@ -2,10 +2,21 @@
 
 PauseMenu::PauseMenu()
 {
+	SetFont();
+	SetBackground();
+}
+
+PauseMenu::~PauseMenu()
+{
+}
+
+void PauseMenu::SetFont()
+{
 	if (!font.loadFromFile("font/HardGrunge.ttf")) {
 		std::cout << "error";
 	}
-	ColorFont = {109, 7, 26};
+	ColorFont = { 109, 7, 26 };
+
 	resume.setFont(font);
 	resume.setFillColor(ColorFont);
 	resume.setString("Resume");
@@ -25,18 +36,28 @@ PauseMenu::PauseMenu()
 	quit.setPosition(205, 320);
 }
 
-PauseMenu::~PauseMenu()
+void PauseMenu::SetBackground()
 {
+	if (!NamePauseTextureBackground.loadFromFile("texture/Background/BackgroundPauseMenu.png"))
+	{
+		std::cout << "pas charger l'image" << std::endl;
+	}
+
+	NamePauseSpriteBackground.setTexture(NamePauseTextureBackground);
+	NamePauseSpriteBackground.setPosition((WINDOW_WIDTH / 5) - (NamePauseSpriteBackground.getGlobalBounds().width / 2), (WINDOW_HEIGHT / 2) - (NamePauseSpriteBackground.getGlobalBounds().height / 2));
+
 }
 
 void PauseMenu::Draw(sf::RenderWindow* window) {
 
+	window->draw(NamePauseSpriteBackground);
 	window->draw(resume);
 	window->draw(option);
 	window->draw(quit);
+	
 }
 
-void PauseMenu::Init()
+void PauseMenu::Interact()
 {
 	if (Choice < 0) {
 		Choice = 2;
@@ -79,12 +100,12 @@ void PauseMenu::Loop(sf::RenderWindow* window, sf::Event& event)
 			if (event.key.code == sf::Keyboard::Up) {
 				Choice--;
 				//SetControl();
-				Init();
+				Interact();
 			}
 			if (event.key.code == sf::Keyboard::Down) {
 				Choice++;
 				//SetControl();
-				Init();
+				Interact();
 			}
 
 			if (event.key.code == sf::Keyboard::Enter) {

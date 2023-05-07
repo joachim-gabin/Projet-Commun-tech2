@@ -6,8 +6,10 @@ public:
 	PauseMenu();
 	~PauseMenu();
 
+	void SetFont();
+	void SetBackground();
 	void Draw(sf::RenderWindow* window);
-	void Init();
+	void Interact();
 	void Loop(sf::RenderWindow* window, sf::Event& event);
 
 	int Choice = 0;
@@ -20,4 +22,6 @@ protected:
 	sf::Font font;
 	sf::Text resume, option, quit;
 	sf::Color ColorFont;
+	sf::Texture NamePauseTextureBackground;
+	sf::Sprite NamePauseSpriteBackground;
 };

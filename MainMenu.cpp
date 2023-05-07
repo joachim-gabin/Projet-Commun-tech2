@@ -31,15 +31,15 @@ MainMenu::MainMenu()
 
 sf::Sprite MainMenu::DrawBackground()
 {
-	if (!NameTextureBackground.loadFromFile("texture/Background/BackgroundMenu.png"))
+	if (!NameMenuTextureBackground.loadFromFile("texture/Background/BackgroundMenu.png"))
 	{
 		std::cout << "pas charger l'image" << std::endl;
 	}
 
-	NameSpriteBackground.setTexture(NameTextureBackground);
-	//NameSpriteBackground.setOrigin(WINDOW_WIDTH, WINDOW_HEIGHT);
+	NameMenuSpriteBackground.setTexture(NameMenuTextureBackground);
+	NameMenuSpriteBackground.setPosition((WINDOW_WIDTH / 2) - (NameMenuSpriteBackground.getGlobalBounds().width / 2), (WINDOW_HEIGHT / 2) - (NameMenuSpriteBackground.getGlobalBounds().height / 2));
 
-	return NameSpriteBackground;
+	return NameMenuSpriteBackground;
 }
 
 void MainMenu::draw(sf::RenderWindow& window)

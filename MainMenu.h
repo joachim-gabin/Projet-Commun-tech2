@@ -26,7 +26,7 @@ private:
 	string NameBackground;
 
 	Color color;
-	Texture NameTextureBackground;
-	Sprite NameSpriteBackground;
+	Texture NameMenuTextureBackground;
+	Sprite NameMenuSpriteBackground;
 
 };

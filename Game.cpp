@@ -136,7 +136,7 @@ void Game::gameLoop()
 	// ===================================================================================================================================================================================
 	//Load enemy with his Category and his ID
 
-	bool IsRunning = false;
+	
 	PauseMenu pause;
 	Enemy enemy("Zombie", 1);
 	Enemy enemy2("Zombie", 2);
@@ -157,45 +157,16 @@ void Game::gameLoop()
 				// Pause menu key part 
 				if (this->event.key.code == sf::Keyboard::Escape)
 				{
-					while (!IsRunning && this->window->isOpen()) {
+					while (!pause.IsRunning && this->window->isOpen()) {
 						this->window->clear();
-						// PROBLEM reste tout le temps sur le bouton quitter ne veut pas aller sur les autres alors que la variable change
-						while (this->window->pollEvent(this->event)) {
+						pause.Loop(this->window, event);
+						
 
-							if (this->event.type == sf::Event::Closed) {
-								this->window->close();
-							}
-
-							if (this->event.key.code == sf::Keyboard::Up) {
-								pause.SetKey--;
-								pause.SetControl();
-								cout << pause.SetKey << endl;
-							}
-							if (this->event.key.code == sf::Keyboard::Down) {
-								pause.SetKey++;
-								pause.SetControl();
-								cout << pause.SetKey << endl;
-							}
-
-							if (this->event.key.code == sf::Keyboard::Enter) {
-								if (pause.Choice == 0) {
-									IsRunning = true;
-									break;
-									//this->window->clear();
-								}
-								if (pause.Choice == 1) {
-									//Open option menu
-								}
-								if (pause.Choice == 2) {
-									this->window->close();
-								}
-							}
-						}
 						pause.Draw(this->window);
 						this->window->display();
-						IsRunning = false;
+						
 					}
-
+					pause.IsRunning = false;
 				}
 
 				//Player Key part

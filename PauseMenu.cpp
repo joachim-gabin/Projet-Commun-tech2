@@ -36,9 +36,9 @@ void PauseMenu::Draw(sf::RenderWindow* window) {
 	window->draw(quit);
 }
 
-void PauseMenu::Init(int LevelChoice)
+void PauseMenu::Init()
 {
-	Choice = LevelChoice;
+	//Choice = LevelChoice;
 	switch (Choice) {
 	case 0:  //Resume choice
 		resume.setFillColor(sf::Color::Blue);
@@ -53,20 +53,27 @@ void PauseMenu::Init(int LevelChoice)
 		option.setFillColor(sf::Color::White);
 		quit.setFillColor(sf::Color::Blue);
 	}
+
+	if (Choice < 0) {
+		Choice = 2;
+	}
+	if (Choice > 2) {
+		Choice = 0;
+	}
 }
 
 void PauseMenu::SetControl()
 {
 	//set controls 
-	if (SetKey == 0) {
-		Init(0);
-	}	
-	if (SetKey == 1) {
-		Init(1);
-	}	
-	if (SetKey == 2) {
-		Init(2);
-	}
+	//if (SetKey == 0 || SetKey > 2) {
+	//	Init(0);
+	//}	
+	//if (SetKey == 1) {
+	//	Init(1);
+	//}	
+	//if (SetKey == 2 || SetKey < 0) {
+	//	Init(2);
+	//}
 
 	//switch (SetKey) {
 	//	case 1:
@@ -78,10 +85,50 @@ void PauseMenu::SetControl()
 	//}
 
 	//if variable is out of the limit
-	if (SetKey < 0) {
-		SetKey = 2;
-	}
-	if (SetKey > 2) {
-		SetKey = 0;
+
+}
+
+void PauseMenu::Loop(sf::RenderWindow* window, sf::Event& event)
+{
+	// PROBLEM reste tout le temps sur le bouton quitter ne veut pas aller sur les autres alors que la variable change
+	while (window->pollEvent(event)) {
+
+		if (event.type == sf::Event::KeyPressed) {
+
+			if (event.type == sf::Event::Closed) {
+				window->close();
+			}
+
+			if (event.key.code == sf::Keyboard::Up) {
+				Choice--;
+				//SetControl();
+				Init();
+				cout << Choice << endl;
+			}
+			if (event.key.code == sf::Keyboard::Down) {
+				Choice++;
+				//SetControl();
+				Init();
+				cout << Choice << endl;
+			}
+
+			if (event.key.code == sf::Keyboard::Enter) {
+				if (Choice == 0) {
+					IsRunning = true;
+					//break;
+					//this->window->clear();
+				}
+				if (Choice == 1) {
+					//Open option menu
+				}
+				if (Choice == 2) {
+					window->close();
+				}
+			}
+
+			if (event.key.code == sf::Keyboard::Escape)
+				IsRunning = true;
+
+		}
 	}
 }

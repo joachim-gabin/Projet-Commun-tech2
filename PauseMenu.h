@@ -8,6 +8,7 @@ public:
 
 	void SetFont();
 	void SetBackground();
+	int SetSound();
 	void Draw(sf::RenderWindow* window);
 	void Interact();
 	void Loop(sf::RenderWindow* window, sf::Event& event);
@@ -22,6 +23,8 @@ protected:
 	sf::Font font;
 	sf::Text resume, option, quit;
 	sf::Color ColorFont;
+
 	sf::Texture NamePauseTextureBackground;
 	sf::Sprite NamePauseSpriteBackground;
+
 };

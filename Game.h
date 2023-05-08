@@ -11,7 +11,6 @@ public:
     void gameInit();
     void gameLoop();
 
-    
 
 private:
 

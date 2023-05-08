@@ -28,5 +28,4 @@ private:
 	Color color;
 	Texture NameMenuTextureBackground;
 	Sprite NameMenuSpriteBackground;
-
 };

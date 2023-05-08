@@ -4,6 +4,7 @@ PauseMenu::PauseMenu()
 {
 	SetFont();
 	SetBackground();
+	
 }
 
 PauseMenu::~PauseMenu()
@@ -47,6 +48,7 @@ void PauseMenu::SetBackground()
 	NamePauseSpriteBackground.setPosition((WINDOW_WIDTH / 5) - (NamePauseSpriteBackground.getGlobalBounds().width / 2), (WINDOW_HEIGHT / 2) - (NamePauseSpriteBackground.getGlobalBounds().height / 2));
 
 }
+
 
 void PauseMenu::Draw(sf::RenderWindow* window) {
 

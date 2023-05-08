@@ -137,7 +137,7 @@ void Game::gameLoop()
 	//Load enemy with his Category and his ID
 
 	
-	PauseMenu pause;
+	
 	Enemy enemy("Zombie", 1);
 	Enemy enemy2("Zombie", 2);
 	while (this->window->isOpen())
@@ -157,6 +157,7 @@ void Game::gameLoop()
 				// Pause menu key part 
 				if (this->event.key.code == sf::Keyboard::Escape)
 				{
+					PauseMenu pause;
 					while (!pause.IsRunning && this->window->isOpen()) {
 						this->window->clear();
 						pause.Loop(this->window, event);
@@ -285,6 +286,7 @@ void Game::gameLoop()
 		player.Collision(map);
 		player.Draw(this->window);
 		player.Sprint(16.f);
+
 
 		if (statutAttack)
 		{

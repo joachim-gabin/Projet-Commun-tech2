@@ -1,11 +1,12 @@
 #include "Player.h"
 
-Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, int health, int armor) :
+Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, int health, int base, int speed, int armor) :
         animatedentity(texture, imageCount, switchTime)
 {
 	this->health = health;
-	this->armor = armor;
 	this->speed = speed;
+	this->armor = armor;
+	this->basehealth = base;
     row = 0;
     faceRight = true;
 	immuneToGas = false;
@@ -14,9 +15,11 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
     body.setOrigin(body.getSize() / 2.f);
     body.setPosition(sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
     body.setTexture(texture);
+	body.setTextureRect(animatedentity.uvRect);
 
 	this->GenerateAttackTexture();
 }
+
 Player::~Player()
 {
 
@@ -73,7 +76,7 @@ void Player::UseItem(inventaire inv)
 		if (inv.current_life < 3)
 		{
 			inv.addLife(1);
-			std::cout << "Vous avez utilisé une conserve, elle était délicieuse" << std::endl;
+			std::cout << "Vous avez utilisEune conserve, elle était délicieuse" << std::endl;
 		}
 		else
 		{
@@ -84,7 +87,7 @@ void Player::UseItem(inventaire inv)
 	case 3:			//Attaque au couteau
 		break;
 
-	case 4:			//Attaque à la hache
+	case 4:			//Attaque Ela hache
 		break;
 	}
 
@@ -94,10 +97,6 @@ void Player::UseItem(inventaire inv)
 		std::cout << "Vous enfilez le masque a gaz" << std::endl;
 	}
 }
-
-
-
-
 
 
 void Player::Collision(int map[20][20])
@@ -139,16 +138,12 @@ void Player::Collision(int map[20][20])
 	}
 }
 
-void Player::Shooting()
-{
-
-}
-
 void Player::HpSys()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
 	{
 		this->health -= 1;
+		std::cout << health << std::endl;
 	}
 }
 

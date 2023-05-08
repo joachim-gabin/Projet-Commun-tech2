@@ -88,7 +88,7 @@ void Game::gameLoop()
 	float attTime = 0.f;
 	bool statutAttack = false;
 	playerTexture.loadFromFile("texture/Survivant11.png");
-	Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 2000.f, 20, 5);
+	Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 3, 3, 32.f, 5);
 
 
 
@@ -278,8 +278,10 @@ void Game::gameLoop()
 		//    cout << "collision in Y";
 		//}
 		enemy.MoveUpdate();
+		enemy.Collision(player);
 		// enemy.CollisionEntitiesWithMap(map);
 		playerHud.affichage(this->window, inv);
+		player.HpSys();
 		player.Collision(tiles);
 		player.Draw(this->window);
 		player.Sprint(16.f);
@@ -289,11 +291,16 @@ void Game::gameLoop()
 		{
 			player.Attack(this->window);
 		}
+
 		this->window->draw(enemy.SpriteEntitiesLoader());
 		this->window->draw(enemy2.SpriteEntitiesLoader());
 		this->window->display();
 
+		if (player.health <= 0)
+		{
+			dead = true;
+			player.health = player.basehealth;
+		}
+
 	}
-
-
 }

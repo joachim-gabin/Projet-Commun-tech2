@@ -1,4 +1,5 @@
 #include "General.h"
+#include "Player.h"
 
 class Entities {
 public :
@@ -16,7 +17,6 @@ public :
 	int* p_A = &A;
 	int* p_B = &B;
 	
-
 	bool ValidPath = false;
 
 	string CategoryEntities, NameTextureOnFile, NameEntities, Format, NameTexture;
@@ -24,6 +24,7 @@ public :
 	sf::Texture TextureEntitiesLoader();
 	void SpriteLoaderSettings();
 	void MoveUpdate();
+	void Collision(Player player);
 	//void CollisionEntitiesWithMap(int map[20][20]);
 	//sf::Vector2f GetPositionEntities();
 protected :

@@ -1,14 +1,14 @@
+#pragma once
 #include "General.h"
 
-class PauseMenu {
-public:
-
-	PauseMenu();
-	~PauseMenu();
+class DeathMenu
+{
+public :
+	DeathMenu();
+	~DeathMenu();
 
 	void SetFont();
 	void SetBackground();
-	int SetSound();
 	void Draw(sf::RenderWindow* window);
 	void Interact();
 	void Loop(sf::RenderWindow* window, sf::Event& event);
@@ -19,10 +19,9 @@ public:
 
 protected:
 	sf::Font font;
-	sf::Text resume, option, quit;
+	sf::Text retry, quit;
 	sf::Color ColorFont;
-
-	sf::Texture NamePauseTextureBackground;
-	sf::Sprite NamePauseSpriteBackground;
+	sf::Texture NameDeathTextureBackground;
+	sf::Sprite NameDeathSpriteBackground;
 
 };

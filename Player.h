@@ -6,14 +6,13 @@
 class Player
 {
 public:
-	Player(sf::Texture* texture, sf::Vector2u ImageCount, float switchTime, float speed, int hp, int armor);
+	Player(sf::Texture* texture, sf::Vector2u ImageCount, float switchTime, int health, int base, int speed, int armor);
 	~Player();
 
 	void Move(float deltaTime);
 	void UseItem(inventaire inv);
 	void Draw(sf::RenderTarget* target);
 	void Collision(int map[20][20]);
-	void Shooting();
 	void HpSys();
 	void Sprint(float speed);
 	void GenerateAttackTexture();
@@ -22,6 +21,7 @@ public:
 	int x, y;
 	bool immuneToGas;
 	int health;
+	int basehealth;
 	int armor;
 
 	sf::Vector2f GetPosition() { return body.getPosition(); }
@@ -30,6 +30,7 @@ public:
 
 private:
 
+	string IDString;
 	float speed;
 	bool faceRight;
 	unsigned int row;

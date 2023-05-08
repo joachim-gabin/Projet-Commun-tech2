@@ -13,6 +13,7 @@ AnimatedEntity::AnimatedEntity(sf::Texture* texture, sf::Vector2u imageCount, fl
 
 AnimatedEntity::~AnimatedEntity()
 {
+
 }
 
 void AnimatedEntity::Update(int row, float deltaTime, bool faceRight)

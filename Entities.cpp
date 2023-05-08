@@ -74,6 +74,15 @@ void Entities::MoveUpdate()
 //}
 }
 
+void Entities::Collision(Player player)
+{
+	//if (PosXEntities && PosYEntities <= player.GetPosition().x && player.GetPosition().y)
+	//{
+	//	player.health -= 1;
+	//	std::cout << player.health << std::endl;
+	//}
+}
+
 //void Entities::CollisionEntitiesWithMap(int map[20][20])
 //{
 //	if (BodyEntities.getPosition().x < 0.f)

@@ -9,9 +9,6 @@ int main()
     sf::RenderWindow window(sf::VideoMode(640, 640), "Main Menu", Style::Default);
     MainMenu mainMenu;
 
-    bool start = false;
-    bool battle = false;
-
     while (window.isOpen())
     {
         window.clear();
@@ -43,6 +40,11 @@ int main()
                     {
                         window.close();
                         Game game;
+
+                        if (game.dead == true)
+                        {
+                            mainMenu;
+                        }
                     }
 
                     if (x == 1)

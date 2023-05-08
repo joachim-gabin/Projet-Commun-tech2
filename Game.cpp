@@ -349,7 +349,7 @@ void Game::gameLoop()
 		//if (enemy.GetPosition().y >= player.GetPosition().y) {
 		//    cout << "collision in Y";
 		//}
-		//.MoveUpdate
+		//enemy.MoveUpdate();
 		
 		enemy.Collision(player);
 		// enemy.CollisionEntitiesWithMap(map);

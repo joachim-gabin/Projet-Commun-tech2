@@ -36,14 +36,14 @@ void Entities::SpriteLoaderSettings()
 	//NameSpriteEntities.setTexture(NameTextureEntities);
 	BodyEntities.setTexture(&NameTextureEntities);
 	//NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
-	NameSpriteEntities.setScale(SizeXEntities, SizeYEntities);
+	//NameSpriteEntities.setScale(SizeXEntities, SizeYEntities);
 	BodyEntities.setPosition(PosXEntities, PosYEntities);
 	BodyEntities.getGlobalBounds().width;
 	BodyEntities.setSize(VectorEntities);
 	BodyEntities.setOutlineThickness(3);
 
-	*p_A = (int)NameSpriteEntities.getPosition().x;
-	*p_B = (int)NameSpriteEntities.getPosition().x + 200;
+	*p_A = (int)BodyEntities.getPosition().x;
+	*p_B = (int)BodyEntities.getPosition().x + 200;
 }
 
 void Entities::MoveUpdate()
@@ -54,28 +54,28 @@ void Entities::MoveUpdate()
 		//PosXEntities += SpeedEntities;
 		//NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
 
-	if (NameSpriteEntities.getPosition().x != B && ValidPath == false) {
+	if (BodyEntities.getPosition().x != B && ValidPath == false) {
 		PosXEntities += SpeedEntities / 10;
-		NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
+		BodyEntities.setPosition(PosXEntities, PosYEntities);
 
-		if (NameSpriteEntities.getPosition().x == B) {
+		if (BodyEntities.getPosition().x == B) {
 			time = clock.getElapsedTime();
 			ValidPath = true;
 			if (time.asSeconds() > 1.5) {
-				NameSpriteEntities.setScale(-SizeXEntities, SizeYEntities);
+				BodyEntities.setSize(VectorEntities);
 				clock.restart();
 			}
 		}
 	}
-	else if (NameSpriteEntities.getPosition().x != A && ValidPath == true) {
+	else if (BodyEntities.getPosition().x != A && ValidPath == true) {
 		PosXEntities -= SpeedEntities / 10;
-		NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
+		BodyEntities.setPosition(PosXEntities, PosYEntities);
 
-		if (NameSpriteEntities.getPosition().x == A) {
+		if (BodyEntities.getPosition().x == A) {
 			time = clock.getElapsedTime();
 			ValidPath = false;
 			if (time.asSeconds() > 1.5) {
-				NameSpriteEntities.setScale(SizeXEntities, SizeYEntities);
+				BodyEntities.getSize().x;
 				clock.restart();
 			}
 		}

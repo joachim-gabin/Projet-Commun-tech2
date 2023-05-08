@@ -9,8 +9,8 @@
       "Speed": 10,
       "PosX": 200,
       "PosY": 200,
-      "SizeX": 64,
-      "SizeY": 64
+      "SizeX": 32,
+      "SizeY": 32
     },
     "2": {
       "Name": "zombie car",
@@ -21,8 +21,8 @@
       "Speed": 10,
       "PosX": 300,
       "PosY": 220,
-      "SizeX": 64,
-      "SizeY": 64
+      "SizeX": 32,
+      "SizeY": 32
     }
   },
   "Wolf": {

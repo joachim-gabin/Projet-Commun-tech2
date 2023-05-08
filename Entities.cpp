@@ -8,9 +8,15 @@ Entities::~Entities() {
 
 }
 
+void Entities::DrawEntities(sf::RenderTarget* window)
+{
+	//window->draw(NameSpriteEntities);
+	window->draw(BodyEntities);
+}
+
 sf::Sprite Entities::SpriteEntitiesLoader()
 {
-	return this->NameSpriteEntities;
+	return NameSpriteEntities;
 }
 // load the texture of the entitie 
 sf::Texture Entities::TextureEntitiesLoader()
@@ -20,17 +26,21 @@ sf::Texture Entities::TextureEntitiesLoader()
 	{
 		std::cout << "pas charger l'image" << std::endl;
 	}
-
+	NameTextureEntities.setSmooth(true);
 	return this->NameTextureEntities;
 }
 // set the entire of what the entitie need
 void Entities::SpriteLoaderSettings()
 {
-	NameSpriteEntities.setTexture(NameTextureEntities);
+	VectorEntities = {SizeXEntities, SizeYEntities};
+	//NameSpriteEntities.setTexture(NameTextureEntities);
 	BodyEntities.setTexture(&NameTextureEntities);
-	NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
+	//NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
 	NameSpriteEntities.setScale(SizeXEntities, SizeYEntities);
+	BodyEntities.setPosition(PosXEntities, PosYEntities);
 	BodyEntities.getGlobalBounds().width;
+	BodyEntities.setSize(VectorEntities);
+	BodyEntities.setOutlineThickness(3);
 
 	*p_A = (int)NameSpriteEntities.getPosition().x;
 	*p_B = (int)NameSpriteEntities.getPosition().x + 200;
@@ -82,6 +92,8 @@ void Entities::Collision(Player player)
 	//	std::cout << player.health << std::endl;
 	//}
 }
+
+
 
 //void Entities::CollisionEntitiesWithMap(int map[20][20])
 //{

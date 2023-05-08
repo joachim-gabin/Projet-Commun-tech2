@@ -277,7 +277,8 @@ void Game::gameLoop()
 		//if (enemy.GetPosition().y >= player.GetPosition().y) {
 		//    cout << "collision in Y";
 		//}
-		enemy.MoveUpdate();
+		//.MoveUpdate
+		
 		enemy.Collision(player);
 		// enemy.CollisionEntitiesWithMap(map);
 		playerHud.affichage(this->window, inv);
@@ -292,8 +293,8 @@ void Game::gameLoop()
 			player.Attack(this->window);
 		}
 
-		this->window->draw(enemy.SpriteEntitiesLoader());
-		this->window->draw(enemy2.SpriteEntitiesLoader());
+		enemy.DrawEntities(this->window);
+		enemy2.DrawEntities(this->window);
 		this->window->display();
 
 		if (player.health <= 0)

@@ -11,6 +11,7 @@ Enemy::~Enemy() {
 
 }
 
+
 void Enemy::Generation() {
 	ReadJson();
 	TextureEntitiesLoader();
@@ -40,8 +41,9 @@ void Enemy::ReadJson()
 	PosYEntities = actualValue[CategoryEntities][IDString]["PosY"].asFloat();
 	SizeXEntities = actualValue[CategoryEntities][IDString]["SizeX"].asFloat();
 	SizeYEntities = actualValue[CategoryEntities][IDString]["SizeY"].asFloat();
-
+	BodyEntities;
 	//cout << NameEntities;
+	cout << BodyEntities.getSize().x;
 }
 
 

@@ -20,6 +20,7 @@ public :
 	bool ValidPath = false;
 
 	string CategoryEntities, NameTextureOnFile, NameEntities, Format, NameTexture;
+	void DrawEntities(sf::RenderTarget* window);
 	sf::Sprite SpriteEntitiesLoader();
 	sf::Texture TextureEntitiesLoader();
 	void SpriteLoaderSettings();
@@ -27,10 +28,13 @@ public :
 	void Collision(Player player);
 	//void CollisionEntitiesWithMap(int map[20][20]);
 	//sf::Vector2f GetPositionEntities();
+
+	
 protected :
 	sf::Sprite NameSpriteEntities;
 	sf::Texture NameTextureEntities;
 	sf::RectangleShape BodyEntities;
 	sf::Clock clock;
 	sf::Time time;
+	sf::Vector2f VectorEntities;
 };

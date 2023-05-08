@@ -54,9 +54,6 @@ void Player::Move(float deltaTime)
 			row = 2;
 			animatedentity.Update(row, deltaTime, faceRight);
 		}
-
-		std::cout << GetPosition().x << std::endl;
-		std::cout << GetPosition().y << std::endl;
 		std::cout << speed << std::endl;
 		body.setTextureRect(animatedentity.uvRect);
 		body.move(velocity);

@@ -101,25 +101,6 @@ void Player::UseItem(inventaire inv)
 
 void Player::Collision(int map[20][20])
 {
-	if (GetPosition().x < 0.f)
-	{
-		body.setPosition(0.f, body.getPosition().y);
-	}
-	
-	if (GetPosition().y < 0.f)
-	{
-		body.setPosition(body.getPosition().x, 0.f);
-	}
-
-	if (GetPosition().x > WINDOW_WIDTH)
-	{
-		body.setPosition(WINDOW_WIDTH, GetPosition().y);
-	}
-
-	if (GetPosition().y > WINDOW_HEIGHT)
-	{
-		body.setPosition(GetPosition().x, WINDOW_HEIGHT);
-	}
 	if (map[((int)GetPosition().y - 10) / 32][(int)GetPosition().x / 32] != 0)
 	{
 		body.setPosition(GetPosition().x, GetPosition().y + 16);

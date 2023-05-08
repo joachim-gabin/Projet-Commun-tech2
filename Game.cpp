@@ -32,11 +32,34 @@ void Game::gameInit()
     window->setFramerateLimit(60);
     //Lis le fichier map.txt
     fstream newfile;
-    newfile.open("map/tiles/tiles" + to_string(actualMapX + actualMapY * (WINDOW_WIDTH / 32)) + ".txt", ios::in);
-    if (newfile.is_open())
-    {
-        string tp;
-        int x = 0;
+	newfile.open("map/map.txt", ios::in);
+	if (newfile.is_open())
+	{
+		string tp;
+		int x = 0;
+		while (getline(newfile, tp))
+		{
+			int y = 0;
+			for (char& c : tp)
+			{
+				map[x][y] = (int)c - 48;
+				y += 1;
+			}
+			x += 1;
+		}
+		newfile.close();
+	}
+	this->Open();
+}
+
+void Game::Open() 
+{
+	fstream newfile;
+	newfile.open("map/tiles/tiles" + to_string(actualMapX + actualMapY * (WINDOW_WIDTH / 32)) + ".txt", ios::in);
+	if (newfile.is_open())
+	{
+		string tp;
+		int x = 0;
 		while (getline(newfile, tp))
 		{
 			int y = 0;
@@ -50,12 +73,12 @@ void Game::gameInit()
 		newfile.close();
 	}
 
-    //Lis le fichier items.txt
-    newfile.open("map/items/items" + to_string(actualMapX + actualMapY * (WINDOW_WIDTH / 32)) + ".txt", ios::in);
-    if (newfile.is_open())
-    {
-        string tp;
-        int x = 0;
+	//Lis le fichier items.txt
+	newfile.open("map/items/items" + to_string(actualMapX + actualMapY * (WINDOW_WIDTH / 32)) + ".txt", ios::in);
+	if (newfile.is_open())
+	{
+		string tp;
+		int x = 0;
 		while (getline(newfile, tp))
 		{
 			int y = 0;
@@ -196,6 +219,55 @@ void Game::gameLoop()
 					{
 						statutAttack = false;
 					}
+				}
+			}
+		}
+
+		if (player.GetPosition().y > WINDOW_HEIGHT - 32)
+		{
+			if (actualMapY != WINDOW_HEIGHT / 32) 
+			{
+				if (map[actualMapY + 1][actualMapX] == 1) 
+				{
+					actualMapY++;
+					this->Open();
+					player.body.setPosition(sf::Vector2f(player.GetPosition().x, player.GetPosition().y - (WINDOW_HEIGHT - 64)));
+				}
+			}
+		}
+		if (player.GetPosition().y < 32)
+		{
+			if (actualMapY != 0)
+			{
+				if (map[actualMapY - 1][actualMapX] == 1)
+				{
+					actualMapY--;
+					this->Open();
+					player.body.setPosition(sf::Vector2f(player.GetPosition().x, player.GetPosition().y + (WINDOW_HEIGHT - 64)));
+				}
+			}
+		}
+		if (player.GetPosition().x > WINDOW_WIDTH - 32)
+		{
+			if (actualMapX != WINDOW_WIDTH / 32)
+			{
+				if (map[actualMapY][actualMapX + 1] == 1)
+				{
+					actualMapX++;
+					this->Open();
+					player.body.setPosition(sf::Vector2f(player.GetPosition().x - (WINDOW_WIDTH - 64), player.GetPosition().y));
+				}
+			}
+		}
+		if (player.GetPosition().x < 32)
+		{
+			if (actualMapX != 0)
+			{
+				if (map[actualMapY][actualMapX - 1] == 1)
+				{
+					actualMapX--;
+					this->Open();
+					player.body.setPosition(sf::Vector2f(player.GetPosition().x + (WINDOW_WIDTH - 64), player.GetPosition().y));
 				}
 			}
 		}

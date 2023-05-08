@@ -20,33 +20,59 @@ MapEditor::~MapEditor()
 //Initialise la fenêtre 
 void MapEditor::Init()
 {
-	this->window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH + 160, WINDOW_HEIGHT), "Last Man Editor");
+	this->window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH + 320, WINDOW_HEIGHT), "Last Man Editor");
+    actualMapX, actualMapY = 0;
+    Open();
+}
 
+void MapEditor::Open() 
+{
+    cout << "map/tiles/tiles" + to_string(actualMapX + actualMapY * (WINDOW_WIDTH / 32)) + ".txt";
 
     //Lis le fichier map.txt
     fstream newfile;
-    newfile.open("map.txt", ios::in);
-    if (newfile.is_open()) 
+    newfile.open("map/map.txt", ios::in);
+    if (newfile.is_open())
     {
         string tp;
         int x = 0;
-        while (getline(newfile, tp)) 
-        { 
+        while (getline(newfile, tp))
+        {
             int y = 0;
-            for (char& c : tp) 
+            for (char& c : tp)
             {
                 map[x][y] = (int)c - 48;
                 y += 1;
             }
             x += 1;
-            
+
         }
-        newfile.close(); 
+        newfile.close();
+    }
+
+    //Lis le fichier map.txt
+    newfile.open("map/tiles/tiles" + to_string(actualMapX + actualMapY * (WINDOW_WIDTH / 32)) + ".txt", ios::in);
+    if (newfile.is_open())
+    {
+        string tp;
+        int x = 0;
+        while (getline(newfile, tp))
+        {
+            int y = 0;
+            for (char& c : tp)
+            {
+                tiles[x][y] = (int)c - 48;
+                y += 1;
+            }
+            x += 1;
+
+        }
+        newfile.close();
     }
 
 
     //Lis le fichier items.txt
-    newfile.open("items.txt", ios::in);
+    newfile.open("map/items/items" + to_string(actualMapX + actualMapY * (WINDOW_WIDTH / 32)) + ".txt", ios::in);
     if (newfile.is_open())
     {
         string tp;
@@ -66,7 +92,7 @@ void MapEditor::Init()
     }
 
     //Lis le fichier Entities.txt
-    newfile.open("Entities.txt", ios::in);
+    newfile.open("map/entities/Entities" + to_string(actualMapX + actualMapY * (WINDOW_WIDTH / 32)) + ".txt", ios::in);
     if (newfile.is_open())
     {
         string tp;
@@ -125,6 +151,42 @@ void MapEditor::Loop()
     textEntities.setCharacterSize(24);
     textEntities.setOrigin(44, 12);
     textEntities.setPosition(160 / 2, 32 + 64);
+
+    sf::Text textAddAbove;
+    textAddAbove.setFont(font);
+    textAddAbove.setString("Add Above");
+    textAddAbove.setCharacterSize(24);
+    textAddAbove.setOrigin(44, 12);
+    textAddAbove.setPosition(WINDOW_WIDTH + 160 + 160 / 2, 32);
+    /*text.setFillColor(sf::Color::Red);*/
+
+    sf::Text textAddBelow;
+    textAddBelow.setFont(font);
+    textAddBelow.setString("Add Below");
+    textAddBelow.setCharacterSize(24);
+    textAddBelow.setOrigin(44, 12);
+    textAddBelow.setPosition(WINDOW_WIDTH + 160 + 160 / 2, 32 + 64);
+
+    sf::Text textAddRight;
+    textAddRight.setFont(font);
+    textAddRight.setString("Add Right");
+    textAddRight.setCharacterSize(24);
+    textAddRight.setOrigin(44, 12);
+    textAddRight.setPosition(WINDOW_WIDTH + 160 + 160 / 2, 32 + 128);
+
+    sf::Text textAddLeft;
+    textAddLeft.setFont(font);
+    textAddLeft.setString("Add Left");
+    textAddLeft.setCharacterSize(24);
+    textAddLeft.setOrigin(44, 12);
+    textAddLeft.setPosition(WINDOW_WIDTH + 160 + 160 / 2, 32 + 192);
+
+    sf::Text textActualMap;
+    textActualMap.setFont(font);
+    textActualMap.setString("X = " + to_string(actualMapX) + " | Y = " + to_string(actualMapY));
+    textActualMap.setCharacterSize(18);
+    textActualMap.setOrigin(44, 12);
+    textActualMap.setPosition(WINDOW_WIDTH + 160 + 160 / 2, WINDOW_HEIGHT / 2 + 32);
 
     //Initialise les array de texture et de sprite des tiles
     sf::Sprite sprites[3][100];
@@ -197,6 +259,53 @@ void MapEditor::Loop()
                 Game game;
             }
 
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            {
+                this->Save();
+                this->window->close();
+                Game game;
+            }
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && actualMapY != 0)
+            {
+                if (map[actualMapY - 1][actualMapX] == 1) {
+                    this->Save();
+                    actualMapY--;
+                    this->Open();
+                    textActualMap.setString("X = " + to_string(actualMapX) + " | Y = " + to_string(actualMapY));
+                }
+            }
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && actualMapY != WINDOW_HEIGHT / 32 - 1)
+            {
+                if (map[actualMapY + 1][actualMapX] == 1) {
+                    this->Save();
+                    actualMapY++;
+                    this->Open();
+                    textActualMap.setString("X = " + to_string(actualMapX) + " | Y = " + to_string(actualMapY));
+                }
+            }
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && actualMapX != WINDOW_HEIGHT / 32 - 1)
+            {
+                if (map[actualMapY][actualMapX + 1] == 1) {
+                    this->Save();
+                    actualMapX++;
+                    this->Open();
+                    textActualMap.setString("X = " + to_string(actualMapX) + " | Y = " + to_string(actualMapY));
+                }
+            }
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && actualMapX != 0)
+            {
+                if (map[actualMapY][actualMapX - 1] == 1) {
+                    this->Save();
+                    actualMapX--;
+                    this->Open();
+                    textActualMap.setString("X = " + to_string(actualMapX) + " | Y = " + to_string(actualMapY));
+                }
+            }
+
 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
@@ -207,7 +316,7 @@ void MapEditor::Loop()
                 if (localPosition.x > 160 && localPosition.x < WINDOW_WIDTH + 160 && localPosition.y > 0 && localPosition.y < WINDOW_HEIGHT)
                 {
                     if (typeOfSprite == 0)
-                        map[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = this->actualTexture;
+                        tiles[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = this->actualTexture;
                     if (typeOfSprite == 1)
                         items[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = this->actualTexture;
                     if (typeOfSprite == 2)
@@ -221,11 +330,17 @@ void MapEditor::Loop()
                     inMenu = 1;
                     typeOfSprite = 0;
                 }
+                if (localPosition.x < 160 && localPosition.x > 0 && localPosition.y > 64 && localPosition.y < 128)
+                {
+                    inMenu = 1;
+                    typeOfSprite = 2;
+                }
                 if (localPosition.x < 160 && localPosition.x > 0 && localPosition.y > WINDOW_HEIGHT - 64 && localPosition.y < WINDOW_HEIGHT)
                 {
                     inMenu = 1;
                     typeOfSprite = 1;
                 }
+                
 
                 while (inMenu == 1) {
                     this->window->clear();
@@ -270,13 +385,58 @@ void MapEditor::Loop()
                         i = nbEntities;
                     
                     for (int j = 0; j < i; j++) {
-                        if (textures[typeOfSprite][j].getSize().x != 32 || textures[typeOfSprite][j].getSize().y != 32)
-                            sprites[typeOfSprite][j].setScale(32 / textures[typeOfSprite][j].getSize().x, 32 / textures[typeOfSprite][j].getSize().y);
+                        /*if (textures[typeOfSprite][j].getSize().x != 32 || textures[typeOfSprite][j].getSize().y != 32)
+                            sprites[typeOfSprite][j].setScale(32 / textures[typeOfSprite][j].getSize().x, 32 / textures[typeOfSprite][j].getSize().y);*/
                         sprites[typeOfSprite][j].setPosition(128 * ((j % 5) + 1) - 64 - 16 + 160, 128 * ((j - (j % 5)) / 5 + 1) - 64 - 16);
                         this->window->draw(sprites[typeOfSprite][j]);
                     }
 
                     this->window->display();
+                }
+
+                if (localPosition.x < WINDOW_WIDTH + 320 && localPosition.x > WINDOW_WIDTH + 160 && localPosition.y > 0 && localPosition.y < 64)
+                {
+                    if (actualMapY != 0)
+                    {
+                        if (map[actualMapY - 1][actualMapX] != 1)
+                        {
+                            map[actualMapY - 1][actualMapX] = 1;
+                            this->Save();
+                        }
+                    }
+                }
+                if (localPosition.x < WINDOW_WIDTH + 320 && localPosition.x > WINDOW_WIDTH + 160 && localPosition.y > 64 && localPosition.y < 128)
+                {
+                    if (actualMapY != WINDOW_HEIGHT / 32 - 1)
+                    {
+                        if (map[actualMapY + 1][actualMapX] != 1)
+                        {
+                            map[actualMapY + 1][actualMapX] = 1;
+                            this->Save();
+                        }
+                    }
+                }
+                if (localPosition.x < WINDOW_WIDTH + 320 && localPosition.x > WINDOW_WIDTH + 160 && localPosition.y > 128 && localPosition.y < 192)
+                {
+                    if (actualMapX != WINDOW_WIDTH / 32 - 1)
+                    {
+                        if (map[actualMapY][actualMapX + 1] != 1)
+                        {
+                            map[actualMapY][actualMapX + 1] = 1;
+                            this->Save();
+                        }
+                    }
+                }
+                if (localPosition.x < WINDOW_WIDTH + 320 && localPosition.x > WINDOW_WIDTH + 160 && localPosition.y > 192 && localPosition.y < 256)
+                {
+                    if (actualMapX != 0)
+                    {
+                        if (map[actualMapY][actualMapX - 1] != 1)
+                        {
+                            map[actualMapY][actualMapX - 1] = 1;
+                            this->Save();
+                        }
+                    }
                 }
             }
 
@@ -288,7 +448,7 @@ void MapEditor::Loop()
                 sf::Vector2i localPosition = sf::Mouse::getPosition(*window);
                 if (localPosition.x > 160 && localPosition.x < WINDOW_WIDTH + 160 && localPosition.y > 0 && localPosition.y < WINDOW_HEIGHT)
                 {
-                    map[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = 0;
+                    tiles[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = 0;
                     items[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = 0;
                     Entities[(localPosition.y - localPosition.y % 32) / 32][((localPosition.x - 160) - (localPosition.x - 160) % 32) / 32] = 0;
                 }
@@ -304,6 +464,11 @@ void MapEditor::Loop()
         window->draw(textTiles);
         window->draw(textItems);
         window->draw(textEntities);
+        window->draw(textAddAbove);
+        window->draw(textAddBelow);
+        window->draw(textAddRight);
+        window->draw(textAddLeft);
+        window->draw(textActualMap);
 
 
         //Dessine la map
@@ -311,8 +476,8 @@ void MapEditor::Loop()
         {
             for (int n = 0; n < WINDOW_WIDTH / 32; n++)
             {
-                sprites[0][map[r][n]].setPosition(n * 32 + 160, r * 32);
-                this->window->draw(sprites[0][map[r][n]]);
+                sprites[0][tiles[r][n]].setPosition(n * 32 + 160, r * 32);
+                this->window->draw(sprites[0][tiles[r][n]]);
                 sprites[1][items[r][n]].setPosition(n * 32 + 160, r * 32);
                 this->window->draw(sprites[1][items[r][n]]);
                 sprites[2][Entities[r][n]].setPosition(n * 32 + 160, r * 32);
@@ -328,8 +493,8 @@ void MapEditor::Loop()
 void MapEditor::Save()
 {
     fstream newfile;
-    newfile.open("map.txt", ios::out);
-    if (newfile.is_open()) 
+    newfile.open("map/map.txt", ios::out);
+    if (newfile.is_open())
     {
         for (int i = 0; i < WINDOW_HEIGHT / 32; i++)
         {
@@ -343,7 +508,22 @@ void MapEditor::Save()
     }
 
 
-    newfile.open("items.txt", ios::out);
+    newfile.open("map/tiles/tiles" + to_string(actualMapX + actualMapY * (WINDOW_WIDTH / 32)) + ".txt", ios::out);
+    if (newfile.is_open()) 
+    {
+        for (int i = 0; i < WINDOW_HEIGHT / 32; i++)
+        {
+            for (int j = 0; j < WINDOW_WIDTH / 32; j++)
+            {
+                newfile << tiles[i][j];
+            }
+            newfile << "\n";
+        }
+        newfile.close();
+    }
+
+
+    newfile.open("map/items/items" + to_string(actualMapX + actualMapY * (WINDOW_WIDTH / 32)) + ".txt", ios::out);
     if (newfile.is_open())
     {
         for (int i = 0; i < WINDOW_HEIGHT / 32; i++)
@@ -357,7 +537,7 @@ void MapEditor::Save()
         newfile.close();
     }
 
-    newfile.open("Entities.txt", ios::out);
+    newfile.open("map/entities/Entities" + to_string(actualMapX + actualMapY * (WINDOW_WIDTH / 32)) + ".txt", ios::out);
     if (newfile.is_open())
     {
         for (int i = 0; i < WINDOW_HEIGHT / 32; i++)

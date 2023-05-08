@@ -28,36 +28,34 @@ void Game::initVariables()
 }
 void Game::gameInit()
 {
-	this->window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Last Man");
-	window->setFramerateLimit(60);
-	//Lis le fichier map.txt
-	fstream newfile;
-	newfile.open("map.txt", ios::in);
-	if (newfile.is_open())
-	{
-		string tp;
-		int x = 0;
+    this->window = new sf::RenderWindow (sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Last Man");
+    window->setFramerateLimit(60);
+    //Lis le fichier map.txt
+    fstream newfile;
+    newfile.open("map/tiles/tiles" + to_string(actualMapX + actualMapY * (WINDOW_WIDTH / 32)) + ".txt", ios::in);
+    if (newfile.is_open())
+    {
+        string tp;
+        int x = 0;
 		while (getline(newfile, tp))
 		{
 			int y = 0;
 			for (char& c : tp)
 			{
-				map[x][y] = (int)c - 48;
+				tiles[x][y] = (int)c - 48;
 				y += 1;
 			}
 			x += 1;
-
 		}
 		newfile.close();
 	}
 
-
-	//Lis le fichier items.txt
-	newfile.open("items.txt", ios::in);
-	if (newfile.is_open())
-	{
-		string tp;
-		int x = 0;
+    //Lis le fichier items.txt
+    newfile.open("map/items/items" + to_string(actualMapX + actualMapY * (WINDOW_WIDTH / 32)) + ".txt", ios::in);
+    if (newfile.is_open())
+    {
+        string tp;
+        int x = 0;
 		while (getline(newfile, tp))
 		{
 			int y = 0;
@@ -67,7 +65,6 @@ void Game::gameInit()
 				y += 1;
 			}
 			x += 1;
-
 		}
 		newfile.close();
 	}
@@ -154,7 +151,7 @@ void Game::gameLoop()
 			{
 				player.Move(deltaTime);
 
-				// Pause menu key part 
+				// Pause menu key part
 				if (this->event.key.code == sf::Keyboard::Escape)
 				{
 					PauseMenu pause;
@@ -163,7 +160,7 @@ void Game::gameLoop()
 						pause.Loop(this->window, event);
 						pause.Draw(this->window);
 						this->window->display();
-						
+
 					}
 					pause.IsRunning = false;
 				}
@@ -208,8 +205,8 @@ void Game::gameLoop()
 		{
 			for (int n = 0; n < WINDOW_WIDTH / 32; n++)
 			{
-				sprites[0][map[r][n]].setPosition(n * 32, r * 32);
-				this->window->draw(sprites[0][map[r][n]]);
+				sprites[0][tiles[r][n]].setPosition(n * 32, r * 32);
+				this->window->draw(sprites[0][tiles[r][n]]);
 				sprites[1][items[r][n]].setPosition(n * 32, r * 32);
 				this->window->draw(sprites[1][items[r][n]]);
 			}
@@ -283,7 +280,7 @@ void Game::gameLoop()
 		enemy.MoveUpdate();
 		// enemy.CollisionEntitiesWithMap(map);
 		playerHud.affichage(this->window, inv);
-		player.Collision(map);
+		player.Collision(tiles);
 		player.Draw(this->window);
 		player.Sprint(16.f);
 

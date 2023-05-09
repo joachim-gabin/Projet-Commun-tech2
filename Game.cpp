@@ -103,15 +103,13 @@ void Game::gameLoop()
 	item gas(5, 12, 10);
 
 	sf::Clock clock;
-	sf::Clock AttClock;
 	sf::Texture playerTexture;
 
 
 	float deltaTime = 0.f;
-	float attTime = 0.f;
 	bool statutAttack = false;
 	playerTexture.loadFromFile("texture/Survivant11.png");
-	Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 3, 3, 32.f, 5);
+	Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 2, 3, 32.f, 5);
 
 
 
@@ -208,16 +206,7 @@ void Game::gameLoop()
 
 				if (this->event.key.code == sf::Keyboard::A)
 				{
-					attTime = AttClock.restart().asSeconds();
-
-					if (attTime > 0.1f)
-					{
-						statutAttack = true;
-					}
-					if (attTime > 2.f)
-					{
-						statutAttack = false;
-					}
+					statutAttack = true;
 				}
 			}
 		}
@@ -349,8 +338,8 @@ void Game::gameLoop()
 		//    cout << "collision in Y";
 		//}
 		
-		
-		
+		inv.currentLife(player.health);
+
 		// enemy.CollisionEntitiesWithMap(map);
 		playerHud.affichage(this->window, inv);
 		player.HpSys();
@@ -368,8 +357,14 @@ void Game::gameLoop()
 		}
 
 		if (statutAttack)
+		if (inv.current_item == 1 || inv.current_item == 3 || inv.current_item == 4)
 		{
-			player.Attack(this->window);
+			if (statutAttack)
+			{
+				player.Attack(this->window);
+				statutAttack = false;
+			}
+
 		}
 
 		

@@ -76,7 +76,9 @@ void Player::UseItem(inventaire inv)
 		if (inv.current_life < 3)
 		{
 			inv.addLife(1);
-			std::cout << "Vous avez utilisEune conserve, elle était délicieuse" << std::endl;
+			inv.removeItem(inv.currentChoose);
+			this->health = inv.current_life;
+			std::cout << "Vous utilisez une conserve, elle etait delicieuse" << std::endl;
 		}
 		else
 		{
@@ -91,10 +93,15 @@ void Player::UseItem(inventaire inv)
 		break;
 	}
 
-	if (currentItem == 5)		//Utilise masque a gaz
+	if (currentItem == 5 && immuneToGas == false)		//Utilise masque a gaz
 	{
 		immuneToGas = true;
 		std::cout << "Vous enfilez le masque a gaz" << std::endl;
+	}
+	else if (currentItem == 5 && immuneToGas == true)
+	{
+		immuneToGas = false;
+		std::cout << "Vous enlevez le masque a gaz" << std::endl;
 	}
 }
 

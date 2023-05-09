@@ -121,7 +121,6 @@ void Game::gameLoop()
 	int nbTiles = 0;
 	for (const auto& dirEntry : recursive_directory_iterator("texture/tiles/"))
 	{
-		std::cout << dirEntry.path().string() << std::endl;
 		sf::Texture texture;
 		textures[0][nbTiles] = texture;
 		if (!textures[0][nbTiles].loadFromFile(dirEntry.path().string()))
@@ -189,7 +188,6 @@ void Game::gameLoop()
 				{
 					inv.statut++;
 					inv.statut = inv.statut % 2;
-					std::cout << inv.statut << std::endl;
 				}
 
 				if (this->event.key.code == sf::Keyboard::E)          //utilise l'objet choisi dans l'inventaire
@@ -338,10 +336,7 @@ void Game::gameLoop()
 		//}
 
 		inv.currentLife(player.health);
-
-		//std::cout << inv.current_life << std::endl;
 		
-
 		// enemy.CollisionEntitiesWithMap(map);
 		enemy.Collision(player, inv);
 		enemy.MoveUpdate();
@@ -384,6 +379,7 @@ void Game::gameLoop()
 		{
 			// A la mort retour au menu principal (WIP = Work in progress)
 			dead = true;
+			player.health = player.basehealth;
 		}
 
 	}

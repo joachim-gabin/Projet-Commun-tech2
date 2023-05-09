@@ -10,9 +10,11 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
     row = 0;
     faceRight = true;
 	immuneToGas = false;
+	
 
     body.setSize(sf::Vector2f(SIZE_TILE, SIZE_TILE));
     body.setOrigin(body.getSize() / 2.f);
+	body.setOutlineThickness(1);
     body.setPosition(sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
     body.setTexture(texture);
 	body.setTextureRect(animatedentity.uvRect);
@@ -57,7 +59,6 @@ void Player::Move(float deltaTime)
 			row = 2;
 			animatedentity.Update(row, deltaTime, faceRight);
 		}
-		std::cout << speed << std::endl;
 		body.setTextureRect(animatedentity.uvRect);
 		body.move(velocity);
 	}
@@ -128,6 +129,7 @@ void Player::Collision(int map[20][20])
 
 void Player::HpSys()
 {
+	// A enlever plus tard
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
 	{
 		this->health -= 1;

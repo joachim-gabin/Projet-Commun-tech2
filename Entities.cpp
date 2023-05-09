@@ -1,4 +1,4 @@
-#include "Entities.h"
+﻿#include "Entities.h"
 
 Entities::Entities() {
 
@@ -84,13 +84,19 @@ void Entities::MoveUpdate()
 //}
 }
 
-void Entities::Collision(Player player)
+bool Entities::Collision(Player player, inventaire inv)
 {
-	//if (PosXEntities && PosYEntities <= player.GetPosition().x && player.GetPosition().y)
-	//{
-	//	player.health -= 1;
-	//	std::cout << player.health << std::endl;
-	//}
+	// Recupére la taille des rectangles
+	sf::FloatRect box = BodyEntities.getGlobalBounds();
+	sf::FloatRect pBox = player.body.getGlobalBounds();
+
+	// Si le carré blanc autour du player touche le carré blanc autour des ennemis se touchent alors hp -1
+	if (pBox.intersects(box))
+	{
+		return true;
+	}
+
+	return false;
 }
 
 

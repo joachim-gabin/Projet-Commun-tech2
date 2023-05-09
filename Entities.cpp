@@ -91,14 +91,14 @@ bool Entities::Collision(Player player, inventaire inv)
 	// Si le carré blanc autour du player touche le carré blanc autour des ennemis se touchent alors hp -1
 	if (pBox.intersects(box))
 	{
-		if (DamageClock.getElapsedTime().asSeconds() >= 3)
+		if (DamageClock.getElapsedTime().asSeconds() >= 2)
 		{
 			DamageClock.restart();
 			std::cout << player.health << std::endl;
 			return true;
 		}
+		return false;
 	}
-	return false;
 }
 
 

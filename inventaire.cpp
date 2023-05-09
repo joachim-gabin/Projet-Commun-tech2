@@ -22,6 +22,12 @@ inventaire::~inventaire()
 {
 
 }
+
+void inventaire::currentLife(int life)
+{
+	this->current_life = life;
+}
+
 int inventaire::ajout(int num)
 {
 	for (int l = 0; l <= 8 ; l++)
@@ -156,11 +162,16 @@ void inventaire::select(sf::Event event)
 	}
 	if (event.key.code == sf::Keyboard::Num9)
 	{
-
 		this->currentChoose = 8;
 	}
 	//std::cout << "item selectionnE: " << this->currentChoose << std::endl;
 	this->current_item = this->inv[this->currentChoose];
+}
+
+void inventaire::removeItem(int i)
+{
+	this->inv[i] = 0;
+	std::cout << inv[1] << std::endl;
 }
 
 void inventaire::addLife(int n)

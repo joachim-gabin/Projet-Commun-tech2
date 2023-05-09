@@ -103,15 +103,13 @@ void Game::gameLoop()
 	item gas(5, 12, 10);
 
 	sf::Clock clock;
-	sf::Clock AttClock;
 	sf::Texture playerTexture;
 
 
 	float deltaTime = 0.f;
-	float attTime = 0.f;
 	bool statutAttack = false;
 	playerTexture.loadFromFile("texture/Survivant11.png");
-	Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 3, 3, 32.f, 5);
+	Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 2, 3, 32.f, 5);
 
 
 
@@ -160,6 +158,7 @@ void Game::gameLoop()
 	
 	Enemy enemy("Zombie", 1);
 	Enemy enemy2("Zombie", 2);
+
 	while (this->window->isOpen())
 	{
 		deltaTime = clock.restart().asSeconds();
@@ -209,16 +208,7 @@ void Game::gameLoop()
 
 				if (this->event.key.code == sf::Keyboard::A)
 				{
-					attTime = AttClock.restart().asSeconds();
-
-					if (attTime > 0.1f)
-					{
-						statutAttack = true;
-					}
-					if (attTime > 2.f)
-					{
-						statutAttack = false;
-					}
+					statutAttack = true;
 				}
 			}
 		}
@@ -349,8 +339,10 @@ void Game::gameLoop()
 		//if (enemy.GetPosition().y >= player.GetPosition().y) {
 		//    cout << "collision in Y";
 		//}
-		//enemy.MoveUpdate();
 		
+		inv.currentLife(player.health);
+
+		enemy.MoveUpdate();
 		enemy.Collision(player);
 		// enemy.CollisionEntitiesWithMap(map);
 		playerHud.affichage(this->window, inv);
@@ -359,10 +351,14 @@ void Game::gameLoop()
 		player.Draw(this->window);
 		player.Sprint(16.f);
 
-
-		if (statutAttack)
+		if (inv.current_item == 1 || inv.current_item == 3 || inv.current_item == 4)
 		{
-			player.Attack(this->window);
+			if (statutAttack)
+			{
+				player.Attack(this->window);
+				statutAttack = false;
+			}
+
 		}
 
 		enemy.DrawEntities(this->window);

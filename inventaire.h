@@ -11,8 +11,10 @@ public:
 	void selection();
 	void affichage(sf::RenderWindow* window);
 	void select(sf::Event event);
+	void removeItem(int i);
 	void addLife(int n);
 	void removeLife(int n);
+	void currentLife(int life);
 
 	int inv[9] = { 1, 2, 0, 0, 0, 0, 0, 0, 0 };
 	int statut = 0;
@@ -23,6 +25,7 @@ public:
 	int current_item;
 	int current_life;
 
+
 private:
 
 	sf::Sprite hud_sprite;
@@ -32,6 +35,6 @@ private:
 	sf::Texture obj_texture;
 
 
-	int x;
-	int y;
+	float x;
+	float y;
 };

@@ -181,6 +181,10 @@ void Game::gameLoop()
 						this->window->display();
 
 					}
+					if (pause.IsRunning == true && pause.Choice == 1) {
+						this->window->close();
+						MapEditor map;
+					}
 					pause.IsRunning = false;
 				}
 
@@ -384,6 +388,10 @@ void Game::gameLoop()
 				pause.Draw(this->window);
 				this->window->display();
 
+			}
+			if (pause.IsRunning == true && pause.Choice == 1) {
+				this->window->close();
+				MapEditor map;
 			}
 			if (pause.IsRunning == true && pause.Choice == 0) {
 				this->window->close();

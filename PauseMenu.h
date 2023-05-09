@@ -15,7 +15,6 @@ public:
 	int Choice = 0;
 	int SetKey = 0;
 	bool IsRunning = false;
-	bool IsInEditor = false;
 	bool IsDead = false;
 
 protected:

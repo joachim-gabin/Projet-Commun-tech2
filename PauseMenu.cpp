@@ -150,7 +150,6 @@ void PauseMenu::Loop(sf::RenderWindow* window, sf::Event& event)
 				if (Choice == 1) {
 					//Open Map Editor menu
 					IsRunning = true;
-					IsInEditor = true;
 				}
 				if (Choice == 2) {
 					window->close();

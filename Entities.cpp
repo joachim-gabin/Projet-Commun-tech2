@@ -55,27 +55,27 @@ void Entities::MoveUpdate()
 		//NameSpriteEntities.setPosition(PosXEntities, PosYEntities);
 
 	if (BodyEntities.getPosition().x != B && ValidPath == false) {
-		PosXEntities += SpeedEntities / 10;
+		PosXEntities += SpeedEntities / 10.f;
 		BodyEntities.setPosition(PosXEntities, PosYEntities);
 
 		if (BodyEntities.getPosition().x == B) {
 			time = clock.getElapsedTime();
 			ValidPath = true;
 			if (time.asSeconds() > 1.5) {
-				BodyEntities.setSize(VectorEntities);
+				BodyEntities.setSize(VectorEntities); // flip shape texture in negative
 				clock.restart();
 			}
 		}
 	}
 	else if (BodyEntities.getPosition().x != A && ValidPath == true) {
-		PosXEntities -= SpeedEntities / 10;
+		PosXEntities -= SpeedEntities / 10.f;
 		BodyEntities.setPosition(PosXEntities, PosYEntities);
 
 		if (BodyEntities.getPosition().x == A) {
 			time = clock.getElapsedTime();
 			ValidPath = false;
 			if (time.asSeconds() > 1.5) {
-				BodyEntities.getSize().x;
+				BodyEntities.setSize(VectorEntities); // reset shape texture in the good position
 				clock.restart();
 			}
 		}

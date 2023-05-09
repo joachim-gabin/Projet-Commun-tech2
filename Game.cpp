@@ -159,7 +159,6 @@ void Game::gameLoop()
 	
 	
 	Enemy enemy("Zombie", 1);
-	Enemy enemy2("Zombie", 2);
 	while (this->window->isOpen())
 	{
 		deltaTime = clock.restart().asSeconds();
@@ -349,9 +348,9 @@ void Game::gameLoop()
 		//if (enemy.GetPosition().y >= player.GetPosition().y) {
 		//    cout << "collision in Y";
 		//}
-		//enemy.MoveUpdate();
 		
-		enemy.Collision(player);
+		
+		
 		// enemy.CollisionEntitiesWithMap(map);
 		playerHud.affichage(this->window, inv);
 		player.HpSys();
@@ -359,14 +358,21 @@ void Game::gameLoop()
 		player.Draw(this->window);
 		player.Sprint(16.f);
 
+		if (enemy.HpEntities > 0) {
+			enemy.Collision(player);
+			enemy.MoveUpdate();
+			enemy.DrawEntities(this->window);
+		}
+		else{
+			//or kill enemy
+		}
 
 		if (statutAttack)
 		{
 			player.Attack(this->window);
 		}
 
-		enemy.DrawEntities(this->window);
-		enemy2.DrawEntities(this->window);
+		
 		this->window->display();
 
 		if (player.health <= 0)

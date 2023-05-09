@@ -8,7 +8,6 @@ Enemy::Enemy(string Category, int ValueEntities)
 }
 
 Enemy::~Enemy() {
-
 }
 
 

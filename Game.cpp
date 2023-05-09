@@ -112,7 +112,6 @@ void Game::gameLoop()
 	Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 2, 3, 32.f, 5);
 
 
-
 	//Initialise les array de texture et de sprite des tiles
 	sf::Sprite sprites[2][100];
 	sf::Texture textures[2][100];
@@ -154,8 +153,8 @@ void Game::gameLoop()
 	// ===================================================================================================================================================================================
 	//Load enemy with his Category and his ID
 
-	
-	
+
+
 	Enemy enemy("Zombie", 1);
 	Enemy enemy2("Zombie", 2);
 
@@ -215,9 +214,9 @@ void Game::gameLoop()
 
 		if (player.GetPosition().y > WINDOW_HEIGHT - 32)
 		{
-			if (actualMapY != WINDOW_HEIGHT / 32) 
+			if (actualMapY != WINDOW_HEIGHT / 32)
 			{
-				if (map[actualMapY + 1][actualMapX] == 1) 
+				if (map[actualMapY + 1][actualMapX] == 1)
 				{
 					actualMapY++;
 					this->Open();
@@ -339,11 +338,22 @@ void Game::gameLoop()
 		//if (enemy.GetPosition().y >= player.GetPosition().y) {
 		//    cout << "collision in Y";
 		//}
-		
+
 		inv.currentLife(player.health);
 
+		//std::cout << inv.current_life << std::endl;
+		std::cout << player.health << std::endl;
+
 		enemy.MoveUpdate();
-		enemy.Collision(player);
+		enemy.Collision(player, inv);
+		
+		if (enemy.Collision(player,inv) == true && player.health > 0)
+		{
+			inv.removeLife(1);
+			player.health--;
+
+		}
+
 		// enemy.CollisionEntitiesWithMap(map);
 		playerHud.affichage(this->window, inv);
 		player.HpSys();
@@ -358,10 +368,6 @@ void Game::gameLoop()
 				player.Attack(this->window);
 				statutAttack = false;
 			}
-
-		if (statutAttack)
-		{
-			player.Attack(this->window);
 		}
 
 		enemy.DrawEntities(this->window);
@@ -372,9 +378,8 @@ void Game::gameLoop()
 		{
 			// A la mort retour au menu principal (WIP = Work in progress)
 			dead = true;
-			MainMenu mainMenu;
-			player.health = player.basehealth;
 		}
 
 	}
 }
+

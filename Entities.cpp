@@ -84,7 +84,7 @@ void Entities::MoveUpdate()
 //}
 }
 
-void Entities::Collision(Player player)
+bool Entities::Collision(Player player, inventaire inv)
 {
 	// Recupére la taille des rectangles
 	sf::FloatRect box = BodyEntities.getGlobalBounds();
@@ -93,9 +93,10 @@ void Entities::Collision(Player player)
 	// Si le carré blanc autour du player touche le carré blanc autour des ennemis se touchent alors hp -1
 	if (pBox.intersects(box))
 	{
-		player.health -= 1;
-		std::cout << player.health << std::endl;
+		return true;
 	}
+
+	return false;
 }
 
 

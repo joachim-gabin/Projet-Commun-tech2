@@ -1,5 +1,6 @@
 #include "General.h"
 #include "Player.h"
+#include "inventaire.h"
 
 class Entities {
 public :
@@ -25,7 +26,7 @@ public :
 	sf::Texture TextureEntitiesLoader();
 	void SpriteLoaderSettings();
 	void MoveUpdate();
-	void Collision(Player player);
+	bool Collision(Player player, inventaire inv);
 	//void CollisionEntitiesWithMap(int map[20][20]);
 	//sf::Vector2f GetPositionEntities();
 

@@ -122,6 +122,7 @@ void Player::Collision(int map[20][20])
 
 void Player::HpSys()
 {
+	// A enlever plus tard
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
 	{
 		this->health -= 1;

@@ -90,9 +90,6 @@ void Entities::Collision(Player player)
 	sf::FloatRect box = BodyEntities.getGlobalBounds();
 	sf::FloatRect pBox = player.body.getGlobalBounds();
 
-	// Vérifie dans la console si la condition devient vrai (A retirer après les tests)
-	std::cout << pBox.intersects(box) << std::endl;
-
 	// Si le carré blanc autour du player touche le carré blanc autour des ennemis se touchent alors hp -1
 	if (pBox.intersects(box))
 	{

@@ -109,7 +109,7 @@ void Game::gameLoop()
 	float deltaTime = 0.f;
 	bool statutAttack = false;
 	playerTexture.loadFromFile("texture/Survivant11.png");
-	Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 2, 3, 32.f, 5);
+	Player player(&playerTexture, sf::Vector2u(2, 4), 0.01f, 3, 3, 32.f, 5);
 
 
 	//Initialise les array de texture et de sprite des tiles
@@ -356,7 +356,6 @@ void Game::gameLoop()
 		}
 
 		playerHud.affichage(this->window, inv);
-		player.HpSys();
 		player.Collision(tiles);
 		player.Draw(this->window);
 		player.Sprint(16.f);

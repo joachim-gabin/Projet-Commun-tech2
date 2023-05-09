@@ -39,7 +39,6 @@ void Entities::SpriteLoaderSettings()
 	//NameSpriteEntities.setScale(SizeXEntities, SizeYEntities);
 	BodyEntities.setPosition(PosXEntities, PosYEntities);
 	BodyEntities.setSize(VectorEntities);
-	BodyEntities.setOutlineThickness(3);
 
 	*p_A = (int)BodyEntities.getPosition().x;
 	*p_B = (int)BodyEntities.getPosition().x + 200;

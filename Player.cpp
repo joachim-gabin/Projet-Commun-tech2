@@ -14,7 +14,6 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
 
     body.setSize(sf::Vector2f(SIZE_TILE, SIZE_TILE));
     body.setOrigin(body.getSize() / 2.f);
-	body.setOutlineThickness(1);
     body.setPosition(sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
     body.setTexture(texture);
 	body.setTextureRect(animatedentity.uvRect);

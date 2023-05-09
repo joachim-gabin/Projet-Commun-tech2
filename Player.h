@@ -25,8 +25,6 @@ public:
 	int armor;
 
 	sf::Vector2f GetPosition() { return body.getPosition(); }
-	sf::FloatRect oldPos;
-	sf::FloatRect nextPos;
 	sf::RectangleShape body;
 
 private:
@@ -35,7 +33,6 @@ private:
 	float speed;
 	bool faceRight;
 	unsigned int row;
-	sf::Sprite sprite;
 	sf::Texture texture;
 	sf::Sprite AttSprite;
 	sf::Texture AttTexture;

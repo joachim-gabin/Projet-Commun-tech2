@@ -359,7 +359,6 @@ void Game::gameLoop()
 		player.Draw(this->window);
 		player.Sprint(16.f);
 
-
 		if (statutAttack)
 		{
 			player.Attack(this->window);
@@ -371,7 +370,9 @@ void Game::gameLoop()
 
 		if (player.health <= 0)
 		{
+			// A la mort retour au menu principal (WIP = Work in progress)
 			dead = true;
+			MainMenu mainMenu;
 			player.health = player.basehealth;
 		}
 

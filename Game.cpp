@@ -28,10 +28,10 @@ void Game::initVariables()
 }
 void Game::gameInit()
 {
-    this->window = new sf::RenderWindow (sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Last Man");
-    window->setFramerateLimit(60);
-    //Lis le fichier map.txt
-    fstream newfile;
+	this->window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Last Man");
+	window->setFramerateLimit(60);
+	//Lis le fichier map.txt
+	fstream newfile;
 	newfile.open("map/map.txt", ios::in);
 	if (newfile.is_open())
 	{
@@ -52,7 +52,7 @@ void Game::gameInit()
 	this->Open();
 }
 
-void Game::Open() 
+void Game::Open()
 {
 	fstream newfile;
 	newfile.open("map/tiles/tiles" + to_string(actualMapX + actualMapY * (WINDOW_WIDTH / 32)) + ".txt", ios::in);
@@ -337,13 +337,13 @@ void Game::gameLoop()
 		//}
 
 		inv.currentLife(player.health);
-		
+
 		// enemy.CollisionEntitiesWithMap(map);
 		enemy.Collision(player, inv);
 		enemy.MoveUpdate();
 		enemy.DrawEntities(this->window);
-		
-		if (enemy.Collision(player,inv) == true && player.health > 0)
+
+		if (enemy.Collision(player, inv) == true && player.health > 0)
 		{
 			inv.removeLife(1);
 			player.health--;
@@ -357,30 +357,44 @@ void Game::gameLoop()
 		if (enemy.HpEntities > 0) {
 
 		}
-		else{
+		else {
 			//or kill enemy
 		}
 
 		if (statutAttack)
-		if (inv.current_item == 1 || inv.current_item == 3 || inv.current_item == 4)
-		{
-			if (statutAttack)
+			if (inv.current_item == 1 || inv.current_item == 3 || inv.current_item == 4)
 			{
-				player.Attack(this->window);
-				statutAttack = false;
+				if (statutAttack)
+				{
+					player.Attack(this->window);
+					statutAttack = false;
+				}
 			}
-		}
 
-		
+
 		this->window->display();
 
 		if (player.health <= 0)
 		{
-			// A la mort retour au menu principal (WIP = Work in progress)
-			dead = true;
+			PauseMenu pause;
+			pause.IsDead = true;
+			while (!pause.IsRunning && this->window->isOpen()) {
+				this->window->clear();
+				pause.Loop(this->window, event);
+				pause.Draw(this->window);
+				this->window->display();
+
+			}
+			if (pause.IsRunning == true && pause.Choice == 0) {
+				this->window->close();
+				Game game;
+			}
+			pause.IsRunning = false;
 			player.health = player.basehealth;
 		}
-
+		
 	}
+
 }
+
 

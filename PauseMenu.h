@@ -8,7 +8,6 @@ public:
 
 	void SetFont();
 	void SetBackground();
-	int SetSound();
 	void Draw(sf::RenderWindow* window);
 	void Interact();
 	void Loop(sf::RenderWindow* window, sf::Event& event);
@@ -16,6 +15,7 @@ public:
 	int Choice = 0;
 	int SetKey = 0;
 	bool IsRunning = false;
+	bool IsInEditor = false;
 	bool IsDead = false;
 
 protected:

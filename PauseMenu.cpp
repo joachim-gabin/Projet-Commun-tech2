@@ -36,7 +36,7 @@ void PauseMenu::SetFont()
 
 	option.setFont(font);
 	option.setFillColor(sf::Color::White);
-	option.setString("Option");
+	option.setString("Map Editor");
 	option.setCharacterSize(70);
 	option.setPosition(205, 220);
 
@@ -95,7 +95,7 @@ void PauseMenu::Interact()
 			quit.setFillColor(sf::Color::White);
 		}
 		break;
-	case 1: //Option choice
+	case 1: //Map Editor choice
 		if (!IsDead) {
 			resume.setFillColor(sf::Color::White);
 			option.setFillColor(ColorFont);
@@ -148,7 +148,9 @@ void PauseMenu::Loop(sf::RenderWindow* window, sf::Event& event)
 					IsRunning = true;
 				}
 				if (Choice == 1) {
-					//Open option menu
+					//Open Map Editor menu
+					IsRunning = true;
+					IsInEditor = true;
 				}
 				if (Choice == 2) {
 					window->close();

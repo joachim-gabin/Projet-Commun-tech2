@@ -91,7 +91,7 @@ bool Entities::Collision(Player player, inventaire inv)
 	// Si le carré blanc autour du player touche le carré blanc autour des ennemis se touchent alors hp -1
 	if (pBox.intersects(box))
 	{
-		if (DamageClock.getElapsedTime().asSeconds() >= 2)
+		if (DamageClock.getElapsedTime().asSeconds() >= 1)
 		{
 			DamageClock.restart();
 			std::cout << player.health << std::endl;
@@ -100,49 +100,3 @@ bool Entities::Collision(Player player, inventaire inv)
 		return false;
 	}
 }
-
-
-
-//void Entities::CollisionEntitiesWithMap(int map[20][20])
-//{
-//	if (BodyEntities.getPosition().x < 0.f)
-//	{
-//		BodyEntities.setPosition(0.f, BodyEntities.getPosition().y);
-//	}
-//
-//	if (BodyEntities.getPosition().y < 0.f)
-//	{
-//		BodyEntities.setPosition(BodyEntities.getPosition().x, 0.f);
-//	}
-//
-//	if (BodyEntities.getPosition().x > WINDOW_WIDTH)
-//	{
-//		BodyEntities.setPosition(WINDOW_WIDTH, BodyEntities.getPosition().y);
-//	}
-//
-//	if (BodyEntities.getPosition().y > WINDOW_HEIGHT)
-//	{
-//		BodyEntities.setPosition(BodyEntities.getPosition().x, WINDOW_HEIGHT);
-//	}
-//	if (map[((int)BodyEntities.getPosition().y - 10) / 32][(int)BodyEntities.getPosition().x / 32] != 0)
-//	{
-//		BodyEntities.setPosition(BodyEntities.getPosition().x, BodyEntities.getPosition().y + 16);
-//	}
-//	if (map[((int)BodyEntities.getPosition().y + 10) / 32][(int)BodyEntities.getPosition().x / 32] != 0)
-//	{
-//		BodyEntities.setPosition(BodyEntities.getPosition().x, BodyEntities.getPosition().y - 16);
-//	}
-//	if (map[(int)BodyEntities.getPosition().y / 32][((int)BodyEntities.getPosition().x - 10) / 32] != 0)
-//	{
-//		BodyEntities.setPosition(BodyEntities.getPosition().x + 16, BodyEntities.getPosition().y);
-//	}
-//	if (map[(int)BodyEntities.getPosition().y / 32][((int)BodyEntities.getPosition().x + 10) / 32] != 0)
-//	{
-//		BodyEntities.setPosition(BodyEntities.getPosition().x - 16, BodyEntities.getPosition().y);
-//	}
-//}
-
-//sf::Vector2f Entities::GetPositionEntities()
-//{
-//	return BodyEntities.getPosition();
-//}

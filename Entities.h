@@ -27,8 +27,6 @@ public :
 	void SpriteLoaderSettings();
 	void MoveUpdate();
 	bool Collision(Player player, inventaire inv);
-	//void CollisionEntitiesWithMap(int map[20][20]);
-	//sf::Vector2f GetPositionEntities();
 
 	
 protected :

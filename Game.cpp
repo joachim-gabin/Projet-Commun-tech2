@@ -340,19 +340,21 @@ void Game::gameLoop()
 		inv.currentLife(player.health);
 
 		//std::cout << inv.current_life << std::endl;
-		std::cout << player.health << std::endl;
+		
 
-		enemy.MoveUpdate();
+		// enemy.CollisionEntitiesWithMap(map);
 		enemy.Collision(player, inv);
+		enemy.MoveUpdate();
+		enemy.DrawEntities(this->window);
 		
 		if (enemy.Collision(player,inv) == true && player.health > 0)
 		{
 			inv.removeLife(1);
 			player.health--;
+			
 
 		}
 
-		// enemy.CollisionEntitiesWithMap(map);
 		playerHud.affichage(this->window, inv);
 		player.HpSys();
 		player.Collision(tiles);
@@ -360,9 +362,7 @@ void Game::gameLoop()
 		player.Sprint(16.f);
 
 		if (enemy.HpEntities > 0) {
-			enemy.Collision(player);
-			enemy.MoveUpdate();
-			enemy.DrawEntities(this->window);
+
 		}
 		else{
 			//or kill enemy

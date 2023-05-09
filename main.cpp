@@ -79,7 +79,6 @@ int main()
                         window.close();
                         break;
                     }
-
                 }
             }
         }

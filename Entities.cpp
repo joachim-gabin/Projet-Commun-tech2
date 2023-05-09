@@ -39,7 +39,6 @@ void Entities::SpriteLoaderSettings()
 	//NameSpriteEntities.setScale(SizeXEntities, SizeYEntities);
 	BodyEntities.setPosition(PosXEntities, PosYEntities);
 	BodyEntities.setSize(VectorEntities);
-	BodyEntities.setOutlineThickness(3);
 
 	*p_A = (int)BodyEntities.getPosition().x;
 	*p_B = (int)BodyEntities.getPosition().x + 200;
@@ -61,7 +60,7 @@ void Entities::MoveUpdate()
 			time = clock.getElapsedTime();
 			ValidPath = true;
 			if (time.asSeconds() > 1.5) {
-				BodyEntities.setSize(VectorEntities); // flip shape texture in negative
+				BodyEntities.setScale(VectorEntities.x / -32, VectorEntities.y - 31); // flip shape texture in negative
 				clock.restart();
 			}
 		}
@@ -74,7 +73,7 @@ void Entities::MoveUpdate()
 			time = clock.getElapsedTime();
 			ValidPath = false;
 			if (time.asSeconds() > 1.5) {
-				BodyEntities.setSize(VectorEntities); // reset shape texture in the good position
+				BodyEntities.setScale(VectorEntities.x / 32, VectorEntities.y - 31); // reset shape texture in the good position
 				clock.restart();
 			}
 		}
@@ -92,12 +91,14 @@ bool Entities::Collision(Player player, inventaire inv)
 	// Si le carré blanc autour du player touche le carré blanc autour des ennemis se touchent alors hp -1
 	if (pBox.intersects(box))
 	{
-		//std::cout << player.health << std::endl;
-		return true;
-
+		if (DamageClock.getElapsedTime().asSeconds() >= 2)
+		{
+			DamageClock.restart();
+			std::cout << player.health << std::endl;
+			return true;
+		}
+		return false;
 	}
-
-	return false;
 }
 
 

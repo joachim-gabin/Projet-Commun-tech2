@@ -14,7 +14,6 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
 
     body.setSize(sf::Vector2f(SIZE_TILE, SIZE_TILE));
     body.setOrigin(body.getSize() / 2.f);
-	body.setOutlineThickness(1);
     body.setPosition(sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
     body.setTexture(texture);
 	body.setTextureRect(animatedentity.uvRect);
@@ -124,16 +123,6 @@ void Player::Collision(int map[20][20])
 	if (map[(int)GetPosition().y / 32][((int)GetPosition().x + 10) / 32] != 0)
 	{
 		body.setPosition(GetPosition().x - 16, GetPosition().y);
-	}
-}
-
-void Player::HpSys()
-{
-	// A enlever plus tard
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
-	{
-		this->health -= 1;
-		std::cout << health << std::endl;
 	}
 }
 

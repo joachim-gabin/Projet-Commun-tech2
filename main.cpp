@@ -43,7 +43,7 @@ int main()
 
                         if (game.dead == true)
                         {
-                            mainMenu;
+                            MainMenu mainMenu;
                         }
                     }
 

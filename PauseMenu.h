@@ -16,10 +16,11 @@ public:
 	int Choice = 0;
 	int SetKey = 0;
 	bool IsRunning = false;
+	bool IsDead = false;
 
 protected:
 	sf::Font font;
-	sf::Text resume, option, quit;
+	sf::Text resume, option, quit, retry;
 	sf::Color ColorFont;
 
 	sf::Texture NamePauseTextureBackground;

@@ -18,11 +18,21 @@ void PauseMenu::SetFont()
 	}
 	ColorFont = { 109, 7, 26 };
 
-	resume.setFont(font);
-	resume.setFillColor(ColorFont);
-	resume.setString("Resume");
-	resume.setCharacterSize(70);
-	resume.setPosition(205, 120);
+	if (!IsDead) {
+		resume.setFont(font);
+		resume.setFillColor(ColorFont);
+		resume.setString("Resume");
+		resume.setCharacterSize(70);
+		resume.setPosition(205, 120);
+	}
+	else {
+		retry.setFont(font);
+		retry.setFillColor(ColorFont);
+		retry.setString("Retry");
+		retry.setCharacterSize(70);
+		retry.setPosition(205, 120);
+	}
+	
 
 	option.setFont(font);
 	option.setFillColor(sf::Color::White);
@@ -53,10 +63,14 @@ void PauseMenu::SetBackground()
 void PauseMenu::Draw(sf::RenderWindow* window) {
 
 	window->draw(NamePauseSpriteBackground);
-	window->draw(resume);
+	if (!IsDead) {
+		window->draw(resume);
+	}
+	else {
+		window->draw(retry);
+	}
 	window->draw(option);
 	window->draw(quit);
-	
 }
 
 void PauseMenu::Interact()
@@ -70,23 +84,42 @@ void PauseMenu::Interact()
 	//Choice = LevelChoice;
 	switch (Choice) {
 	case 0:  //Resume choice
-		resume.setFillColor(ColorFont);
-		option.setFillColor(sf::Color::White);
-		quit.setFillColor(sf::Color::White);
+		if (!IsDead) {
+			resume.setFillColor(ColorFont);
+			option.setFillColor(sf::Color::White);
+			quit.setFillColor(sf::Color::White);
+		}
+		else {
+			retry.setFillColor(ColorFont);
+			option.setFillColor(sf::Color::White);
+			quit.setFillColor(sf::Color::White);
+		}
 		break;
 	case 1: //Option choice
-		resume.setFillColor(sf::Color::White);
-		option.setFillColor(ColorFont);
-		quit.setFillColor(sf::Color::White);
+		if (!IsDead) {
+			resume.setFillColor(sf::Color::White);
+			option.setFillColor(ColorFont);
+			quit.setFillColor(sf::Color::White);
+		}
+		else {
+			retry.setFillColor(sf::Color::White);
+			option.setFillColor(ColorFont);
+			quit.setFillColor(sf::Color::White);
+		}
 		break;
 	case 2: //Quit choice
-		resume.setFillColor(sf::Color::White);
-		option.setFillColor(sf::Color::White);
-		quit.setFillColor(ColorFont);
+		if (!IsDead) {
+			resume.setFillColor(sf::Color::White);
+			option.setFillColor(sf::Color::White);
+			quit.setFillColor(ColorFont);
+		}
+		else {
+			retry.setFillColor(sf::Color::White);
+			option.setFillColor(sf::Color::White);
+			quit.setFillColor(ColorFont);
+		}
 		break;
 	}
-
-
 }
 
 void PauseMenu::Loop(sf::RenderWindow* window, sf::Event& event)

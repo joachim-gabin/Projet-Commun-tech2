@@ -173,6 +173,7 @@ void Game::gameLoop()
 				// Pause menu key part
 				if (this->event.key.code == sf::Keyboard::Escape)
 				{
+
 					PauseMenu pause;
 					while (!pause.IsRunning && this->window->isOpen()) {
 						this->window->clear();
@@ -351,8 +352,6 @@ void Game::gameLoop()
 		{
 			inv.removeLife(1);
 			player.health--;
-			
-
 		}
 
 		playerHud.affichage(this->window, inv);
@@ -383,8 +382,17 @@ void Game::gameLoop()
 
 		if (player.health <= 0)
 		{
-			// A la mort retour au menu principal (WIP = Work in progress)
-			dead = true;
+			//PauseMenu pause;
+			//pause.IsDead = true;
+			//while (!pause.IsRunning && this->window->isOpen()) {
+			//	this->window->clear();
+			//	pause.Loop(this->window, event);
+			//	pause.Draw(this->window);
+			//	this->window->display();
+
+			//}
+			//pause.IsRunning = false;
+			this->window->close();
 		}
 
 	}

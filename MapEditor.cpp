@@ -147,7 +147,7 @@ void MapEditor::Loop()
 
     sf::Text textEntities;
     textEntities.setFont(font);
-    textEntities.setString("Entities");
+    textEntities.setString("Entities WIP");
     textEntities.setCharacterSize(24);
     textEntities.setOrigin(44, 12);
     textEntities.setPosition(160 / 2, 32 + 64);
@@ -187,6 +187,21 @@ void MapEditor::Loop()
     textActualMap.setCharacterSize(18);
     textActualMap.setOrigin(44, 12);
     textActualMap.setPosition(WINDOW_WIDTH + 160 + 160 / 2, WINDOW_HEIGHT / 2 + 32);
+
+    sf::Text textClearMap;
+    textClearMap.setFont(font);
+    textClearMap.setString("Clear Zone");
+    textClearMap.setCharacterSize(22);
+    textClearMap.setOrigin(44, 12);
+    textClearMap.setPosition(WINDOW_WIDTH + 160 + 160 / 2, WINDOW_HEIGHT - 32 - 64);
+
+    sf::Text textEraseMap;
+    textEraseMap.setFont(font);
+    textEraseMap.setString("Erase Zone");
+    textEraseMap.setCharacterSize(22);
+    textEraseMap.setOrigin(44, 12);
+    textEraseMap.setPosition(WINDOW_WIDTH + 160 + 160 / 2, WINDOW_HEIGHT - 32);
+
 
     //Initialise les array de texture et de sprite des tiles
     sf::Sprite sprites[3][100];
@@ -438,6 +453,28 @@ void MapEditor::Loop()
                         }
                     }
                 }
+
+                if (localPosition.x < WINDOW_WIDTH + 320 && localPosition.x > WINDOW_WIDTH + 160 && localPosition.y > WINDOW_HEIGHT - 64 && localPosition.y < WINDOW_HEIGHT)
+                {
+                    map[actualMapY][actualMapX] = 0;
+                    this->Save();
+                    actualMapY = 0;
+                    actualMapX = 0;
+                    this->Open();
+                }
+
+                if (localPosition.x < WINDOW_WIDTH + 320 && localPosition.x > WINDOW_WIDTH + 160 && localPosition.y > WINDOW_HEIGHT - 128 && localPosition.y < WINDOW_HEIGHT - 64)
+                {
+                    for (int r = 0; r < WINDOW_HEIGHT / 32; r++)
+                    {
+                        for (int n = 0; n < WINDOW_WIDTH / 32; n++)
+                        {
+                            tiles[r][n] = 0;
+                            items[r][n] = 0;
+                            Entities[r][n] = 0;
+                        }
+                    }
+                }
             }
 
 
@@ -469,6 +506,8 @@ void MapEditor::Loop()
         window->draw(textAddRight);
         window->draw(textAddLeft);
         window->draw(textActualMap);
+        window->draw(textClearMap);
+        window->draw(textEraseMap);
 
 
         //Dessine la map

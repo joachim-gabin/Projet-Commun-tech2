@@ -32,6 +32,7 @@ public :
 
 	
 protected :
+	sf::Clock DamageClock;
 	sf::Sprite NameSpriteEntities;
 	sf::Texture NameTextureEntities;
 	sf::RectangleShape BodyEntities;
